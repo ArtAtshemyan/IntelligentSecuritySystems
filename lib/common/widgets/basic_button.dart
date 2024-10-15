@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intelligent_security_systems/common/helpers/is_dark_mode.dart';
 
 import '../../core/theme/app_colors.dart';
 
@@ -19,10 +20,12 @@ class BasicAppButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 14.0,
           fontWeight: FontWeight.w500,
-          color: AppColors.lightBackground,
+          color: context.isDarkMode
+              ? AppColors.darkBackground
+              : AppColors.lightBackground,
         ),
       ),
     );

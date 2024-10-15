@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intelligent_security_systems/common/helpers/is_dark_mode.dart';
+import 'package:intelligent_security_systems/core/theme/app_colors.dart';
 import 'package:intelligent_security_systems/feature/auth/presentation/pages/signup.dart';
 
 import '../../../common/widgets/basic_button.dart';
 import '../../../core/assets/app_vectors.dart';
+import '../../../generated/l10n.dart';
 import '../bloc/theme_cubit.dart';
 import '../widgets/theme_check_button.dart';
 
@@ -21,11 +23,13 @@ class ChooseModePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Choose Mode",
+                S.of(context).chooseMode,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18.0,
-                  color: context.isDarkMode ? Colors.black : Colors.white,
+                  color: context.isDarkMode
+                      ? AppColors.lightBackground
+                      : AppColors.darkBackground,
                 ),
               ),
               const SizedBox(
@@ -39,8 +43,10 @@ class ChooseModePage extends StatelessWidget {
                       context.read<ThemeCubit>().updateTheme(ThemeMode.dark);
                     },
                     iconPath: AppVectors.moon,
-                    buttonDescription: "Dark Mode",
-                    color: Colors.black45,
+                    buttonDescription: S.of(context).darkMode,
+                    color: context.isDarkMode
+                        ? AppColors.lightBackground
+                        : AppColors.darkBackground,
                   ),
                   const SizedBox(
                     width: 40.0,
@@ -50,7 +56,7 @@ class ChooseModePage extends StatelessWidget {
                       context.read<ThemeCubit>().updateTheme(ThemeMode.light);
                     },
                     iconPath: AppVectors.sun,
-                    buttonDescription: "Light Mode",
+                    buttonDescription: S.of(context).lightMode,
                     color: Colors.amber,
                   ),
                 ],
@@ -67,7 +73,7 @@ class ChooseModePage extends StatelessWidget {
                     ),
                   );
                 },
-                title: 'Continue',
+                title: S.of(context).cont,
               )
             ],
           ),
