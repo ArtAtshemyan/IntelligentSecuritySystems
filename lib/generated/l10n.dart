@@ -109,6 +109,196 @@ class S {
       args: [],
     );
   }
+
+  /// `Sign Up`
+  String get signUp {
+    return Intl.message(
+      'Sign Up',
+      name: 'signUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up and easily access all the essential controls and features.`
+  String get signupDescription {
+    return Intl.message(
+      'Sign up and easily access all the essential controls and features.',
+      name: 'signupDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone Number`
+  String get phoneNumber {
+    return Intl.message(
+      'Phone Number',
+      name: 'phoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get email {
+    return Intl.message(
+      'Email',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you have account?`
+  String get doYouHaveAccount {
+    return Intl.message(
+      'Do you have account?',
+      name: 'doYouHaveAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Strong`
+  String get strong {
+    return Intl.message(
+      'Strong',
+      name: 'strong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Medium`
+  String get medium {
+    return Intl.message(
+      'Medium',
+      name: 'medium',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The email is incorrect`
+  String get emailIncorrect {
+    return Intl.message(
+      'The email is incorrect',
+      name: 'emailIncorrect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This field is required`
+  String get thisFieldIsRequired {
+    return Intl.message(
+      'This field is required',
+      name: 'thisFieldIsRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid phone number.`
+  String get pleaseEnterAValidPhoneNumber {
+    return Intl.message(
+      'Please enter a valid phone number.',
+      name: 'pleaseEnterAValidPhoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Very Weak`
+  String get veryWeak {
+    return Intl.message(
+      'Very Weak',
+      name: 'veryWeak',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weak`
+  String get weak {
+    return Intl.message(
+      'Weak',
+      name: 'weak',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `By signing up, you automatically agree to our`
+  String get bySigningUpYouAutomaticallyAgreeToOur {
+    return Intl.message(
+      'By signing up, you automatically agree to our',
+      name: 'bySigningUpYouAutomaticallyAgreeToOur',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privacy Policy`
+  String get privacyPolicy {
+    return Intl.message(
+      'Privacy Policy',
+      name: 'privacyPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terms & Conditions.`
+  String get termsConditions {
+    return Intl.message(
+      'Terms & Conditions.',
+      name: 'termsConditions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `and`
+  String get and {
+    return Intl.message(
+      'and',
+      name: 'and',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in`
+  String get signIn {
+    return Intl.message(
+      'Sign in',
+      name: 'signIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in to enjoy effortless control of your smart living environment.`
+  String get signinDescription {
+    return Intl.message(
+      'Sign in to enjoy effortless control of your smart living environment.',
+      name: 'signinDescription',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

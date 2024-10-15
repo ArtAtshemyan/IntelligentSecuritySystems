@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intelligent_security_systems/common/helpers/is_dark_mode.dart';
+import 'package:intelligent_security_systems/common//helpers/extension/is_dark_mode.dart';
 
 import '../../core/theme/app_colors.dart';
 

@@ -22,13 +22,41 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "and": MessageLookupByLibrary.simpleMessage("and"),
         "appTitle": MessageLookupByLibrary.simpleMessage(
             "Intelligent Security Systems"),
+        "bySigningUpYouAutomaticallyAgreeToOur":
+            MessageLookupByLibrary.simpleMessage(
+                "By signing up, you automatically agree to our"),
         "chooseMode": MessageLookupByLibrary.simpleMessage("Choose Mode"),
         "cont": MessageLookupByLibrary.simpleMessage("Continue"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
+        "doYouHaveAccount":
+            MessageLookupByLibrary.simpleMessage("Do you have account?"),
+        "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "emailIncorrect":
+            MessageLookupByLibrary.simpleMessage("The email is incorrect"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
+        "medium": MessageLookupByLibrary.simpleMessage("Medium"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordStrenght":
-            MessageLookupByLibrary.simpleMessage("Password strenght:")
+            MessageLookupByLibrary.simpleMessage("Password strenght:"),
+        "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+        "pleaseEnterAValidPhoneNumber": MessageLookupByLibrary.simpleMessage(
+            "Please enter a valid phone number."),
+        "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+        "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
+        "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "signinDescription": MessageLookupByLibrary.simpleMessage(
+            "Sign in to enjoy effortless control of your smart living environment."),
+        "signupDescription": MessageLookupByLibrary.simpleMessage(
+            "Sign up and easily access all the essential controls and features."),
+        "strong": MessageLookupByLibrary.simpleMessage("Strong"),
+        "termsConditions":
+            MessageLookupByLibrary.simpleMessage("Terms & Conditions."),
+        "thisFieldIsRequired":
+            MessageLookupByLibrary.simpleMessage("This field is required"),
+        "veryWeak": MessageLookupByLibrary.simpleMessage("Very Weak"),
+        "weak": MessageLookupByLibrary.simpleMessage("Weak")
       };
 }

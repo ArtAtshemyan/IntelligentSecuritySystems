@@ -1,33 +1,26 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intelligent_security_systems/common/helpers/extension/validation.dart';
-import 'package:intelligent_security_systems/core/theme/app_colors.dart';
-import 'package:intelligent_security_systems/feature/auth/presentation/pages/sign_in.dart';
+import 'package:intelligent_security_systems/common/widgets/basic_button.dart';
+import 'package:intelligent_security_systems/feature/auth/presentation/pages/signup.dart';
 
-import '../../../../common/helpers/utils/input_utils.dart';
-import '../../../../common/helpers/utils/password_strength_checker.dart';
-import '../../../../common/widgets/basic_button.dart';
 import '../../../../core/assets/app_vectors.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
-import '../widgets/localization_list_view.dart';
-import '../widgets/password_strength.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
-  final TextEditingController _phoneCon = TextEditingController();
+class _SignInPageState extends State<SignInPage> {
   final TextEditingController _emailCon = TextEditingController();
   final TextEditingController _passwordCon = TextEditingController();
   final _signupFormKey = GlobalKey<FormState>();
   bool obscureText = true;
-  double strength = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -49,18 +42,11 @@ class _SignupPageState extends State<SignupPage> {
                   height: 16,
                 ),
                 _desc(),
-                const SizedBox(height: 16),
-                _phoneNumberField(),
                 const SizedBox(height: 24),
                 _emailField(),
                 const SizedBox(height: 24),
                 _password(),
-                const SizedBox(height: 4),
-                PasswordStrength(
-                  password: _passwordCon.text,
-                  strength: strength,
-                ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 32),
                 _createAccountButton(context, _signupFormKey),
                 const SizedBox(
                   height: 20,
@@ -71,13 +57,12 @@ class _SignupPageState extends State<SignupPage> {
           ),
         ),
       ),
-      bottomNavigationBar: const LocalizationListView(),
     );
   }
 
   Widget _signup() {
     return Text(
-      S.of(context).signUp,
+      S.of(context).signIn,
       textAlign: TextAlign.start,
       style: const TextStyle(
           color: Color(0xff1c1b1f), fontWeight: FontWeight.w700, fontSize: 24),
@@ -86,55 +71,13 @@ class _SignupPageState extends State<SignupPage> {
 
   Widget _desc() {
     return Text(
-      S.of(context).signupDescription,
+      S.of(context).signinDescription,
       textAlign: TextAlign.start,
       style: const TextStyle(
         color: Color(0xff49454f),
         fontWeight: FontWeight.w400,
         fontSize: 14,
       ),
-    );
-  }
-
-  Widget _phoneNumberField() {
-    return TextFormField(
-      keyboardType: TextInputType.phone,
-      inputFormatters: [
-        FilteringTextInputFormatter.digitsOnly,
-        InputUtils.maskFormatter,
-      ],
-      onChanged: (text) {
-        setState(() {});
-      },
-      controller: _phoneCon,
-      decoration: InputDecoration(
-        labelText: S.of(context).phoneNumber,
-        prefix: const Text(
-          '374 ',
-          style: TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 16,
-          ),
-        ),
-        suffixIcon: _phoneCon.text.isNotEmpty
-            ? IconButton(
-                onPressed: () {
-                  clearController(_phoneCon);
-                },
-                icon: SvgPicture.asset(AppVectors.close),
-              )
-            : null,
-        prefixIcon: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: SvgPicture.asset(
-            AppVectors.flagArmenia,
-          ),
-        ),
-      ),
-      validator: (value) {
-        String unmaskPhoneNumber = InputUtils.unmaskPhoneNumber(value!);
-        return unmaskPhoneNumber.isValidPhoneNumber;
-      },
     );
   }
 
@@ -165,7 +108,6 @@ class _SignupPageState extends State<SignupPage> {
       autocorrect: true,
       onChanged: (text) {
         setState(() {});
-        updatePasswordStrength(text);
       },
       controller: _passwordCon,
       obscureText: obscureText,
@@ -189,10 +131,8 @@ class _SignupPageState extends State<SignupPage> {
   Widget _createAccountButton(
       BuildContext context, GlobalKey<FormState> formKey) {
     return BasicAppButton(
-      title: S.of(context).signUp,
-      onPressed: _emailCon.text.isNotEmpty &&
-              _phoneCon.text.isNotEmpty &&
-              _passwordCon.text.isNotEmpty
+      title: S.of(context).signIn,
+      onPressed: _emailCon.text.isNotEmpty && _passwordCon.text.isNotEmpty
           ? () {
               if (formKey.currentState?.validate() ?? false) {
                 ///Todo: send response
@@ -219,7 +159,7 @@ class _SignupPageState extends State<SignupPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const SignInPage(),
+                    builder: (context) => const SignupPage(),
                   ),
                 );
               },
@@ -227,13 +167,6 @@ class _SignupPageState extends State<SignupPage> {
         ],
       ),
     );
-  }
-
-  void updatePasswordStrength(String password) {
-    setState(() {
-      strength =
-          PasswordStrengthChecker.checkPasswordStrength(_passwordCon.text);
-    });
   }
 
   void clearController(TextEditingController controller) {
