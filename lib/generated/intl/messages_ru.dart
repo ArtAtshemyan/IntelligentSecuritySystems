@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "SentDigitCode": MessageLookupByLibrary.simpleMessage(
+            "We sent a 6-digit code to your phone number ending in"),
         "and": MessageLookupByLibrary.simpleMessage("and"),
         "appTitle": MessageLookupByLibrary.simpleMessage(
             "Intelligent Security Systems"),
@@ -38,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("The email is incorrect"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
         "medium": MessageLookupByLibrary.simpleMessage("Medium"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordStrenght":
             MessageLookupByLibrary.simpleMessage("Password strenght:"),
@@ -56,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Terms & Conditions."),
         "thisFieldIsRequired":
             MessageLookupByLibrary.simpleMessage("This field is required"),
+        "verification": MessageLookupByLibrary.simpleMessage("Verification"),
         "veryWeak": MessageLookupByLibrary.simpleMessage("Very Weak"),
         "weak": MessageLookupByLibrary.simpleMessage("Weak")
       };

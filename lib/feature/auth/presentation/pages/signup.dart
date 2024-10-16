@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mode.dart';
 import 'package:intelligent_security_systems/common/helpers/extension/validation.dart';
 import 'package:intelligent_security_systems/core/theme/app_colors.dart';
 import 'package:intelligent_security_systems/feature/auth/presentation/pages/sign_in.dart';
@@ -37,36 +38,39 @@ class _SignupPageState extends State<SignupPage> {
         child: SingleChildScrollView(
           child: Form(
             key: _signupFormKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: _signup(),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                _desc(),
-                const SizedBox(height: 16),
-                _phoneNumberField(),
-                const SizedBox(height: 24),
-                _emailField(),
-                const SizedBox(height: 24),
-                _password(),
-                const SizedBox(height: 4),
-                PasswordStrength(
-                  password: _passwordCon.text,
-                  strength: strength,
-                ),
-                const SizedBox(height: 16),
-                _createAccountButton(context, _signupFormKey),
-                const SizedBox(
-                  height: 20,
-                ),
-                _signInText(context)
-              ],
+            child: Padding(
+              padding: const EdgeInsets.only(top: 32),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: _signup(),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  _desc(),
+                  const SizedBox(height: 16),
+                  _phoneNumberField(),
+                  const SizedBox(height: 24),
+                  _emailField(),
+                  const SizedBox(height: 24),
+                  _password(),
+                  const SizedBox(height: 4),
+                  PasswordStrength(
+                    password: _passwordCon.text,
+                    strength: strength,
+                  ),
+                  const SizedBox(height: 16),
+                  _createAccountButton(context, _signupFormKey),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  _signInText(context)
+                ],
+              ),
             ),
           ),
         ),
@@ -79,8 +83,11 @@ class _SignupPageState extends State<SignupPage> {
     return Text(
       S.of(context).signUp,
       textAlign: TextAlign.start,
-      style: const TextStyle(
-          color: Color(0xff1c1b1f), fontWeight: FontWeight.w700, fontSize: 24),
+      style: TextStyle(
+        color: context.isDarkMode ? AppColors.lightBackground : AppColors.black,
+        fontWeight: FontWeight.w700,
+        fontSize: 24,
+      ),
     );
   }
 
@@ -88,8 +95,8 @@ class _SignupPageState extends State<SignupPage> {
     return Text(
       S.of(context).signupDescription,
       textAlign: TextAlign.start,
-      style: const TextStyle(
-        color: Color(0xff49454f),
+      style: TextStyle(
+        color: context.isDarkMode ? AppColors.lightBackground : AppColors.black,
         fontWeight: FontWeight.w400,
         fontSize: 14,
       ),
@@ -109,11 +116,14 @@ class _SignupPageState extends State<SignupPage> {
       controller: _phoneCon,
       decoration: InputDecoration(
         labelText: S.of(context).phoneNumber,
-        prefix: const Text(
+        prefix: Text(
           '374 ',
           style: TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 16,
+            color: context.isDarkMode
+                ? AppColors.lightBackground
+                : AppColors.darkGrey,
           ),
         ),
         suffixIcon: _phoneCon.text.isNotEmpty
@@ -208,12 +218,18 @@ class _SignupPageState extends State<SignupPage> {
         children: [
           TextSpan(
               text: S.of(context).doYouHaveAccount,
-              style: const TextStyle(
-                  color: Color(0xff3B4054), fontWeight: FontWeight.w500)),
+              style: TextStyle(
+                color: context.isDarkMode
+                    ? AppColors.lightBackground
+                    : AppColors.darkBackground,
+                fontWeight: FontWeight.w500,
+              )),
           TextSpan(
-            text: ' ${S.of(context).signUp}',
+            text: ' ${S.of(context).signIn}',
             style: const TextStyle(
-                color: AppColors.primary, fontWeight: FontWeight.w500),
+              color: AppColors.primary,
+              fontWeight: FontWeight.w500,
+            ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 Navigator.push(

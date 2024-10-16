@@ -1,9 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mode.dart';
 import 'package:intelligent_security_systems/common/helpers/extension/validation.dart';
 import 'package:intelligent_security_systems/common/widgets/basic_button.dart';
 import 'package:intelligent_security_systems/feature/auth/presentation/pages/signup.dart';
+import 'package:intelligent_security_systems/feature/auth/presentation/pages/verification.dart';
 
 import '../../../../core/assets/app_vectors.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -64,8 +66,13 @@ class _SignInPageState extends State<SignInPage> {
     return Text(
       S.of(context).signIn,
       textAlign: TextAlign.start,
-      style: const TextStyle(
-          color: Color(0xff1c1b1f), fontWeight: FontWeight.w700, fontSize: 24),
+      style: TextStyle(
+        color: context.isDarkMode
+            ? AppColors.lightBackground
+            : AppColors.lightBackground,
+        fontWeight: FontWeight.w700,
+        fontSize: 24,
+      ),
     );
   }
 
@@ -73,8 +80,10 @@ class _SignInPageState extends State<SignInPage> {
     return Text(
       S.of(context).signinDescription,
       textAlign: TextAlign.start,
-      style: const TextStyle(
-        color: Color(0xff49454f),
+      style: TextStyle(
+        color: context.isDarkMode
+            ? AppColors.lightBackground
+            : AppColors.lightBackground,
         fontWeight: FontWeight.w400,
         fontSize: 14,
       ),
@@ -131,15 +140,24 @@ class _SignInPageState extends State<SignInPage> {
   Widget _createAccountButton(
       BuildContext context, GlobalKey<FormState> formKey) {
     return BasicAppButton(
-      title: S.of(context).signIn,
-      onPressed: _emailCon.text.isNotEmpty && _passwordCon.text.isNotEmpty
-          ? () {
-              if (formKey.currentState?.validate() ?? false) {
-                ///Todo: send response
-              }
-            }
-          : null,
-    );
+        title: S.of(context).signUp,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const VerificationPage(),
+            ),
+          );
+        }
+        //   onPressed: _emailCon.text.isNotEmpty && _passwordCon.text.isNotEmpty
+        //       ? () {
+        //
+        //           if (formKey.currentState?.validate() ?? false) {
+        //             ///Todo: send response
+        //           }
+        //         }
+        //       : null,
+        );
   }
 
   Widget _signInText(BuildContext context) {
@@ -148,8 +166,12 @@ class _SignInPageState extends State<SignInPage> {
         children: [
           TextSpan(
               text: S.of(context).doYouHaveAccount,
-              style: const TextStyle(
-                  color: Color(0xff3B4054), fontWeight: FontWeight.w500)),
+              style: TextStyle(
+                color: context.isDarkMode
+                    ? AppColors.lightBackground
+                    : AppColors.darkBackground,
+                fontWeight: FontWeight.w500,
+              )),
           TextSpan(
             text: ' ${S.of(context).signUp}',
             style: const TextStyle(

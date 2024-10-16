@@ -72,11 +72,11 @@ class AppTheme {
       contentPadding: const EdgeInsets.only(left: 16, top: 4, bottom: 4),
       labelStyle: const TextStyle(
           fontWeight: FontWeight.w400,
-          color: AppColors.lightGrey,
+          color: AppColors.lightBackground,
           fontSize: 12),
       hintStyle: const TextStyle(
           fontWeight: FontWeight.w400,
-          color: AppColors.lightGrey,
+          color: AppColors.lightBackground,
           fontSize: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
@@ -88,7 +88,7 @@ class AppTheme {
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(4),
         borderSide: const BorderSide(
-          color: AppColors.lightGrey,
+          color: AppColors.lightBackground,
           width: 1,
         ),
       ),
@@ -105,7 +105,7 @@ class AppTheme {
         padding: const EdgeInsets.symmetric(vertical: 26),
         minimumSize: const Size.fromHeight(40),
         backgroundColor: AppColors.primary,
-        disabledBackgroundColor: AppColors.grey,
+        disabledBackgroundColor: AppColors.lightGrey,
         disabledForegroundColor: AppColors.darkGrey,
         elevation: 0,
         textStyle: const TextStyle(

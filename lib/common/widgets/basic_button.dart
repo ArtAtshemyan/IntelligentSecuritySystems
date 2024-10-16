@@ -24,8 +24,8 @@ class BasicAppButton extends StatelessWidget {
           fontSize: 14.0,
           fontWeight: FontWeight.w500,
           color: context.isDarkMode
-              ? AppColors.darkBackground
-              : AppColors.lightBackground,
+              ? AppColors.lightBackground
+              : AppColors.darkBackground,
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mode.dart';
 
 import '../../../../core/assets/app_vectors.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -60,9 +61,9 @@ class LocalizationListView extends StatelessWidget {
             const SizedBox(height: 34),
             Text(
               S.of(context).bySigningUpYouAutomaticallyAgreeToOur,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12,
-                color: AppColors.black,
+                color: context.isDarkMode ? AppColors.lightBackground : AppColors.black,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -72,12 +73,12 @@ class LocalizationListView extends StatelessWidget {
                 GestureDetector(
                   child: Text(
                     S.of(context).privacyPolicy,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
-                      color: AppColors.black,
+                      color: context.isDarkMode ? AppColors.lightBackground : AppColors.black,
                       fontWeight: FontWeight.w700,
                       decoration: TextDecoration.underline,
-                      decorationColor: AppColors.black,
+                      decorationColor: context.isDarkMode ? AppColors.lightBackground : AppColors.black,
                     ),
                   ),
                 ),
@@ -88,12 +89,12 @@ class LocalizationListView extends StatelessWidget {
                 GestureDetector(
                   child: Text(
                     S.of(context).termsConditions,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 12,
-                      color: AppColors.black,
+                      color: context.isDarkMode ? AppColors.lightBackground : AppColors.black,
                       fontWeight: FontWeight.w700,
                       decoration: TextDecoration.underline,
-                      decorationColor: AppColors.black,
+                      decorationColor: context.isDarkMode ? AppColors.lightBackground : AppColors.black,
                     ),
                   ),
                 ),

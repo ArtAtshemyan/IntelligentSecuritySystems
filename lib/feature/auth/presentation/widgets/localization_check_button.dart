@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mode.dart';
 import 'package:intelligent_security_systems/feature/auth/presentation/bloc/localization_cubit.dart';
 
 import '../../../../core/theme/app_colors.dart';
@@ -35,13 +36,21 @@ class LocalizationCheckButton extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(
                   color: active
-                      ? AppColors.primary.withOpacity(0.080)
-                      : Colors.white.withOpacity(0.5),
+                      ? context.isDarkMode
+                          ? AppColors.primary.withOpacity(0.9)
+                          : AppColors.primary.withOpacity(0.080)
+                      : context.isDarkMode
+                          ? Colors.black.withOpacity(0.5)
+                          : Colors.white.withOpacity(0.5),
                   width: 1.0,
                 ),
                 color: active
-                    ? AppColors.primary.withOpacity(0.080)
-                    : Colors.white.withOpacity(0.5),
+                    ? context.isDarkMode
+                        ? AppColors.primary.withOpacity(0.3)
+                        : AppColors.primary.withOpacity(0.080)
+                    : context.isDarkMode
+                        ? Colors.black.withOpacity(0.5)
+                        : Colors.white.withOpacity(0.5),
                 shape: BoxShape.circle,
               ),
               child: Column(
@@ -56,7 +65,11 @@ class LocalizationCheckButton extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: active ? AppColors.primary : AppColors.darkBlue,
+                      color: active
+                          ? AppColors.primary
+                          : context.isDarkMode
+                              ? AppColors.lightBackground
+                              : AppColors.darkBlue,
                     ),
                   )
                 ],

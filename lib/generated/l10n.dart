@@ -299,6 +299,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Verification`
+  String get verification {
+    return Intl.message(
+      'Verification',
+      name: 'verification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We sent a 6-digit code to your phone number ending in`
+  String get SentDigitCode {
+    return Intl.message(
+      'We sent a 6-digit code to your phone number ending in',
+      name: 'SentDigitCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

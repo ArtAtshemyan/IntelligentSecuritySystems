@@ -23,5 +23,8 @@
   "termsConditions": "Terms & Conditions.",
   "and": "and",
   "signIn": "Sign in",
-  "signinDescription": "Sign in to enjoy effortless control of your smart living environment."
+  "signinDescription": "Sign in to enjoy effortless control of your smart living environment.",
+  "verification": "Verification",
+  "SentDigitCode": "We sent a 6-digit code to your phone number ending in",
+  "next": "Next"
 }
