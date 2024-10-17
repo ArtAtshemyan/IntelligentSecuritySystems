@@ -20,12 +20,10 @@ class BasicAppButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 14.0,
           fontWeight: FontWeight.w500,
-          color: context.isDarkMode
-              ? AppColors.lightBackground
-              : AppColors.darkBackground,
+          color: AppColors.lightBackground
         ),
       ),
     );

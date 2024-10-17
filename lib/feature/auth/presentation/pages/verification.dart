@@ -9,7 +9,8 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
 
 class VerificationPage extends StatefulWidget {
-  const VerificationPage({super.key});
+  final String phoneNumber;
+  const VerificationPage({super.key, required this.phoneNumber});
 
   @override
   State<VerificationPage> createState() => _VerificationState();
@@ -97,7 +98,7 @@ class _VerificationState extends State<VerificationPage> {
           ),
         ),
         Text(
-          '+374 ** ** ** 78',
+          widget.phoneNumber,
           textAlign: TextAlign.start,
           style: TextStyle(
             color: context.isDarkMode

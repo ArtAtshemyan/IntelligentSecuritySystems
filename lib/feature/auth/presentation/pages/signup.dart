@@ -6,7 +6,9 @@ import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mo
 import 'package:intelligent_security_systems/common/helpers/extension/validation.dart';
 import 'package:intelligent_security_systems/core/theme/app_colors.dart';
 import 'package:intelligent_security_systems/feature/auth/presentation/pages/sign_in.dart';
+import 'package:intelligent_security_systems/feature/auth/presentation/pages/verification.dart';
 
+import '../../../../common/helpers/utils/helper_functions.dart';
 import '../../../../common/helpers/utils/input_utils.dart';
 import '../../../../common/helpers/utils/password_strength_checker.dart';
 import '../../../../common/widgets/basic_button.dart';
@@ -27,8 +29,16 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _emailCon = TextEditingController();
   final TextEditingController _passwordCon = TextEditingController();
   final _signupFormKey = GlobalKey<FormState>();
-  bool obscureText = true;
-  double strength = 0;
+  bool _obscureText = true;
+  double _strength = 0;
+
+  @override
+  void dispose() {
+    _emailCon.dispose();
+    _passwordCon.dispose();
+    _phoneCon.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +71,7 @@ class _SignupPageState extends State<SignupPage> {
                   const SizedBox(height: 4),
                   PasswordStrength(
                     password: _passwordCon.text,
-                    strength: strength,
+                    strength: _strength,
                   ),
                   const SizedBox(height: 16),
                   _createAccountButton(context, _signupFormKey),
@@ -110,9 +120,6 @@ class _SignupPageState extends State<SignupPage> {
         FilteringTextInputFormatter.digitsOnly,
         InputUtils.maskFormatter,
       ],
-      onChanged: (text) {
-        setState(() {});
-      },
       controller: _phoneCon,
       decoration: InputDecoration(
         labelText: S.of(context).phoneNumber,
@@ -150,9 +157,6 @@ class _SignupPageState extends State<SignupPage> {
 
   Widget _emailField() {
     return TextFormField(
-      onChanged: (text) {
-        setState(() {});
-      },
       controller: _emailCon,
       decoration: InputDecoration(
         suffixIcon: _emailCon.text.isNotEmpty
@@ -174,20 +178,19 @@ class _SignupPageState extends State<SignupPage> {
     return TextFormField(
       autocorrect: true,
       onChanged: (text) {
-        setState(() {});
         updatePasswordStrength(text);
       },
       controller: _passwordCon,
-      obscureText: obscureText,
+      obscureText: _obscureText,
       decoration: InputDecoration(
         suffixIcon: IconButton(
           onPressed: () {
             setState(() {
-              obscureText = !obscureText;
+              _obscureText = !_obscureText;
             });
           },
           icon:
-              Icon(obscureText ? Icons.visibility : Icons.visibility_off_sharp),
+              Icon(_obscureText ? Icons.visibility : Icons.visibility_off_sharp),
         ),
         hintText: S.of(context).password,
         labelText: S.of(context).password,
@@ -202,12 +205,10 @@ class _SignupPageState extends State<SignupPage> {
       title: S.of(context).signUp,
       onPressed: _emailCon.text.isNotEmpty &&
               _phoneCon.text.isNotEmpty &&
-              _passwordCon.text.isNotEmpty
-          ? () {
-              if (formKey.currentState?.validate() ?? false) {
-                ///Todo: send response
-              }
-            }
+              _passwordCon.text.isNotEmpty &&
+              PasswordStrengthChecker.getStrengthLabel(_strength) ==
+                  S.of(context).strong
+          ? sendRequest
           : null,
     );
   }
@@ -247,7 +248,7 @@ class _SignupPageState extends State<SignupPage> {
 
   void updatePasswordStrength(String password) {
     setState(() {
-      strength =
+      _strength =
           PasswordStrengthChecker.checkPasswordStrength(_passwordCon.text);
     });
   }
@@ -255,5 +256,20 @@ class _SignupPageState extends State<SignupPage> {
   void clearController(TextEditingController controller) {
     controller.text = '';
     setState(() {});
+  }
+
+  void sendRequest() {
+    if (_signupFormKey.currentState?.validate() ?? false) {
+      ///Todo: send response
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => VerificationPage(
+            phoneNumber: HelperFunctions.maskPhoneNumber(_phoneCon.text),
+          ),
+        ),
+        (Route<dynamic> route) => false,
+      );
+    }
   }
 }

@@ -5,11 +5,11 @@ import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mo
 import 'package:intelligent_security_systems/common/helpers/extension/validation.dart';
 import 'package:intelligent_security_systems/common/widgets/basic_button.dart';
 import 'package:intelligent_security_systems/feature/auth/presentation/pages/signup.dart';
-import 'package:intelligent_security_systems/feature/auth/presentation/pages/verification.dart';
 
 import '../../../../core/assets/app_vectors.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
+import '../../../home/pages/home.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -22,7 +22,14 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController _emailCon = TextEditingController();
   final TextEditingController _passwordCon = TextEditingController();
   final _signupFormKey = GlobalKey<FormState>();
-  bool obscureText = true;
+  bool _obscureText = true;
+
+  @override
+  void dispose() {
+    _emailCon.dispose();
+    _passwordCon.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,30 +38,36 @@ class _SignInPageState extends State<SignInPage> {
         minimum: const EdgeInsets.only(top: 64, right: 16, left: 16),
         child: SingleChildScrollView(
           child: Form(
+            onChanged: (){
+              setState(() {});
+            },
             key: _signupFormKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: _signup(),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                _desc(),
-                const SizedBox(height: 24),
-                _emailField(),
-                const SizedBox(height: 24),
-                _password(),
-                const SizedBox(height: 32),
-                _createAccountButton(context, _signupFormKey),
-                const SizedBox(
-                  height: 20,
-                ),
-                _signInText(context)
-              ],
+            child: Padding(
+              padding: const EdgeInsets.only(top: 32.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: _signup(),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  _desc(),
+                  const SizedBox(height: 24),
+                  _emailField(),
+                  const SizedBox(height: 24),
+                  _password(),
+                  const SizedBox(height: 32),
+                  _createAccountButton(context, _signupFormKey),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  _signInText(context)
+                ],
+              ),
             ),
           ),
         ),
@@ -69,7 +82,7 @@ class _SignInPageState extends State<SignInPage> {
       style: TextStyle(
         color: context.isDarkMode
             ? AppColors.lightBackground
-            : AppColors.lightBackground,
+            : AppColors.darkBackground,
         fontWeight: FontWeight.w700,
         fontSize: 24,
       ),
@@ -83,7 +96,7 @@ class _SignInPageState extends State<SignInPage> {
       style: TextStyle(
         color: context.isDarkMode
             ? AppColors.lightBackground
-            : AppColors.lightBackground,
+            : AppColors.darkBackground,
         fontWeight: FontWeight.w400,
         fontSize: 14,
       ),
@@ -92,9 +105,6 @@ class _SignInPageState extends State<SignInPage> {
 
   Widget _emailField() {
     return TextFormField(
-      onChanged: (text) {
-        setState(() {});
-      },
       controller: _emailCon,
       decoration: InputDecoration(
         suffixIcon: _emailCon.text.isNotEmpty
@@ -115,20 +125,17 @@ class _SignInPageState extends State<SignInPage> {
   Widget _password() {
     return TextFormField(
       autocorrect: true,
-      onChanged: (text) {
-        setState(() {});
-      },
       controller: _passwordCon,
-      obscureText: obscureText,
+      obscureText: _obscureText,
       decoration: InputDecoration(
         suffixIcon: IconButton(
           onPressed: () {
             setState(() {
-              obscureText = !obscureText;
+              _obscureText = !_obscureText;
             });
           },
           icon:
-              Icon(obscureText ? Icons.visibility : Icons.visibility_off_sharp),
+              Icon(_obscureText ? Icons.visibility : Icons.visibility_off_sharp),
         ),
         hintText: S.of(context).password,
         labelText: S.of(context).password,
@@ -140,24 +147,11 @@ class _SignInPageState extends State<SignInPage> {
   Widget _createAccountButton(
       BuildContext context, GlobalKey<FormState> formKey) {
     return BasicAppButton(
-        title: S.of(context).signUp,
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const VerificationPage(),
-            ),
-          );
-        }
-        //   onPressed: _emailCon.text.isNotEmpty && _passwordCon.text.isNotEmpty
-        //       ? () {
-        //
-        //           if (formKey.currentState?.validate() ?? false) {
-        //             ///Todo: send response
-        //           }
-        //         }
-        //       : null,
-        );
+      title: S.of(context).signUp,
+      onPressed: _passwordCon.text.isNotEmpty && _emailCon.text.isNotEmpty
+          ? sendRequest
+          : null,
+    );
   }
 
   Widget _signInText(BuildContext context) {
@@ -194,5 +188,16 @@ class _SignInPageState extends State<SignInPage> {
   void clearController(TextEditingController controller) {
     controller.text = '';
     setState(() {});
+  }
+
+  void sendRequest() {
+    if (_signupFormKey.currentState?.validate() ?? false) {
+      ///Todo: send response
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+            (Route<dynamic> route) => false,
+      );
+    }
   }
 }
