@@ -23,44 +23,45 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SentDigitCode": MessageLookupByLibrary.simpleMessage(
-            "We sent a 6-digit code to your phone number ending in"),
-        "and": MessageLookupByLibrary.simpleMessage("and"),
+            "Մենք 6 նիշանոց կոդ ենք ուղարկել ձեր հեռախոսահամարին"),
+        "and": MessageLookupByLibrary.simpleMessage("և"),
         "appTitle": MessageLookupByLibrary.simpleMessage(
             "Intelligent Security Systems"),
         "bySigningUpYouAutomaticallyAgreeToOur":
             MessageLookupByLibrary.simpleMessage(
-                "By signing up, you automatically agree to our"),
+                "Գրանցվելով՝ դուք ավտոմատ կերպով համաձայնում եք մեր"),
         "chooseMode": MessageLookupByLibrary.simpleMessage("Choose Mode"),
-        "cont": MessageLookupByLibrary.simpleMessage("Continue"),
+        "cont": MessageLookupByLibrary.simpleMessage("Շարունակել"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "doYouHaveAccount":
-            MessageLookupByLibrary.simpleMessage("Do you have account?"),
-        "email": MessageLookupByLibrary.simpleMessage("Email"),
+            MessageLookupByLibrary.simpleMessage("Դուք ունե՞ք հաշիվ"),
+        "email": MessageLookupByLibrary.simpleMessage("էլփոստի հասցեն"),
         "emailIncorrect":
-            MessageLookupByLibrary.simpleMessage("The email is incorrect"),
+            MessageLookupByLibrary.simpleMessage("Էլփոստը սխալ է"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
-        "medium": MessageLookupByLibrary.simpleMessage("Medium"),
-        "next": MessageLookupByLibrary.simpleMessage("Next"),
-        "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "medium": MessageLookupByLibrary.simpleMessage("Միջին"),
+        "next": MessageLookupByLibrary.simpleMessage("հաջորդ"),
+        "password": MessageLookupByLibrary.simpleMessage("Գաղտնաբառ"),
         "passwordStrenght":
-            MessageLookupByLibrary.simpleMessage("Password strenght:"),
-        "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+            MessageLookupByLibrary.simpleMessage("Գաղտնաբառի բարդ."),
+        "phoneNumber": MessageLookupByLibrary.simpleMessage("հեռախոսահամարը"),
         "pleaseEnterAValidPhoneNumber": MessageLookupByLibrary.simpleMessage(
-            "Please enter a valid phone number."),
-        "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
-        "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
-        "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
+            "Խնդրում ենք մուտքագրել վավեր հեռախոսահամար:"),
+        "privacyPolicy": MessageLookupByLibrary.simpleMessage(
+            "Գաղտնիության քաղաքականություն"),
+        "signIn": MessageLookupByLibrary.simpleMessage("Մուտք գործեք"),
+        "signUp": MessageLookupByLibrary.simpleMessage("Գրանցվել"),
         "signinDescription": MessageLookupByLibrary.simpleMessage(
-            "Sign in to enjoy effortless control of your smart living environment."),
+            "Մուտք գործեք՝ վայելելու ձեր խելացի կենսամիջավայրի անխափան վերահսկողությունը:"),
         "signupDescription": MessageLookupByLibrary.simpleMessage(
-            "Sign up and easily access all the essential controls and features."),
-        "strong": MessageLookupByLibrary.simpleMessage("Strong"),
+            "Գրանցվեք և հեշտությամբ մուտք գործեք բոլոր հիմնական վերահսկիչները և հնարավորությունները:"),
+        "strong": MessageLookupByLibrary.simpleMessage("Ուժեղ"),
         "termsConditions":
-            MessageLookupByLibrary.simpleMessage("Terms & Conditions."),
+            MessageLookupByLibrary.simpleMessage("Պայմաններ և դրույթներ."),
         "thisFieldIsRequired":
-            MessageLookupByLibrary.simpleMessage("This field is required"),
-        "verification": MessageLookupByLibrary.simpleMessage("Verification"),
+            MessageLookupByLibrary.simpleMessage("Այս դաշտը պարտադիր է"),
+        "verification": MessageLookupByLibrary.simpleMessage("Ստուգում"),
         "veryWeak": MessageLookupByLibrary.simpleMessage("Very Weak"),
-        "weak": MessageLookupByLibrary.simpleMessage("Weak")
+        "weak": MessageLookupByLibrary.simpleMessage("Թույլ")
       };
 }

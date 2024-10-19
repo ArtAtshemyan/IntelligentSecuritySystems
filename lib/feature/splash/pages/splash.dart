@@ -1,41 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intelligent_security_systems/common/bloc/auth/auth_state.dart';
+import 'package:intelligent_security_systems/common/bloc/auth/auth_state_cubit.dart';
 import 'package:intelligent_security_systems/core/assets/app_images.dart';
-import 'package:intelligent_security_systems/feature/choose_mode/pages/choose_mode.dart';
+import 'package:intelligent_security_systems/feature/auth/presentation/pages/signup.dart';
+import 'package:intelligent_security_systems/feature/home/pages/home.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    redirect();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Image.asset(
-          AppImages.logo,
-          width: 300,
-          height: 300,
-        ),
-      ),
-    );
-  }
-
-  Future<void> redirect() async {
-    await Future.delayed(const Duration(seconds: 2));
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext builder) => const ChooseModePage(),
-      ),
+    return BlocProvider(
+      create: (context)=> AuthStateCubit()..appStarted(),
+      child: BlocBuilder<AuthStateCubit,AuthState>(
+        builder: (context,state){
+          if(state is Authenticated){
+            return const HomePage();
+          }else if(state is UnAuthenticated){
+            return const SignupPage();
+          }
+          return Scaffold(
+            body: Center(
+              child: Image.asset(
+                AppImages.logo,
+                width: 300,
+                height: 300,
+              ),
+            ),
+          );
+        },
+      )
     );
   }
 }

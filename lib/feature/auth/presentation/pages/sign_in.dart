@@ -1,15 +1,22 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mode.dart';
 import 'package:intelligent_security_systems/common/helpers/extension/validation.dart';
 import 'package:intelligent_security_systems/common/widgets/basic_button.dart';
 import 'package:intelligent_security_systems/feature/auth/presentation/pages/signup.dart';
 
+import '../../../../common/bloc/button/button_state.dart';
+import '../../../../common/bloc/button/button_state_cubit.dart';
+import '../../../../common/helpers/utils/device_utils.dart';
 import '../../../../core/assets/app_vectors.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../service_locator.dart';
 import '../../../home/pages/home.dart';
+import '../../data/models/signin_req_params.dart';
+import '../../domain/usecases/sign_in.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -23,6 +30,13 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController _passwordCon = TextEditingController();
   final _signupFormKey = GlobalKey<FormState>();
   bool _obscureText = true;
+  String _deviceID = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _getDeviceID();
+  }
 
   @override
   void dispose() {
@@ -34,39 +48,56 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        minimum: const EdgeInsets.only(top: 64, right: 16, left: 16),
-        child: SingleChildScrollView(
-          child: Form(
-            onChanged: (){
-              setState(() {});
-            },
-            key: _signupFormKey,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 32.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: _signup(),
+      body: BlocProvider(
+        create: (context) => ButtonStateCubit(),
+        child: BlocListener<ButtonStateCubit, ButtonState>(
+          listener: (context, state) {
+            if (state is ButtonSuccessState) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+                (Route<dynamic> route) => false,
+              );
+            } else if (state is ButtonFailureState) {
+              var snackBar = SnackBar(content: Text(state.errorMessage));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          },
+          child: SafeArea(
+            minimum: const EdgeInsets.only(top: 64, right: 16, left: 16),
+            child: SingleChildScrollView(
+              child: Form(
+                onChanged: () {
+                  setState(() {});
+                },
+                key: _signupFormKey,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 32.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: _signup(),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      _desc(),
+                      const SizedBox(height: 24),
+                      _emailField(),
+                      const SizedBox(height: 24),
+                      _password(),
+                      const SizedBox(height: 32),
+                      _createAccountButton(context),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      _signInText(context)
+                    ],
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  _desc(),
-                  const SizedBox(height: 24),
-                  _emailField(),
-                  const SizedBox(height: 24),
-                  _password(),
-                  const SizedBox(height: 32),
-                  _createAccountButton(context, _signupFormKey),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _signInText(context)
-                ],
+                ),
               ),
             ),
           ),
@@ -134,8 +165,8 @@ class _SignInPageState extends State<SignInPage> {
               _obscureText = !_obscureText;
             });
           },
-          icon:
-              Icon(_obscureText ? Icons.visibility : Icons.visibility_off_sharp),
+          icon: Icon(
+              _obscureText ? Icons.visibility : Icons.visibility_off_sharp),
         ),
         hintText: S.of(context).password,
         labelText: S.of(context).password,
@@ -144,14 +175,26 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  Widget _createAccountButton(
-      BuildContext context, GlobalKey<FormState> formKey) {
-    return BasicAppButton(
-      title: S.of(context).signUp,
-      onPressed: _passwordCon.text.isNotEmpty && _emailCon.text.isNotEmpty
-          ? sendRequest
-          : null,
-    );
+  Widget _createAccountButton(BuildContext context) {
+    return Builder(builder: (context) {
+      return BasicAppButton(
+        title: S.of(context).signUp,
+        onPressed: _passwordCon.text.isNotEmpty && _emailCon.text.isNotEmpty
+            ? () {
+                if (_signupFormKey.currentState?.validate() ?? false) {
+                  context.read<ButtonStateCubit>().execute(
+                        useCase: sl<SignInUseCase>(),
+                        params: SignInReqParams(
+                          email: _emailCon.text,
+                          password: _passwordCon.text,
+                          deviceId: _deviceID,
+                        ),
+                      );
+                }
+              }
+            : null,
+      );
+    });
   }
 
   Widget _signInText(BuildContext context) {
@@ -190,14 +233,11 @@ class _SignInPageState extends State<SignInPage> {
     setState(() {});
   }
 
-  void sendRequest() {
-    if (_signupFormKey.currentState?.validate() ?? false) {
-      ///Todo: send response
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-            (Route<dynamic> route) => false,
-      );
-    }
+  Future<void> _getDeviceID() async {
+    DeviceUtils deviceUtils = DeviceUtils();
+    String? deviceInfo = await deviceUtils.getId();
+    setState(() {
+      _deviceID = deviceInfo ?? '';
+    });
   }
 }

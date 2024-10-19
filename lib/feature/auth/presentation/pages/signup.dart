@@ -1,19 +1,25 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intelligent_security_systems/common/bloc/button/button_state.dart';
+import 'package:intelligent_security_systems/common/bloc/button/button_state_cubit.dart';
 import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mode.dart';
 import 'package:intelligent_security_systems/common/helpers/extension/validation.dart';
+import 'package:intelligent_security_systems/common/helpers/utils/device_utils.dart';
 import 'package:intelligent_security_systems/core/theme/app_colors.dart';
+import 'package:intelligent_security_systems/feature/auth/data/models/signup_req_params.dart';
+import 'package:intelligent_security_systems/feature/auth/domain/usecases/signup.dart';
 import 'package:intelligent_security_systems/feature/auth/presentation/pages/sign_in.dart';
 import 'package:intelligent_security_systems/feature/auth/presentation/pages/verification.dart';
 
-import '../../../../common/helpers/utils/helper_functions.dart';
 import '../../../../common/helpers/utils/input_utils.dart';
 import '../../../../common/helpers/utils/password_strength_checker.dart';
 import '../../../../common/widgets/basic_button.dart';
 import '../../../../core/assets/app_vectors.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../service_locator.dart';
 import '../widgets/localization_list_view.dart';
 import '../widgets/password_strength.dart';
 
@@ -31,6 +37,13 @@ class _SignupPageState extends State<SignupPage> {
   final _signupFormKey = GlobalKey<FormState>();
   bool _obscureText = true;
   double _strength = 0;
+  String _deviceID = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _getDeviceID();
+  }
 
   @override
   void dispose() {
@@ -43,43 +56,72 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        minimum: const EdgeInsets.only(top: 64, right: 16, left: 16),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _signupFormKey,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 32),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: _signup(),
+      body: BlocProvider(
+        create: (context) => ButtonStateCubit(),
+        child: BlocListener<ButtonStateCubit, ButtonState>(
+          listener: (context, state) {
+            if (state is ButtonSuccessState) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => VerificationPage(
+                    signupReq: SignupReqParams(
+                      email: _emailCon.text,
+                      phoneNumber: InputUtils.formatPhoneNumber(_phoneCon.text),
+                      password: _passwordCon.text,
+                      deviceId: _deviceID,
+                    ),
                   ),
-                  const SizedBox(
-                    height: 16,
+                ),
+                (Route<dynamic> route) => false,
+              );
+            } else if (state is ButtonFailureState) {
+              var snackBar = SnackBar(content: Text(state.errorMessage));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          },
+          child: SafeArea(
+            minimum: const EdgeInsets.only(top: 64, right: 16, left: 16),
+            child: SingleChildScrollView(
+              child: Form(
+                onChanged: (){
+                  setState(() {});
+                },
+                key: _signupFormKey,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 32),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: _signup(),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      _desc(),
+                      const SizedBox(height: 16),
+                      _phoneNumberField(),
+                      const SizedBox(height: 24),
+                      _emailField(),
+                      const SizedBox(height: 24),
+                      _password(),
+                      const SizedBox(height: 4),
+                      PasswordStrength(
+                        password: _passwordCon.text,
+                        strength: _strength,
+                      ),
+                      const SizedBox(height: 16),
+                      _createAccountButton(context),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      _signInText(context)
+                    ],
                   ),
-                  _desc(),
-                  const SizedBox(height: 16),
-                  _phoneNumberField(),
-                  const SizedBox(height: 24),
-                  _emailField(),
-                  const SizedBox(height: 24),
-                  _password(),
-                  const SizedBox(height: 4),
-                  PasswordStrength(
-                    password: _passwordCon.text,
-                    strength: _strength,
-                  ),
-                  const SizedBox(height: 16),
-                  _createAccountButton(context, _signupFormKey),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _signInText(context)
-                ],
+                ),
               ),
             ),
           ),
@@ -189,8 +231,8 @@ class _SignupPageState extends State<SignupPage> {
               _obscureText = !_obscureText;
             });
           },
-          icon:
-              Icon(_obscureText ? Icons.visibility : Icons.visibility_off_sharp),
+          icon: Icon(
+              _obscureText ? Icons.visibility : Icons.visibility_off_sharp),
         ),
         hintText: S.of(context).password,
         labelText: S.of(context).password,
@@ -199,18 +241,32 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
-  Widget _createAccountButton(
-      BuildContext context, GlobalKey<FormState> formKey) {
-    return BasicAppButton(
-      title: S.of(context).signUp,
-      onPressed: _emailCon.text.isNotEmpty &&
-              _phoneCon.text.isNotEmpty &&
-              _passwordCon.text.isNotEmpty &&
-              PasswordStrengthChecker.getStrengthLabel(_strength) ==
-                  S.of(context).strong
-          ? sendRequest
-          : null,
-    );
+  Widget _createAccountButton(BuildContext context) {
+    return Builder(builder: (context) {
+      return BasicAppButton(
+        title: S.of(context).signUp,
+        onPressed: _emailCon.text.isNotEmpty &&
+                _phoneCon.text.isNotEmpty &&
+                _passwordCon.text.isNotEmpty &&
+                PasswordStrengthChecker.getStrengthLabel(_strength) ==
+                    S.of(context).strong
+            ? () {
+                if (_signupFormKey.currentState?.validate() ?? false) {
+                  context.read<ButtonStateCubit>().execute(
+                        useCase: sl<SignupUseCase>(),
+                        params: SignupReqParams(
+                          email: _emailCon.text,
+                          phoneNumber:
+                              InputUtils.formatPhoneNumber(_phoneCon.text),
+                          password: _passwordCon.text,
+                          deviceId: _deviceID,
+                        ),
+                      );
+                }
+              }
+            : null,
+      );
+    });
   }
 
   Widget _signInText(BuildContext context) {
@@ -258,18 +314,11 @@ class _SignupPageState extends State<SignupPage> {
     setState(() {});
   }
 
-  void sendRequest() {
-    if (_signupFormKey.currentState?.validate() ?? false) {
-      ///Todo: send response
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => VerificationPage(
-            phoneNumber: HelperFunctions.maskPhoneNumber(_phoneCon.text),
-          ),
-        ),
-        (Route<dynamic> route) => false,
-      );
-    }
+  Future<void> _getDeviceID() async {
+    DeviceUtils deviceUtils = DeviceUtils();
+    String? deviceInfo = await deviceUtils.getId();
+    setState(() {
+      _deviceID = deviceInfo ?? '';
+    });
   }
 }

@@ -1,16 +1,25 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mode.dart';
+import 'package:intelligent_security_systems/common/helpers/utils/input_utils.dart';
+import 'package:intelligent_security_systems/feature/auth/data/models/signup_req_params.dart';
+import 'package:intelligent_security_systems/feature/auth/data/models/verification_req_params.dart';
+import 'package:intelligent_security_systems/feature/auth/domain/usecases/verification.dart';
+import 'package:intelligent_security_systems/feature/home/pages/home.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../../../common/bloc/button/button_state.dart';
+import '../../../../common/bloc/button/button_state_cubit.dart';
 import '../../../../common/widgets/basic_button.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../service_locator.dart';
 
 class VerificationPage extends StatefulWidget {
-  final String phoneNumber;
-  const VerificationPage({super.key, required this.phoneNumber});
+  final SignupReqParams signupReq;
+  const VerificationPage({super.key, required this.signupReq});
 
   @override
   State<VerificationPage> createState() => _VerificationState();
@@ -40,33 +49,49 @@ class _VerificationState extends State<VerificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        minimum: const EdgeInsets.only(top: 64, right: 16, left: 16),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _confirmFormKey,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 32.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: _verification(),
+      body: BlocProvider(
+          create: (context) => ButtonStateCubit(),
+          child: BlocListener<ButtonStateCubit, ButtonState>(
+            listener: (context, state) {
+              if (state is ButtonSuccessState) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                  (Route<dynamic> route) => false,
+                );
+              } else if (state is ButtonFailureState) {
+                var snackBar = SnackBar(content: Text(state.errorMessage));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            },
+            child: SafeArea(
+              minimum: const EdgeInsets.only(top: 64, right: 16, left: 16),
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _confirmFormKey,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 32.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: _verification(),
+                        ),
+                        const SizedBox(height: 16),
+                        _desc(),
+                        const SizedBox(height: 24),
+                        _confirmCodeField(),
+                        const SizedBox(height: 16),
+                        _confirmButton(context)
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 16),
-                  _desc(),
-                  const SizedBox(height: 24),
-                  _confirmCodeField(),
-                  const SizedBox(height: 16),
-                  _confirmButton(context, _confirmFormKey)
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-      ),
+          )),
     );
   }
 
@@ -98,7 +123,7 @@ class _VerificationState extends State<VerificationPage> {
           ),
         ),
         Text(
-          widget.phoneNumber,
+          InputUtils.maskPhoneNumber(widget.signupReq.phoneNumber),
           textAlign: TextAlign.start,
           style: TextStyle(
             color: context.isDarkMode
@@ -158,16 +183,28 @@ class _VerificationState extends State<VerificationPage> {
         ));
   }
 
-  Widget _confirmButton(BuildContext context, GlobalKey<FormState> formKey) {
-    return BasicAppButton(
-      title: S.of(context).next,
-      onPressed: _confirmCodeCon.text.isNotEmpty
-          ? () {
-              if (formKey.currentState?.validate() ?? false) {
-                ///Todo: send response
-              }
-            }
-          : null,
+  Widget _confirmButton(BuildContext context) {
+    return Builder(
+      builder: (context) {
+        return BasicAppButton(
+          title: S.of(context).next,
+          onPressed: _confirmCodeCon.text.isNotEmpty
+              ? () {
+                  if (_confirmFormKey.currentState?.validate() ?? false) {
+                    context.read<ButtonStateCubit>().execute(
+                          useCase: sl<VerificationUseCase>(),
+                          params: VerificationReqParams(
+                              email: widget.signupReq.email,
+                              phoneNumber: widget.signupReq.phoneNumber,
+                              password: widget.signupReq.password,
+                              deviceId: widget.signupReq.deviceId ?? '',
+                              verificationConde: _confirmCodeCon.text),
+                        );
+                  }
+                }
+              : null,
+        );
+      },
     );
   }
 }
