@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intelligent_security_systems/feature/home/presentation/pages/home.dart';
 
 import '../core/theme/app_theme.dart';
 import '../feature/auth/presentation/bloc/localization_cubit.dart';

@@ -26,5 +26,14 @@
   "signinDescription": "Sign in to enjoy effortless control of your smart living environment.",
   "verification": "Verification",
   "SentDigitCode": "We sent a 6-digit code to your phone number ending in",
-  "next": "Next"
+  "next": "Next",
+  "home": "Home",
+  "play": "Play",
+  "smartIntercom": "Smart Intercom",
+  "comingSoon": "Coming Soon",
+  "surveillanceCameras": "Surveillance Cameras",
+  "barrier": "Barrier",
+  "payment": "Payment",
+  "profile": "Profile",
+  "open": "Open"
 }

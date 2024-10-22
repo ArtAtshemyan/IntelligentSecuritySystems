@@ -26,5 +26,14 @@
   "signinDescription": "Մուտք գործեք՝ վայելելու ձեր խելացի կենսամիջավայրի անխափան վերահսկողությունը:",
   "verification": "Ստուգում",
   "SentDigitCode": "Մենք 6 նիշանոց կոդ ենք ուղարկել ձեր հեռախոսահամարին",
-  "next": "հաջորդ"
+  "next": "հաջորդ",
+  "home": "Home",
+  "play": "Play",
+  "smartIntercom": "Smart Intercom",
+  "comingSoon": "Coming Soon",
+  "surveillanceCameras": "Surveillance Cameras",
+  "barrier": "Barrier",
+  "payment": "Payment",
+  "profile": "Profile",
+  "open": "Open"
 }

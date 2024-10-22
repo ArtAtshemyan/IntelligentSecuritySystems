@@ -27,10 +27,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "and": MessageLookupByLibrary.simpleMessage("and"),
         "appTitle": MessageLookupByLibrary.simpleMessage(
             "Intelligent Security Systems"),
+        "barrier": MessageLookupByLibrary.simpleMessage("Barrier"),
         "bySigningUpYouAutomaticallyAgreeToOur":
             MessageLookupByLibrary.simpleMessage(
                 "By signing up, you automatically agree to our"),
         "chooseMode": MessageLookupByLibrary.simpleMessage("Choose Mode"),
+        "comingSoon": MessageLookupByLibrary.simpleMessage("Coming Soon"),
         "cont": MessageLookupByLibrary.simpleMessage("Continue"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "doYouHaveAccount":
@@ -38,23 +40,31 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailIncorrect":
             MessageLookupByLibrary.simpleMessage("The email is incorrect"),
+        "home": MessageLookupByLibrary.simpleMessage("Home"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
         "medium": MessageLookupByLibrary.simpleMessage("Medium"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
+        "open": MessageLookupByLibrary.simpleMessage("Open"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordStrenght":
             MessageLookupByLibrary.simpleMessage("Password strenght:"),
+        "payment": MessageLookupByLibrary.simpleMessage("Payment"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+        "play": MessageLookupByLibrary.simpleMessage("Play"),
         "pleaseEnterAValidPhoneNumber": MessageLookupByLibrary.simpleMessage(
             "Please enter a valid phone number."),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "signinDescription": MessageLookupByLibrary.simpleMessage(
             "Sign in to enjoy effortless control of your smart living environment."),
         "signupDescription": MessageLookupByLibrary.simpleMessage(
             "Sign up and easily access all the essential controls and features."),
+        "smartIntercom": MessageLookupByLibrary.simpleMessage("Smart Intercom"),
         "strong": MessageLookupByLibrary.simpleMessage("Strong"),
+        "surveillanceCameras":
+            MessageLookupByLibrary.simpleMessage("Surveillance Cameras"),
         "termsConditions":
             MessageLookupByLibrary.simpleMessage("Terms & Conditions."),
         "thisFieldIsRequired":

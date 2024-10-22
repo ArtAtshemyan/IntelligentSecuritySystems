@@ -7,7 +7,7 @@ import 'package:intelligent_security_systems/common/helpers/utils/input_utils.da
 import 'package:intelligent_security_systems/feature/auth/data/models/signup_req_params.dart';
 import 'package:intelligent_security_systems/feature/auth/data/models/verification_req_params.dart';
 import 'package:intelligent_security_systems/feature/auth/domain/usecases/verification.dart';
-import 'package:intelligent_security_systems/feature/home/pages/home.dart';
+import 'package:intelligent_security_systems/feature/home/presentation/pages/home.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../../common/bloc/button/button_state.dart';
@@ -191,15 +191,20 @@ class _VerificationState extends State<VerificationPage> {
           onPressed: _confirmCodeCon.text.isNotEmpty
               ? () {
                   if (_confirmFormKey.currentState?.validate() ?? false) {
-                    context.read<ButtonStateCubit>().execute(
-                          useCase: sl<VerificationUseCase>(),
-                          params: VerificationReqParams(
-                              email: widget.signupReq.email,
-                              phoneNumber: widget.signupReq.phoneNumber,
-                              password: widget.signupReq.password,
-                              deviceId: widget.signupReq.deviceId ?? '',
-                              verificationConde: _confirmCodeCon.text),
-                        );
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                          (Route<dynamic> route) => false,
+                    );
+                    // context.read<ButtonStateCubit>().execute(
+                    //       useCase: sl<VerificationUseCase>(),
+                    //       params: VerificationReqParams(
+                    //           email: widget.signupReq.email,
+                    //           phoneNumber: widget.signupReq.phoneNumber,
+                    //           password: widget.signupReq.password,
+                    //           deviceId: widget.signupReq.deviceId ?? '',
+                    //           verificationConde: _confirmCodeCon.text),
+                    //     );
                   }
                 }
               : null,

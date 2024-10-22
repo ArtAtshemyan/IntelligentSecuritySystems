@@ -14,7 +14,7 @@ import '../../../../core/assets/app_vectors.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../service_locator.dart';
-import '../../../home/pages/home.dart';
+import '../../../home/presentation/pages/home.dart';
 import '../../data/models/signin_req_params.dart';
 import '../../domain/usecases/sign_in.dart';
 
@@ -182,14 +182,19 @@ class _SignInPageState extends State<SignInPage> {
         onPressed: _passwordCon.text.isNotEmpty && _emailCon.text.isNotEmpty
             ? () {
                 if (_signupFormKey.currentState?.validate() ?? false) {
-                  context.read<ButtonStateCubit>().execute(
-                        useCase: sl<SignInUseCase>(),
-                        params: SignInReqParams(
-                          email: _emailCon.text,
-                          password: _passwordCon.text,
-                          deviceId: _deviceID,
-                        ),
-                      );
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                        (Route<dynamic> route) => false,
+                  );
+                  // context.read<ButtonStateCubit>().execute(
+                  //       useCase: sl<SignInUseCase>(),
+                  //       params: SignInReqParams(
+                  //         email: _emailCon.text,
+                  //         password: _passwordCon.text,
+                  //         deviceId: _deviceID,
+                  //       ),
+                  //     );
                 }
               }
             : null,

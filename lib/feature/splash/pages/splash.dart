@@ -4,7 +4,7 @@ import 'package:intelligent_security_systems/common/bloc/auth/auth_state.dart';
 import 'package:intelligent_security_systems/common/bloc/auth/auth_state_cubit.dart';
 import 'package:intelligent_security_systems/core/assets/app_images.dart';
 import 'package:intelligent_security_systems/feature/auth/presentation/pages/signup.dart';
-import 'package:intelligent_security_systems/feature/home/pages/home.dart';
+import 'package:intelligent_security_systems/feature/home/presentation/pages/home.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

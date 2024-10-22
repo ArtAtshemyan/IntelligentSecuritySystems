@@ -26,5 +26,14 @@
   "signinDescription": "Войдите в систему, чтобы с легкостью управлять своей интеллектуальной средой обитания.",
   "verification": "Проверка",
   "SentDigitCode": "Мы отправили 6-значный код на ваш номер телефона",
-  "next": "Следующий"
+  "next": "Следующий",
+  "home": "Home",
+  "play": "Play",
+  "smartIntercom": "Smart Intercom",
+  "comingSoon": "Coming Soon",
+  "surveillanceCameras": "Surveillance Cameras",
+  "barrier": "Barrier",
+  "payment": "Payment",
+  "profile": "Profile",
+  "open": "Open"
 }
