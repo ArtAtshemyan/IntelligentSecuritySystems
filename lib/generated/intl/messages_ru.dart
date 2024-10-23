@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SentDigitCode": MessageLookupByLibrary.simpleMessage(
             "Мы отправили 6-значный код на ваш номер телефона"),
+        "accessByQrCode":
+            MessageLookupByLibrary.simpleMessage("Access by QR Code"),
         "and": MessageLookupByLibrary.simpleMessage("и"),
         "appTitle": MessageLookupByLibrary.simpleMessage(
             "Intelligent Security Systems"),
@@ -40,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Электронная почта"),
         "emailIncorrect": MessageLookupByLibrary.simpleMessage(
             "Неверный адрес электронной почты"),
+        "faceManagement":
+            MessageLookupByLibrary.simpleMessage("Face Management"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
         "medium": MessageLookupByLibrary.simpleMessage("Середина"),
@@ -48,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
         "passwordStrenght":
             MessageLookupByLibrary.simpleMessage("Надежность пароля:"),
+        "payDebt": MessageLookupByLibrary.simpleMessage("Pay Debt"),
         "payment": MessageLookupByLibrary.simpleMessage("Payment"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Номер телефона"),
         "play": MessageLookupByLibrary.simpleMessage("Play"),
@@ -70,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Условия и положения."),
         "thisFieldIsRequired": MessageLookupByLibrary.simpleMessage(
             "Это поле обязательно к заполнению"),
+        "tools": MessageLookupByLibrary.simpleMessage("Tools"),
         "verification": MessageLookupByLibrary.simpleMessage("Проверка"),
         "veryWeak": MessageLookupByLibrary.simpleMessage("Very Weak"),
         "weak": MessageLookupByLibrary.simpleMessage("Слабый")

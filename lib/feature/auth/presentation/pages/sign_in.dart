@@ -182,19 +182,19 @@ class _SignInPageState extends State<SignInPage> {
         onPressed: _passwordCon.text.isNotEmpty && _emailCon.text.isNotEmpty
             ? () {
                 if (_signupFormKey.currentState?.validate() ?? false) {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                        (Route<dynamic> route) => false,
-                  );
-                  // context.read<ButtonStateCubit>().execute(
-                  //       useCase: sl<SignInUseCase>(),
-                  //       params: SignInReqParams(
-                  //         email: _emailCon.text,
-                  //         password: _passwordCon.text,
-                  //         deviceId: _deviceID,
-                  //       ),
-                  //     );
+                  // Navigator.pushAndRemoveUntil(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => const HomePage()),
+                  //       (Route<dynamic> route) => false,
+                  // );
+                  context.read<ButtonStateCubit>().execute(
+                        useCase: sl<SignInUseCase>(),
+                        params: SignInReqParams(
+                          email: _emailCon.text,
+                          password: _passwordCon.text,
+                          deviceId: _deviceID,
+                        ),
+                      );
                 }
               }
             : null,

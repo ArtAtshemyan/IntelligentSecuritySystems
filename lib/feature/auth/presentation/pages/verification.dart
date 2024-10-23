@@ -191,20 +191,20 @@ class _VerificationState extends State<VerificationPage> {
           onPressed: _confirmCodeCon.text.isNotEmpty
               ? () {
                   if (_confirmFormKey.currentState?.validate() ?? false) {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
-                          (Route<dynamic> route) => false,
-                    );
-                    // context.read<ButtonStateCubit>().execute(
-                    //       useCase: sl<VerificationUseCase>(),
-                    //       params: VerificationReqParams(
-                    //           email: widget.signupReq.email,
-                    //           phoneNumber: widget.signupReq.phoneNumber,
-                    //           password: widget.signupReq.password,
-                    //           deviceId: widget.signupReq.deviceId ?? '',
-                    //           verificationConde: _confirmCodeCon.text),
-                    //     );
+                    // Navigator.pushAndRemoveUntil(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => const HomePage()),
+                    //       (Route<dynamic> route) => false,
+                    // );
+                    context.read<ButtonStateCubit>().execute(
+                          useCase: sl<VerificationUseCase>(),
+                          params: VerificationReqParams(
+                              email: widget.signupReq.email,
+                              phoneNumber: widget.signupReq.phoneNumber,
+                              password: widget.signupReq.password,
+                              deviceId: widget.signupReq.deviceId ?? '',
+                              verificationConde: _confirmCodeCon.text),
+                        );
                   }
                 }
               : null,

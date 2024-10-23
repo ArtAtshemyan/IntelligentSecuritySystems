@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SentDigitCode": MessageLookupByLibrary.simpleMessage(
             "We sent a 6-digit code to your phone number ending in"),
+        "accessByQrCode":
+            MessageLookupByLibrary.simpleMessage("Access by QR Code"),
         "and": MessageLookupByLibrary.simpleMessage("and"),
         "appTitle": MessageLookupByLibrary.simpleMessage(
             "Intelligent Security Systems"),
@@ -40,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailIncorrect":
             MessageLookupByLibrary.simpleMessage("The email is incorrect"),
+        "faceManagement":
+            MessageLookupByLibrary.simpleMessage("Face Management"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
         "medium": MessageLookupByLibrary.simpleMessage("Medium"),
@@ -48,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordStrenght":
             MessageLookupByLibrary.simpleMessage("Password strenght:"),
+        "payDebt": MessageLookupByLibrary.simpleMessage("Pay Debt"),
         "payment": MessageLookupByLibrary.simpleMessage("Payment"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
         "play": MessageLookupByLibrary.simpleMessage("Play"),
@@ -69,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Terms & Conditions."),
         "thisFieldIsRequired":
             MessageLookupByLibrary.simpleMessage("This field is required"),
+        "tools": MessageLookupByLibrary.simpleMessage("Tools"),
         "verification": MessageLookupByLibrary.simpleMessage("Verification"),
         "veryWeak": MessageLookupByLibrary.simpleMessage("Very Weak"),
         "weak": MessageLookupByLibrary.simpleMessage("Weak")

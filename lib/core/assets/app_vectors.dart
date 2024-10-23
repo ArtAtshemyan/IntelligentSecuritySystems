@@ -12,5 +12,6 @@ class AppVectors {
   static const String notification = '${_basePath}notif_icon$_format';
   static const String location = '${_basePath}location_on$_format';
   static const String phone = '${_basePath}phone_icon$_format';
+
   //location_on
 }

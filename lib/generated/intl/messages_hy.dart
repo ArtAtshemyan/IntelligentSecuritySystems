@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SentDigitCode": MessageLookupByLibrary.simpleMessage(
             "Մենք 6 նիշանոց կոդ ենք ուղարկել ձեր հեռախոսահամարին"),
+        "accessByQrCode":
+            MessageLookupByLibrary.simpleMessage("Access by QR Code"),
         "and": MessageLookupByLibrary.simpleMessage("և"),
         "appTitle": MessageLookupByLibrary.simpleMessage(
             "Intelligent Security Systems"),
@@ -40,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("էլփոստի հասցեն"),
         "emailIncorrect":
             MessageLookupByLibrary.simpleMessage("Էլփոստը սխալ է"),
+        "faceManagement":
+            MessageLookupByLibrary.simpleMessage("Face Management"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
         "medium": MessageLookupByLibrary.simpleMessage("Միջին"),
@@ -48,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Գաղտնաբառ"),
         "passwordStrenght":
             MessageLookupByLibrary.simpleMessage("Գաղտնաբառի բարդ."),
+        "payDebt": MessageLookupByLibrary.simpleMessage("Pay Debt"),
         "payment": MessageLookupByLibrary.simpleMessage("Payment"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("հեռախոսահամարը"),
         "play": MessageLookupByLibrary.simpleMessage("Play"),
@@ -70,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Պայմաններ և դրույթներ."),
         "thisFieldIsRequired":
             MessageLookupByLibrary.simpleMessage("Այս դաշտը պարտադիր է"),
+        "tools": MessageLookupByLibrary.simpleMessage("Tools"),
         "verification": MessageLookupByLibrary.simpleMessage("Ստուգում"),
         "veryWeak": MessageLookupByLibrary.simpleMessage("Very Weak"),
         "weak": MessageLookupByLibrary.simpleMessage("Թույլ")

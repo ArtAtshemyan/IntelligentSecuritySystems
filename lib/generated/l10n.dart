@@ -419,6 +419,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Pay Debt`
+  String get payDebt {
+    return Intl.message(
+      'Pay Debt',
+      name: 'payDebt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tools`
+  String get tools {
+    return Intl.message(
+      'Tools',
+      name: 'tools',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Access by QR Code`
+  String get accessByQrCode {
+    return Intl.message(
+      'Access by QR Code',
+      name: 'accessByQrCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Face Management`
+  String get faceManagement {
+    return Intl.message(
+      'Face Management',
+      name: 'faceManagement',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

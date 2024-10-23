@@ -35,5 +35,9 @@
   "barrier": "Barrier",
   "payment": "Payment",
   "profile": "Profile",
-  "open": "Open"
+  "open": "Open",
+  "payDebt": "Pay Debt",
+  "tools": "Tools",
+  "accessByQrCode": "Access by QR Code",
+  "faceManagement": "Face Management"
 }

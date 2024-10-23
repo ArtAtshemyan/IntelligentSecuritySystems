@@ -5,7 +5,6 @@ import 'package:intelligent_security_systems/feature/home/presentation/pages/hom
 
 import '../core/theme/app_theme.dart';
 import '../feature/auth/presentation/bloc/localization_cubit.dart';
-import '../feature/splash/pages/splash.dart';
 import '../generated/l10n.dart';
 
 class MyApp extends StatelessWidget {
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
             darkTheme: AppTheme.darkTheme,
             themeMode: ThemeMode.system,
             debugShowCheckedModeBanner: false,
-            home: const SplashScreen(),
+            home: const HomePage(),
           );
         },
       ),
