@@ -24,13 +24,17 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SentDigitCode": MessageLookupByLibrary.simpleMessage(
             "Մենք 6 նիշանոց կոդ ենք ուղարկել ձեր հեռախոսահամարին"),
+        "accessByQrCode":
+            MessageLookupByLibrary.simpleMessage("Access by QR Code"),
         "and": MessageLookupByLibrary.simpleMessage("և"),
         "appTitle": MessageLookupByLibrary.simpleMessage(
             "Intelligent Security Systems"),
+        "barrier": MessageLookupByLibrary.simpleMessage("Barrier"),
         "bySigningUpYouAutomaticallyAgreeToOur":
             MessageLookupByLibrary.simpleMessage(
                 "Գրանցվելով՝ դուք ավտոմատ կերպով համաձայնում եք մեր"),
         "chooseMode": MessageLookupByLibrary.simpleMessage("Choose Mode"),
+        "comingSoon": MessageLookupByLibrary.simpleMessage("Coming Soon"),
         "cont": MessageLookupByLibrary.simpleMessage("Շարունակել"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "doYouHaveAccount":
@@ -38,28 +42,40 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("էլփոստի հասցեն"),
         "emailIncorrect":
             MessageLookupByLibrary.simpleMessage("Էլփոստը սխալ է"),
+        "faceManagement":
+            MessageLookupByLibrary.simpleMessage("Face Management"),
+        "home": MessageLookupByLibrary.simpleMessage("Home"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
         "medium": MessageLookupByLibrary.simpleMessage("Միջին"),
         "next": MessageLookupByLibrary.simpleMessage("հաջորդ"),
+        "open": MessageLookupByLibrary.simpleMessage("Open"),
         "password": MessageLookupByLibrary.simpleMessage("Գաղտնաբառ"),
         "passwordStrenght":
             MessageLookupByLibrary.simpleMessage("Գաղտնաբառի բարդ."),
+        "payDebt": MessageLookupByLibrary.simpleMessage("Pay Debt"),
+        "payment": MessageLookupByLibrary.simpleMessage("Payment"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("հեռախոսահամարը"),
+        "play": MessageLookupByLibrary.simpleMessage("Play"),
         "pleaseEnterAValidPhoneNumber": MessageLookupByLibrary.simpleMessage(
             "Խնդրում ենք մուտքագրել վավեր հեռախոսահամար:"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage(
             "Գաղտնիության քաղաքականություն"),
+        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "signIn": MessageLookupByLibrary.simpleMessage("Մուտք գործեք"),
         "signUp": MessageLookupByLibrary.simpleMessage("Գրանցվել"),
         "signinDescription": MessageLookupByLibrary.simpleMessage(
             "Մուտք գործեք՝ վայելելու ձեր խելացի կենսամիջավայրի անխափան վերահսկողությունը:"),
         "signupDescription": MessageLookupByLibrary.simpleMessage(
             "Գրանցվեք և հեշտությամբ մուտք գործեք բոլոր հիմնական վերահսկիչները և հնարավորությունները:"),
+        "smartIntercom": MessageLookupByLibrary.simpleMessage("Smart Intercom"),
         "strong": MessageLookupByLibrary.simpleMessage("Ուժեղ"),
+        "surveillanceCameras":
+            MessageLookupByLibrary.simpleMessage("Surveillance Cameras"),
         "termsConditions":
             MessageLookupByLibrary.simpleMessage("Պայմաններ և դրույթներ."),
         "thisFieldIsRequired":
             MessageLookupByLibrary.simpleMessage("Այս դաշտը պարտադիր է"),
+        "tools": MessageLookupByLibrary.simpleMessage("Tools"),
         "verification": MessageLookupByLibrary.simpleMessage("Ստուգում"),
         "veryWeak": MessageLookupByLibrary.simpleMessage("Very Weak"),
         "weak": MessageLookupByLibrary.simpleMessage("Թույլ")

@@ -252,6 +252,21 @@ class _SignupPageState extends State<SignupPage> {
                     S.of(context).strong
             ? () {
                 if (_signupFormKey.currentState?.validate() ?? false) {
+                  // Navigator.pushAndRemoveUntil(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => VerificationPage(
+                  //       signupReq: SignupReqParams(
+                  //         email: _emailCon.text,
+                  //         phoneNumber: InputUtils.formatPhoneNumber(_phoneCon.text),
+                  //         password: _passwordCon.text,
+                  //         deviceId: _deviceID,
+                  //       ),
+                  //     ),
+                  //   ),
+                  //       (Route<dynamic> route) => false,
+                  // );
+
                   context.read<ButtonStateCubit>().execute(
                         useCase: sl<SignupUseCase>(),
                         params: SignupReqParams(

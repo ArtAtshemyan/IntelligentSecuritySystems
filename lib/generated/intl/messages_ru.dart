@@ -24,13 +24,17 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SentDigitCode": MessageLookupByLibrary.simpleMessage(
             "Мы отправили 6-значный код на ваш номер телефона"),
+        "accessByQrCode":
+            MessageLookupByLibrary.simpleMessage("Access by QR Code"),
         "and": MessageLookupByLibrary.simpleMessage("и"),
         "appTitle": MessageLookupByLibrary.simpleMessage(
             "Intelligent Security Systems"),
+        "barrier": MessageLookupByLibrary.simpleMessage("Barrier"),
         "bySigningUpYouAutomaticallyAgreeToOur":
             MessageLookupByLibrary.simpleMessage(
                 "Регистрируясь, вы автоматически увеличите свой"),
         "chooseMode": MessageLookupByLibrary.simpleMessage("Choose Mode"),
+        "comingSoon": MessageLookupByLibrary.simpleMessage("Coming Soon"),
         "cont": MessageLookupByLibrary.simpleMessage("Продолжать"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "doYouHaveAccount":
@@ -38,28 +42,40 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Электронная почта"),
         "emailIncorrect": MessageLookupByLibrary.simpleMessage(
             "Неверный адрес электронной почты"),
+        "faceManagement":
+            MessageLookupByLibrary.simpleMessage("Face Management"),
+        "home": MessageLookupByLibrary.simpleMessage("Home"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
         "medium": MessageLookupByLibrary.simpleMessage("Середина"),
         "next": MessageLookupByLibrary.simpleMessage("Следующий"),
+        "open": MessageLookupByLibrary.simpleMessage("Open"),
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
         "passwordStrenght":
             MessageLookupByLibrary.simpleMessage("Надежность пароля:"),
+        "payDebt": MessageLookupByLibrary.simpleMessage("Pay Debt"),
+        "payment": MessageLookupByLibrary.simpleMessage("Payment"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Номер телефона"),
+        "play": MessageLookupByLibrary.simpleMessage("Play"),
         "pleaseEnterAValidPhoneNumber": MessageLookupByLibrary.simpleMessage(
             "Введите действительный номер телефона."),
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Политика конфиденциальности"),
+        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "signIn": MessageLookupByLibrary.simpleMessage("Войти"),
         "signUp": MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
         "signinDescription": MessageLookupByLibrary.simpleMessage(
             "Войдите в систему, чтобы с легкостью управлять своей интеллектуальной средой обитания."),
         "signupDescription": MessageLookupByLibrary.simpleMessage(
             "Зарегистрируйтесь и получите легкий доступ ко всем основным элементам управления и функциям."),
+        "smartIntercom": MessageLookupByLibrary.simpleMessage("Smart Intercom"),
         "strong": MessageLookupByLibrary.simpleMessage("Сильный"),
+        "surveillanceCameras":
+            MessageLookupByLibrary.simpleMessage("Surveillance Cameras"),
         "termsConditions":
             MessageLookupByLibrary.simpleMessage("Условия и положения."),
         "thisFieldIsRequired": MessageLookupByLibrary.simpleMessage(
             "Это поле обязательно к заполнению"),
+        "tools": MessageLookupByLibrary.simpleMessage("Tools"),
         "verification": MessageLookupByLibrary.simpleMessage("Проверка"),
         "veryWeak": MessageLookupByLibrary.simpleMessage("Very Weak"),
         "weak": MessageLookupByLibrary.simpleMessage("Слабый")
