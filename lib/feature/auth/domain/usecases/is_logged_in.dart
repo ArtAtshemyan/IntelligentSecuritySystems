@@ -4,7 +4,6 @@ import 'package:intelligent_security_systems/feature/auth/data/source/auth_local
 
 import '../../../../core/usecase/usecase.dart';
 import '../../../../service_locator.dart';
-import '../../data/repository/auth.dart';
 
 class IsLoggedInUseCase implements UseCase<bool,dynamic> {
   @override

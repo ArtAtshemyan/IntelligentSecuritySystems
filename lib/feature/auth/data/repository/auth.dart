@@ -12,6 +12,7 @@ import '../../../../service_locator.dart';
 import '../models/signup_req_params.dart';
 
 class AuthRepositoryImp extends AuthRepository {
+
   @override
   Future<Either> signup(SignupReqParams signupReq) async {
     Either result = await sl<AuthApiService>().signup(signupReq);
@@ -24,7 +25,7 @@ class AuthRepositoryImp extends AuthRepository {
         SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
         sharedPreferences.setString(
-            SharedPreferencesKeys.accessToken, response.data['access_token']);
+            SharedPreferencesKeys.accessToken, response.data['data']['token']);
         return Right(response);
       },
     );
@@ -60,6 +61,10 @@ class AuthRepositoryImp extends AuthRepository {
       },
       (data) async {
         Response response = data;
+        SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+        sharedPreferences.setString(
+            SharedPreferencesKeys.accessToken, response.data['data']['token']);
         return Right(response);
       },
     );

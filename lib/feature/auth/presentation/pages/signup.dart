@@ -7,7 +7,6 @@ import 'package:intelligent_security_systems/common/bloc/button/button_state.dar
 import 'package:intelligent_security_systems/common/bloc/button/button_state_cubit.dart';
 import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mode.dart';
 import 'package:intelligent_security_systems/common/helpers/extension/validation.dart';
-import 'package:intelligent_security_systems/common/helpers/utils/device_utils.dart';
 import 'package:intelligent_security_systems/core/theme/app_colors.dart';
 import 'package:intelligent_security_systems/feature/auth/data/models/signup_req_params.dart';
 import 'package:intelligent_security_systems/feature/auth/domain/usecases/signup.dart';
@@ -37,13 +36,6 @@ class _SignupPageState extends State<SignupPage> {
   final _signupFormKey = GlobalKey<FormState>();
   bool _obscureText = true;
   double _strength = 0;
-  String _deviceID = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _getDeviceID();
-  }
 
   @override
   void dispose() {
@@ -69,15 +61,30 @@ class _SignupPageState extends State<SignupPage> {
                       email: _emailCon.text,
                       phoneNumber: InputUtils.formatPhoneNumber(_phoneCon.text),
                       password: _passwordCon.text,
-                      deviceId: _deviceID,
                     ),
                   ),
                 ),
                 (Route<dynamic> route) => false,
               );
             } else if (state is ButtonFailureState) {
-              var snackBar = SnackBar(content: Text(state.errorMessage));
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              if(state.errorMessage == 'You will receive verification code, please check your email.'){
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => VerificationPage(
+                      signupReq: SignupReqParams(
+                        email: _emailCon.text,
+                        phoneNumber: InputUtils.formatPhoneNumber(_phoneCon.text),
+                        password: _passwordCon.text,
+                      ),
+                    ),
+                  ),
+                      (Route<dynamic> route) => false,
+                );
+              }else{
+                var snackBar = SnackBar(content: Text(state.errorMessage));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
             }
           },
           child: SafeArea(
@@ -252,21 +259,6 @@ class _SignupPageState extends State<SignupPage> {
                     S.of(context).strong
             ? () {
                 if (_signupFormKey.currentState?.validate() ?? false) {
-                  // Navigator.pushAndRemoveUntil(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => VerificationPage(
-                  //       signupReq: SignupReqParams(
-                  //         email: _emailCon.text,
-                  //         phoneNumber: InputUtils.formatPhoneNumber(_phoneCon.text),
-                  //         password: _passwordCon.text,
-                  //         deviceId: _deviceID,
-                  //       ),
-                  //     ),
-                  //   ),
-                  //       (Route<dynamic> route) => false,
-                  // );
-
                   context.read<ButtonStateCubit>().execute(
                         useCase: sl<SignupUseCase>(),
                         params: SignupReqParams(
@@ -274,7 +266,6 @@ class _SignupPageState extends State<SignupPage> {
                           phoneNumber:
                               InputUtils.formatPhoneNumber(_phoneCon.text),
                           password: _passwordCon.text,
-                          deviceId: _deviceID,
                         ),
                       );
                 }
@@ -327,13 +318,5 @@ class _SignupPageState extends State<SignupPage> {
   void clearController(TextEditingController controller) {
     controller.text = '';
     setState(() {});
-  }
-
-  Future<void> _getDeviceID() async {
-    DeviceUtils deviceUtils = DeviceUtils();
-    String? deviceInfo = await deviceUtils.getId();
-    setState(() {
-      _deviceID = deviceInfo ?? '';
-    });
   }
 }

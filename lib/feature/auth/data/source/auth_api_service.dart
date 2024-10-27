@@ -18,6 +18,7 @@ class AuthApiServiceImpl extends AuthApiService {
   @override
   Future<Either> signup(SignupReqParams signupReq) async {
     try{
+      print(['SignupReqParams',signupReq.toMap()]);
       var response = await sl<DioClient>().post(AppUrls.signupEndpoint,data: signupReq.toMap());
       return Right(response);
     }on DioException catch(e) {
@@ -38,6 +39,7 @@ class AuthApiServiceImpl extends AuthApiService {
   @override
   Future<Either> signIn(SignInReqParams signInReq) async {
     try{
+      print(['SignupReqParams',signInReq.toMap()]);
       var response = await sl<DioClient>().post(AppUrls.signInEndpoint,data: signInReq.toMap());
       return Right(response);
     }on DioException catch(e) {

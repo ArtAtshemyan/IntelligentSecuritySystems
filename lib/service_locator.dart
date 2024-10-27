@@ -1,5 +1,3 @@
-
-
 import 'package:get_it/get_it.dart';
 import 'package:intelligent_security_systems/feature/auth/data/repository/auth.dart';
 import 'package:intelligent_security_systems/feature/auth/data/source/auth_api_service.dart';
@@ -22,12 +20,13 @@ void setupServiceLocator() {
   sl.registerSingleton<AuthLocalService>(AuthLocalServiceImpl());
 
   /// Repository
-  sl.registerSingleton<AuthRepository>(AuthRepositoryImp());
+  sl.registerSingleton<AuthRepository>(
+    AuthRepositoryImp(),
+  );
 
   /// UseCases
   sl.registerSingleton<SignupUseCase>(SignupUseCase());
   sl.registerSingleton<IsLoggedInUseCase>(IsLoggedInUseCase());
   sl.registerSingleton<VerificationUseCase>(VerificationUseCase());
   sl.registerSingleton<SignInUseCase>(SignInUseCase());
-
 }

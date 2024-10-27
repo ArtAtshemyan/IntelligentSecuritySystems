@@ -1,39 +1,40 @@
 import 'package:dio/dio.dart';
+import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../constants/shared_perfereces_keys.dart';
 
 class TokenInterceptor extends Interceptor {
   final Dio dio;
+  final Logger logger = Logger(printer: PrettyPrinter(methodCount: 0, colors: true, printEmojis: true));
 
   TokenInterceptor(this.dio);
 
   @override
-  Future onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
-    // Todo: add access token to the header before sending each request
-    String accessToken = 'current_access_token';
+  Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+    SharedPreferences sharedPreferences =
+    await SharedPreferences.getInstance();
+    String? accessToken = sharedPreferences.getString(SharedPreferencesKeys.accessToken,);
     options.headers["Authorization"] = "Bearer $accessToken";
+    logger.i('${options.method} request ==> ${options.uri}\nAuthorization: Bearer $accessToken');
     return handler.next(options);
   }
 
   @override
   Future onError(DioException err, ErrorInterceptorHandler handler) async {
-    //Todo: if the response error is 401 (no authorized)
     if (err.response?.statusCode == 401) {
-      //Todo: using refresh token ask for new access token
+      logger.e('Unauthorized (401) error: Attempting token refresh.');
       try {
         String refreshToken = 'current_refresh_token';
-        Response refreshResponse =
-        await dio.post('https://api.example.com/refresh', data: {
-          'refresh_token': refreshToken,
-        });
+        Response refreshResponse = await dio.post(
+          'https://api.example.com/refresh',
+          data: {'refresh_token': refreshToken},
+        );
 
         if (refreshResponse.statusCode == 200) {
-          //Todo: getting new access token
-          String newAccessToken = refreshResponse.data['access_token'];
-
-          //Todo: update access token from the header for all coming requests
+          String newAccessToken = refreshResponse.data['data']['token'];
           dio.options.headers["Authorization"] = "Bearer $newAccessToken";
 
-          //Todo: resend the failed request due to the token expiration
           final retryOptions = err.requestOptions;
           retryOptions.headers["Authorization"] = "Bearer $newAccessToken";
           final retryResponse = await dio.request(
@@ -43,20 +44,24 @@ class TokenInterceptor extends Interceptor {
               headers: retryOptions.headers,
             ),
           );
-          //Todo: return the new response
+
+          logger.i('Token refreshed successfully and request retried.');
           return handler.resolve(retryResponse);
         } else {
+          logger.e('Token refresh failed.');
           return handler.reject(DioException(
               requestOptions: err.requestOptions,
               error: 'Failed to refresh token'));
         }
       } catch (e) {
+        logger.e('Token refresh failed with error: $e');
         return handler.reject(DioException(
             requestOptions: err.requestOptions,
             error: 'Failed to refresh token'));
       }
+    } else {
+      logger.e('Request failed with error: ${err.message}');
+      return handler.next(err);
     }
-    //Todo: Complete error handling if you do not have a 401
-    return handler.next(err);
   }
 }

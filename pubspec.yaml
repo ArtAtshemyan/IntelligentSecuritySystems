@@ -30,6 +30,7 @@ dependencies:
   android_id: ^0.4.0
   shared_preferences: ^2.3.2
   persistent_bottom_nav_bar: ^6.2.1
+  flutter_dotenv: ^5.2.1
 
 
 dev_dependencies:
@@ -44,5 +45,6 @@ flutter:
 #    - assets/fonts/
     - assets/images/
     - assets/vectors/
+    - .env
 flutter_intl:
   enabled: true

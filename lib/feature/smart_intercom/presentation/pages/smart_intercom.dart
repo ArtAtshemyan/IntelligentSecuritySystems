@@ -64,7 +64,7 @@ class SmartIntercomPage extends StatelessWidget {
                   height: 140,
                   child: ListView(
                     itemExtent: 250,
-                    padding: EdgeInsets.all(3),
+                    padding: const EdgeInsets.all(3),
                     scrollDirection: Axis.horizontal,
                     children: [
                       _toolsItems(context,(){},AppImages.qrScan,S.of(context).accessByQrCode),

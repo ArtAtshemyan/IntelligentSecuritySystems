@@ -30,12 +30,12 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController _passwordCon = TextEditingController();
   final _signupFormKey = GlobalKey<FormState>();
   bool _obscureText = true;
-  String _deviceID = '';
+  late DeviceInformation _deviceInformation;
 
   @override
   void initState() {
     super.initState();
-    _getDeviceID();
+    _getDeviceInformation();
   }
 
   @override
@@ -59,6 +59,7 @@ class _SignInPageState extends State<SignInPage> {
                 (Route<dynamic> route) => false,
               );
             } else if (state is ButtonFailureState) {
+              print(['error-------',state.errorMessage]);
               var snackBar = SnackBar(content: Text(state.errorMessage));
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
@@ -182,17 +183,14 @@ class _SignInPageState extends State<SignInPage> {
         onPressed: _passwordCon.text.isNotEmpty && _emailCon.text.isNotEmpty
             ? () {
                 if (_signupFormKey.currentState?.validate() ?? false) {
-                  // Navigator.pushAndRemoveUntil(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => const HomePage()),
-                  //       (Route<dynamic> route) => false,
-                  // );
+                  print([_deviceInformation.deviceName,_deviceInformation.deviceId]);
                   context.read<ButtonStateCubit>().execute(
                         useCase: sl<SignInUseCase>(),
                         params: SignInReqParams(
                           email: _emailCon.text,
                           password: _passwordCon.text,
-                          deviceId: _deviceID,
+                          deviceId: _deviceInformation.deviceId,
+                          deviceName: _deviceInformation.deviceName
                         ),
                       );
                 }
@@ -238,11 +236,9 @@ class _SignInPageState extends State<SignInPage> {
     setState(() {});
   }
 
-  Future<void> _getDeviceID() async {
+  Future<void> _getDeviceInformation() async {
     DeviceUtils deviceUtils = DeviceUtils();
-    String? deviceInfo = await deviceUtils.getId();
-    setState(() {
-      _deviceID = deviceInfo ?? '';
-    });
+    _deviceInformation = await deviceUtils.getDeviceInfo();
+    setState(() {});
   }
 }

@@ -12,6 +12,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../../common/bloc/button/button_state.dart';
 import '../../../../common/bloc/button/button_state_cubit.dart';
+import '../../../../common/helpers/utils/device_utils.dart';
 import '../../../../common/widgets/basic_button.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
@@ -29,12 +30,14 @@ class _VerificationState extends State<VerificationPage> {
   final TextEditingController _confirmCodeCon = TextEditingController();
   final _confirmFormKey = GlobalKey<FormState>();
   StreamController<ErrorAnimationType>? errorController;
-
   bool hasError = false;
   String currentText = "";
+  late DeviceInformation deviceInformation;
+
 
   @override
   void initState() {
+    _getDeviceInformation();
     errorController = StreamController<ErrorAnimationType>();
     super.initState();
   }
@@ -42,7 +45,6 @@ class _VerificationState extends State<VerificationPage> {
   @override
   void dispose() {
     errorController!.close();
-
     super.dispose();
   }
 
@@ -191,19 +193,16 @@ class _VerificationState extends State<VerificationPage> {
           onPressed: _confirmCodeCon.text.isNotEmpty
               ? () {
                   if (_confirmFormKey.currentState?.validate() ?? false) {
-                    // Navigator.pushAndRemoveUntil(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => const HomePage()),
-                    //       (Route<dynamic> route) => false,
-                    // );
                     context.read<ButtonStateCubit>().execute(
                           useCase: sl<VerificationUseCase>(),
                           params: VerificationReqParams(
                               email: widget.signupReq.email,
                               phoneNumber: widget.signupReq.phoneNumber,
                               password: widget.signupReq.password,
-                              deviceId: widget.signupReq.deviceId ?? '',
-                              verificationConde: _confirmCodeCon.text),
+                              deviceId: deviceInformation.deviceId,
+                              verificationConde: _confirmCodeCon.text,
+                              deviceModel: deviceInformation.deviceName,
+                          ),
                         );
                   }
                 }
@@ -211,5 +210,11 @@ class _VerificationState extends State<VerificationPage> {
         );
       },
     );
+  }
+
+  Future<void> _getDeviceInformation() async {
+    DeviceUtils deviceUtils = DeviceUtils();
+    deviceInformation = await deviceUtils.getDeviceInfo();
+    setState(() {});
   }
 }
