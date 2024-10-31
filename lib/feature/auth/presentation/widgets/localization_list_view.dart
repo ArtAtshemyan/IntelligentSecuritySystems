@@ -67,8 +67,8 @@ class LocalizationListView extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Wrap(
+              alignment: WrapAlignment.center,
               children: [
                 GestureDetector(
                   child: Text(

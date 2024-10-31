@@ -4,7 +4,7 @@ import 'package:intelligent_security_systems/common/bloc/auth/auth_state.dart';
 import 'package:intelligent_security_systems/common/bloc/auth/auth_state_cubit.dart';
 import 'package:intelligent_security_systems/core/assets/app_images.dart';
 import 'package:intelligent_security_systems/feature/auth/presentation/pages/signup.dart';
-import 'package:intelligent_security_systems/feature/home/presentation/pages/home.dart';
+import 'package:intelligent_security_systems/feature/home/presentation/pages/home_navigation.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -16,7 +16,7 @@ class SplashScreen extends StatelessWidget {
       child: BlocBuilder<AuthStateCubit,AuthState>(
         builder: (context,state){
           if(state is Authenticated){
-            return const HomePage();
+            return const HomeNavigationPage();
           }else if(state is UnAuthenticated){
             return const SignupPage();
           }

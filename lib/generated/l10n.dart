@@ -459,6 +459,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Debt: {deb} AMD`
+  String debtDebAmd(Object deb) {
+    return Intl.message(
+      'Debt: $deb AMD',
+      name: 'debtDebAmd',
+      desc: '',
+      args: [deb],
+    );
+  }
+
+  /// `Elevator`
+  String get elevator {
+    return Intl.message(
+      'Elevator',
+      name: 'elevator',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personal Information`
+  String get personalInformation {
+    return Intl.message(
+      'Personal Information',
+      name: 'personalInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Active Service`
+  String get activeService {
+    return Intl.message(
+      'Active Service',
+      name: 'activeService',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Methods`
+  String get paymentMethods {
+    return Intl.message(
+      'Payment Methods',
+      name: 'paymentMethods',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Password`
+  String get changePassword {
+    return Intl.message(
+      'Change Password',
+      name: 'changePassword',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

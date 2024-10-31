@@ -8,9 +8,11 @@ import 'package:intelligent_security_systems/core/assets/app_vectors.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
+import '../../../main/data/models/buildings_res_params.dart';
 
 class SmartIntercomPage extends StatelessWidget {
-  const SmartIntercomPage({super.key});
+  final List<Building>? buildings;
+  const SmartIntercomPage({super.key, this.buildings});
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +34,17 @@ class SmartIntercomPage extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 332,
-                  child: ListView(
+                  child: ListView.builder(
+                    itemCount: buildings!.length,
                     itemExtent: 360,
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.all(3),
-                    children: [
-                      _cameraComp(context,false, 'Azatutyun 20'),
-                      _cameraComp(context,true, '6 Vratsakan st.'),
-                    ],
+                    itemBuilder: (context, index) {
+                      return _cameraComp(
+                          context: context,
+                          locked: buildings![index].devices[0].active == 0,
+                          address: buildings![index].address);
+                    },
                   ),
                 ),
                 const SizedBox(height: 32),
@@ -67,8 +72,10 @@ class SmartIntercomPage extends StatelessWidget {
                     padding: const EdgeInsets.all(3),
                     scrollDirection: Axis.horizontal,
                     children: [
-                      _toolsItems(context,(){},AppImages.qrScan,S.of(context).accessByQrCode),
-                      _toolsItems(context,(){},AppImages.faceScan,S.of(context).faceManagement),
+                      _toolsItems(context, () {}, AppImages.qrScan,
+                          S.of(context).accessByQrCode),
+                      _toolsItems(context, () {}, AppImages.faceScan,
+                          S.of(context).faceManagement),
                     ],
                   ),
                 ),
@@ -78,7 +85,10 @@ class SmartIntercomPage extends StatelessWidget {
         ));
   }
 
-  Widget _cameraComp(BuildContext context,bool locked, String address) {
+  Widget _cameraComp(
+      {required BuildContext context,
+      required bool locked,
+      required String address}) {
     return Padding(
       padding: const EdgeInsets.only(right: 16.0),
       child: Material(
@@ -181,13 +191,13 @@ class SmartIntercomPage extends StatelessWidget {
               color: context.isDarkMode
                   ? AppColors.darkBackground
                   : AppColors.lightBackground,
-                borderRadius: BorderRadius.circular(12),
-              ),
+              borderRadius: BorderRadius.circular(12),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     width: 40,

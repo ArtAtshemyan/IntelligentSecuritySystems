@@ -9,14 +9,14 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../generated/l10n.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomeNavigationPage extends StatefulWidget {
+  const HomeNavigationPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeNavigationPage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomeNavigationPage> {
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
@@ -28,19 +28,19 @@ class _HomePageState extends State<HomePage> {
       resizeToAvoidBottomInset: true,
       stateManagement: true,
       hideNavigationBarWhenKeyboardAppears: true,
-      padding: const EdgeInsets.only(top: 12),
+      padding: const EdgeInsets.only(top: 12,bottom: 6.0),
       backgroundColor: context.isDarkMode
           ? AppColors.darkBackground
           : AppColors.lightBackground,
       isVisible: true,
       animationSettings: const NavBarAnimationSettings(
         navBarItemAnimation: ItemAnimationSettings(
-          duration: Duration(milliseconds: 400),
+          duration: Duration(milliseconds: 200),
           curve: Curves.ease,
         ),
         screenTransitionAnimation: ScreenTransitionAnimationSettings(
           animateTabTransition: true,
-          duration: Duration(milliseconds: 200),
+          duration: Duration(milliseconds: 100),
           screenTransitionAnimationType: ScreenTransitionAnimationType.fadeIn,
         ),
       ),
@@ -158,7 +158,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // final ScrollController _scrollController1 = ScrollController(initialScrollOffset: 0);
-  // final ScrollController _scrollController2 = ScrollController(initialScrollOffset: 0);
-  // final ScrollController _scrollController3 = ScrollController(initialScrollOffset: 0);
 }

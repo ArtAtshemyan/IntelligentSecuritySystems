@@ -66,8 +66,9 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 (Route<dynamic> route) => false,
               );
-            } else if (state is ButtonFailureState) {
-              if(state.errorMessage == 'You will receive verification code, please check your email.'){
+            }
+            if (state is ButtonFailureState) {
+              if (state.errorMessage.contains('is not a subtype')) {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
@@ -81,8 +82,12 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                       (Route<dynamic> route) => false,
                 );
-              }else{
-                var snackBar = SnackBar(content: Text(state.errorMessage));
+              }
+              else {
+                var snackBar = SnackBar(
+                  content: Text(state.errorMessage),
+                  backgroundColor: AppColors.red,
+                );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
             }
@@ -91,7 +96,7 @@ class _SignupPageState extends State<SignupPage> {
             minimum: const EdgeInsets.only(top: 64, right: 16, left: 16),
             child: SingleChildScrollView(
               child: Form(
-                onChanged: (){
+                onChanged: () {
                   setState(() {});
                 },
                 key: _signupFormKey,

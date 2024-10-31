@@ -39,5 +39,11 @@
   "payDebt": "Pay Debt",
   "tools": "Tools",
   "accessByQrCode": "Access by QR Code",
-  "faceManagement": "Face Management"
+  "faceManagement": "Face Management",
+  "debtDebAmd": "Debt: {deb} AMD",
+  "elevator": "Elevator",
+  "personalInformation": "Personal Information",
+  "activeService": "Active Service",
+  "paymentMethods": "Payment Methods",
+  "changePassword": "Change Password"
 }

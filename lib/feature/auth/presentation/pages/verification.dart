@@ -7,13 +7,14 @@ import 'package:intelligent_security_systems/common/helpers/utils/input_utils.da
 import 'package:intelligent_security_systems/feature/auth/data/models/signup_req_params.dart';
 import 'package:intelligent_security_systems/feature/auth/data/models/verification_req_params.dart';
 import 'package:intelligent_security_systems/feature/auth/domain/usecases/verification.dart';
-import 'package:intelligent_security_systems/feature/home/presentation/pages/home.dart';
+import 'package:intelligent_security_systems/feature/home/presentation/pages/home_navigation.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../../common/bloc/button/button_state.dart';
 import '../../../../common/bloc/button/button_state_cubit.dart';
 import '../../../../common/helpers/utils/device_utils.dart';
 import '../../../../common/widgets/basic_button.dart';
+import '../../../../core/firebase/notifications_service.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../service_locator.dart';
@@ -33,13 +34,18 @@ class _VerificationState extends State<VerificationPage> {
   bool hasError = false;
   String currentText = "";
   late DeviceInformation deviceInformation;
+  NotificationService notificationService = NotificationService();
 
 
   @override
   void initState() {
+    super.initState();
     _getDeviceInformation();
     errorController = StreamController<ErrorAnimationType>();
-    super.initState();
+    notificationService.requestNotificationPermission();
+    notificationService.getDeviceToken();
+    notificationService.firebaseInit(context);
+    notificationService.setupInteractMessage(context);
   }
 
   @override
@@ -58,7 +64,7 @@ class _VerificationState extends State<VerificationPage> {
               if (state is ButtonSuccessState) {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomePage()),
+                  MaterialPageRoute(builder: (context) => const HomeNavigationPage()),
                   (Route<dynamic> route) => false,
                 );
               } else if (state is ButtonFailureState) {

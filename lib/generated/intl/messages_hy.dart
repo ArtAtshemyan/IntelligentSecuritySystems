@@ -20,12 +20,15 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'hy';
 
+  static String m0(deb) => "Debt: ${deb} AMD";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SentDigitCode": MessageLookupByLibrary.simpleMessage(
             "Մենք 6 նիշանոց կոդ ենք ուղարկել ձեր հեռախոսահամարին"),
         "accessByQrCode":
             MessageLookupByLibrary.simpleMessage("Access by QR Code"),
+        "activeService": MessageLookupByLibrary.simpleMessage("Active Service"),
         "and": MessageLookupByLibrary.simpleMessage("և"),
         "appTitle": MessageLookupByLibrary.simpleMessage(
             "Intelligent Security Systems"),
@@ -33,12 +36,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "bySigningUpYouAutomaticallyAgreeToOur":
             MessageLookupByLibrary.simpleMessage(
                 "Գրանցվելով՝ դուք ավտոմատ կերպով համաձայնում եք մեր"),
+        "changePassword":
+            MessageLookupByLibrary.simpleMessage("Change Password"),
         "chooseMode": MessageLookupByLibrary.simpleMessage("Choose Mode"),
         "comingSoon": MessageLookupByLibrary.simpleMessage("Coming Soon"),
         "cont": MessageLookupByLibrary.simpleMessage("Շարունակել"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
+        "debtDebAmd": m0,
         "doYouHaveAccount":
             MessageLookupByLibrary.simpleMessage("Դուք ունե՞ք հաշիվ"),
+        "elevator": MessageLookupByLibrary.simpleMessage("Elevator"),
         "email": MessageLookupByLibrary.simpleMessage("էլփոստի հասցեն"),
         "emailIncorrect":
             MessageLookupByLibrary.simpleMessage("Էլփոստը սխալ է"),
@@ -54,6 +61,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Գաղտնաբառի բարդ."),
         "payDebt": MessageLookupByLibrary.simpleMessage("Pay Debt"),
         "payment": MessageLookupByLibrary.simpleMessage("Payment"),
+        "paymentMethods":
+            MessageLookupByLibrary.simpleMessage("Payment Methods"),
+        "personalInformation":
+            MessageLookupByLibrary.simpleMessage("Personal Information"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("հեռախոսահամարը"),
         "play": MessageLookupByLibrary.simpleMessage("Play"),
         "pleaseEnterAValidPhoneNumber": MessageLookupByLibrary.simpleMessage(

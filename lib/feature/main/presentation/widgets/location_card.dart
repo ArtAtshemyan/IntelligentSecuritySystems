@@ -6,28 +6,25 @@ import 'package:intelligent_security_systems/feature/payment/presentation/pages/
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../data/models/buildings_res_params.dart';
 
 class LocationCards extends StatelessWidget {
-  const LocationCards({super.key});
+  final List<Building> buildings;
+  const LocationCards({required this.buildings ,super.key});
 
   @override
   Widget build(BuildContext context) {
-    // return ListView.builder(
-    //   scrollDirection: Axis.horizontal,
-    //   itemCount: 2,
-    //   itemBuilder: (BuildContext context, int index) {
-    //     return _card(true, 'Erevan', 'SSS');
-    //   },
-    return ListView(
+    return ListView.builder(
       scrollDirection: Axis.horizontal,
-      children: [
-        _card(context,true, '6 Vratsakan st.', 'Debt: -6000 AMDSSS'),
-        _card(context,false, 'Azatutyun 20', 'Condominium nam'),
-      ],
+      itemCount: buildings.length,
+      itemBuilder: (BuildContext context, int index) {
+        return _card(context: context, blocked: false, address: buildings[index].address,subTitle: buildings[index].id.toString());
+      },
     );
   }
 
-  Widget _card(BuildContext context,bool deposit, String location, String subTitle) {
+  Widget _card(
+      {required BuildContext context, required bool blocked, required String address, String subTitle = ''}) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minWidth: 310,
@@ -38,8 +35,8 @@ class LocationCards extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              deposit ? const Color(0xFFFF5457) : const Color(0xFFE9C9F7),
-              deposit ? const Color(0xFFFF0004) : const Color(0xFFD393EF),
+              blocked ? const Color(0xFFFF5457) : const Color(0xFFE9C9F7),
+              blocked ? const Color(0xFFFF0004) : const Color(0xFFD393EF),
             ],
             begin: const Alignment(-0.04, -1.0),
             end: const Alignment(1.0, 0.33),
@@ -53,32 +50,30 @@ class LocationCards extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SvgPicture.asset(
-                AppVectors.location,
-                color: deposit
-                    ? AppColors.lightBackground
-                    : AppColors.darkBackground,
+                AppVectors.location
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      location,
+                      address,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: deposit
+                        color: blocked
                             ? AppColors.lightBackground
                             : AppColors.darkBackground,
                       ),
                     ),
                     Text(
-                      subTitle,
+                      blocked ? S.of(context).debtDebAmd(-6000) : 'ID: $subTitle',
                       style: TextStyle(
                         fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: deposit
+                        fontWeight: FontWeight.w700,
+                        color: blocked
                             ? AppColors.lightBackground
                             : AppColors.darkBackground,
                       ),
@@ -86,7 +81,7 @@ class LocationCards extends StatelessWidget {
                   ],
                 ),
               ),
-              deposit ? _playButton(context) : const SizedBox(),
+              blocked ? _playButton(context) : const SizedBox(),
             ],
           ),
         ),

@@ -14,7 +14,7 @@ import '../../../../core/assets/app_vectors.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../service_locator.dart';
-import '../../../home/presentation/pages/home.dart';
+import '../../../home/presentation/pages/home_navigation.dart';
 import '../../data/models/signin_req_params.dart';
 import '../../domain/usecases/sign_in.dart';
 
@@ -55,12 +55,11 @@ class _SignInPageState extends State<SignInPage> {
             if (state is ButtonSuccessState) {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
+                MaterialPageRoute(builder: (context) => const HomeNavigationPage()),
                 (Route<dynamic> route) => false,
               );
             } else if (state is ButtonFailureState) {
-              print(['error-------',state.errorMessage]);
-              var snackBar = SnackBar(content: Text(state.errorMessage));
+              var snackBar = SnackBar(content: Text(state.errorMessage),backgroundColor: AppColors.red,);
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
           },
@@ -179,11 +178,10 @@ class _SignInPageState extends State<SignInPage> {
   Widget _createAccountButton(BuildContext context) {
     return Builder(builder: (context) {
       return BasicAppButton(
-        title: S.of(context).signUp,
+        title: S.of(context).signIn,
         onPressed: _passwordCon.text.isNotEmpty && _emailCon.text.isNotEmpty
             ? () {
                 if (_signupFormKey.currentState?.validate() ?? false) {
-                  print([_deviceInformation.deviceName,_deviceInformation.deviceId]);
                   context.read<ButtonStateCubit>().execute(
                         useCase: sl<SignInUseCase>(),
                         params: SignInReqParams(
