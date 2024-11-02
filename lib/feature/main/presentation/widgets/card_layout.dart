@@ -3,7 +3,6 @@ import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mo
 import 'package:intelligent_security_systems/core/theme/app_colors.dart';
 
 import '../../../../generated/l10n.dart';
-import '../../../smart_intercom/presentation/pages/smart_intercom.dart';
 
 class CardLayout extends StatelessWidget {
   final VoidCallback? onPress;

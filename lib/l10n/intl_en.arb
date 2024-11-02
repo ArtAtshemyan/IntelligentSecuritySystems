@@ -45,5 +45,11 @@
   "personalInformation": "Personal Information",
   "activeService": "Active Service",
   "paymentMethods": "Payment Methods",
-  "changePassword": "Change Password"
+  "changePassword": "Change Password",
+  "logOut": "Log Out",
+  "record": "Record",
+  "mute": "Mute",
+  "sound": "Sound",
+  "invalidVerificationCode": "Invalid verification code",
+  "unknownException": "Unknown Exception"
 }

@@ -3,12 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mode.dart';
-import 'package:intelligent_security_systems/common/helpers/utils/input_utils.dart';
+import 'package:intelligent_security_systems/common/helpers/extension/validation.dart';
 import 'package:intelligent_security_systems/feature/auth/data/models/signup_req_params.dart';
 import 'package:intelligent_security_systems/feature/auth/data/models/verification_req_params.dart';
 import 'package:intelligent_security_systems/feature/auth/domain/usecases/verification.dart';
 import 'package:intelligent_security_systems/feature/home/presentation/pages/home_navigation.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:pin_code_fields/pin_code_fields.dart' hide PinTheme;
+import 'package:pinput/pinput.dart';
 
 import '../../../../common/bloc/button/button_state.dart';
 import '../../../../common/bloc/button/button_state_cubit.dart';
@@ -31,11 +32,9 @@ class _VerificationState extends State<VerificationPage> {
   final TextEditingController _confirmCodeCon = TextEditingController();
   final _confirmFormKey = GlobalKey<FormState>();
   StreamController<ErrorAnimationType>? errorController;
-  bool hasError = false;
-  String currentText = "";
+  final FocusNode _focusNode = FocusNode();
   late DeviceInformation deviceInformation;
   NotificationService notificationService = NotificationService();
-
 
   @override
   void initState() {
@@ -51,6 +50,8 @@ class _VerificationState extends State<VerificationPage> {
   @override
   void dispose() {
     errorController!.close();
+    _confirmCodeCon.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -64,37 +65,30 @@ class _VerificationState extends State<VerificationPage> {
               if (state is ButtonSuccessState) {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomeNavigationPage()),
+                  MaterialPageRoute(
+                      builder: (context) => const HomeNavigationPage()),
                   (Route<dynamic> route) => false,
                 );
               } else if (state is ButtonFailureState) {
-                var snackBar = SnackBar(content: Text(state.errorMessage));
+                var snackBar = SnackBar(content: Text(state.errorMessage.message??S.of(context).unknownException));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
             },
             child: SafeArea(
-              minimum: const EdgeInsets.only(top: 64, right: 16, left: 16),
               child: SingleChildScrollView(
+                padding: const EdgeInsets.only(
+                    top: 16.0, right: 16.0, left: 16.0, bottom: 10.0),
                 child: Form(
                   key: _confirmFormKey,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 32.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: _verification(),
-                        ),
-                        const SizedBox(height: 16),
-                        _desc(),
-                        const SizedBox(height: 24),
-                        _confirmCodeField(),
-                        const SizedBox(height: 16),
-                        _confirmButton(context)
-                      ],
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _verification(),
+                      _desc(),
+                      _confirmCodeField(),
+                      _confirmButton(context)
+                    ],
                   ),
                 ),
               ),
@@ -104,91 +98,95 @@ class _VerificationState extends State<VerificationPage> {
   }
 
   Widget _verification() {
-    return Text(
-      S.of(context).verification,
-      textAlign: TextAlign.start,
-      style: TextStyle(
-          color:
-              context.isDarkMode ? AppColors.lightBackground : AppColors.black,
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0),
+      child: Text(
+        S.of(context).verification,
+        textAlign: TextAlign.start,
+        style: TextStyle(
+          color: context.isDarkMode
+              ? AppColors.lightBackground
+              : AppColors.darkBackground,
           fontWeight: FontWeight.w700,
-          fontSize: 24),
+          fontSize: 24,
+        ),
+      ),
     );
   }
 
   Widget _desc() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          S.of(context).SentDigitCode,
-          textAlign: TextAlign.start,
-          style: TextStyle(
-            color: context.isDarkMode
-                ? AppColors.lightBackground
-                : AppColors.black,
-            fontWeight: FontWeight.w400,
-            fontSize: 14,
-          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: '${S.of(context).SentDigitCode} ',
+              style: TextStyle(
+                color: context.isDarkMode
+                    ? AppColors.lightBackground
+                    : AppColors.darkBackground,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.25,
+              ),
+            ),
+            TextSpan(
+              text: '+374 ** ** ** ${widget.signupReq.phoneNumber.length - 1}',
+              style: TextStyle(
+                color: context.isDarkMode
+                    ? AppColors.lightBackground
+                    : AppColors.darkBackground,
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.25,
+              ),
+            ),
+            const TextSpan(
+              text: '.',
+              style: TextStyle(
+                color: Color(0xFF49454F),
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.25,
+              ),
+            ),
+          ],
         ),
-        Text(
-          InputUtils.maskPhoneNumber(widget.signupReq.phoneNumber),
-          textAlign: TextAlign.start,
-          style: TextStyle(
-            color: context.isDarkMode
-                ? AppColors.lightBackground
-                : AppColors.black,
-            fontWeight: FontWeight.w700,
-            fontSize: 14,
-          ),
-        ),
-      ],
+      ),
     );
   }
 
   Widget _confirmCodeField() {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 10.0),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: PinCodeTextField(
-            appContext: context,
-            pastedTextStyle: TextStyle(
-                color: context.isDarkMode
-                    ? AppColors.lightGrey
-                    : AppColors.darkGrey,
-                fontWeight: FontWeight.w400,
-                fontSize: 16),
-            length: 6,
-            pinTheme: PinTheme(
-              inactiveFillColor: context.isDarkMode
-                  ? AppColors.darkBackground
-                  : AppColors.lightBackground,
-              selectedFillColor: context.isDarkMode
-                  ? AppColors.darkBackground
-                  : AppColors.lightBackground,
-              shape: PinCodeFieldShape.box,
-              inactiveColor: AppColors.primary,
-              borderRadius: BorderRadius.circular(4),
-              fieldHeight: 56,
-              fieldWidth: 40,
-              activeFillColor: context.isDarkMode
-                  ? AppColors.lightBackground
-                  : AppColors.darkBackground,
-            ),
-            cursorColor: Colors.black,
-            errorAnimationController: errorController,
-            controller: _confirmCodeCon,
-            keyboardType: TextInputType.number,
-            onCompleted: (v) {
-              debugPrint("Completed");
-            },
-            onChanged: (value) {
-              setState(() {
-                currentText = value;
-              });
-            },
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12.0,
+        vertical: 32.0,
+      ),
+      child: Pinput(
+        length: 6,
+        focusNode: _focusNode,
+        defaultPinTheme: PinTheme(
+          width: 40,
+          height: 56,
+          textStyle: const TextStyle(
+            color: Color(0xFF49454F),
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            letterSpacing: 0.50,
           ),
-        ));
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.darkGrey),
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
+        validator: (value) {
+          return value!.isValidVerCode;
+        },
+        hapticFeedbackType: HapticFeedbackType.lightImpact,
+        controller: _confirmCodeCon,
+      ),
+    );
   }
 
   Widget _confirmButton(BuildContext context) {
@@ -196,18 +194,18 @@ class _VerificationState extends State<VerificationPage> {
       builder: (context) {
         return BasicAppButton(
           title: S.of(context).next,
-          onPressed: _confirmCodeCon.text.isNotEmpty
+          onPressed: _confirmCodeCon.text.length > 5
               ? () {
                   if (_confirmFormKey.currentState?.validate() ?? false) {
                     context.read<ButtonStateCubit>().execute(
                           useCase: sl<VerificationUseCase>(),
                           params: VerificationReqParams(
-                              email: widget.signupReq.email,
-                              phoneNumber: widget.signupReq.phoneNumber,
-                              password: widget.signupReq.password,
-                              deviceId: deviceInformation.deviceId,
-                              verificationConde: _confirmCodeCon.text,
-                              deviceModel: deviceInformation.deviceName,
+                            email: widget.signupReq.email,
+                            phoneNumber: widget.signupReq.phoneNumber,
+                            password: widget.signupReq.password,
+                            deviceId: deviceInformation.deviceId,
+                            verificationConde: _confirmCodeCon.text,
+                            deviceModel: deviceInformation.deviceName,
                           ),
                         );
                   }

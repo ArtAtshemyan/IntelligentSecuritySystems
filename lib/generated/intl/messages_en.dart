@@ -52,8 +52,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "faceManagement":
             MessageLookupByLibrary.simpleMessage("Face Management"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "invalidVerificationCode":
+            MessageLookupByLibrary.simpleMessage("Invalid verification code"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
+        "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "medium": MessageLookupByLibrary.simpleMessage("Medium"),
+        "mute": MessageLookupByLibrary.simpleMessage("Mute"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
@@ -71,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please enter a valid phone number."),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "record": MessageLookupByLibrary.simpleMessage("Record"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "signinDescription": MessageLookupByLibrary.simpleMessage(
@@ -78,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signupDescription": MessageLookupByLibrary.simpleMessage(
             "Sign up and easily access all the essential controls and features."),
         "smartIntercom": MessageLookupByLibrary.simpleMessage("Smart Intercom"),
+        "sound": MessageLookupByLibrary.simpleMessage("Sound"),
         "strong": MessageLookupByLibrary.simpleMessage("Strong"),
         "surveillanceCameras":
             MessageLookupByLibrary.simpleMessage("Surveillance Cameras"),
@@ -86,6 +92,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "thisFieldIsRequired":
             MessageLookupByLibrary.simpleMessage("This field is required"),
         "tools": MessageLookupByLibrary.simpleMessage("Tools"),
+        "unknownException":
+            MessageLookupByLibrary.simpleMessage("Unknown Exception"),
         "verification": MessageLookupByLibrary.simpleMessage("Verification"),
         "veryWeak": MessageLookupByLibrary.simpleMessage("Very Weak"),
         "weak": MessageLookupByLibrary.simpleMessage("Weak")

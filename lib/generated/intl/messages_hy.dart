@@ -52,8 +52,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "faceManagement":
             MessageLookupByLibrary.simpleMessage("Face Management"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "invalidVerificationCode":
+            MessageLookupByLibrary.simpleMessage("Invalid verification code"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
+        "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "medium": MessageLookupByLibrary.simpleMessage("Միջին"),
+        "mute": MessageLookupByLibrary.simpleMessage("Mute"),
         "next": MessageLookupByLibrary.simpleMessage("հաջորդ"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
         "password": MessageLookupByLibrary.simpleMessage("Գաղտնաբառ"),
@@ -72,6 +76,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "privacyPolicy": MessageLookupByLibrary.simpleMessage(
             "Գաղտնիության քաղաքականություն"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "record": MessageLookupByLibrary.simpleMessage("Record"),
         "signIn": MessageLookupByLibrary.simpleMessage("Մուտք գործեք"),
         "signUp": MessageLookupByLibrary.simpleMessage("Գրանցվել"),
         "signinDescription": MessageLookupByLibrary.simpleMessage(
@@ -79,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "signupDescription": MessageLookupByLibrary.simpleMessage(
             "Գրանցվեք և հեշտությամբ մուտք գործեք բոլոր հիմնական վերահսկիչները և հնարավորությունները:"),
         "smartIntercom": MessageLookupByLibrary.simpleMessage("Smart Intercom"),
+        "sound": MessageLookupByLibrary.simpleMessage("Sound"),
         "strong": MessageLookupByLibrary.simpleMessage("Ուժեղ"),
         "surveillanceCameras":
             MessageLookupByLibrary.simpleMessage("Surveillance Cameras"),
@@ -87,6 +93,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "thisFieldIsRequired":
             MessageLookupByLibrary.simpleMessage("Այս դաշտը պարտադիր է"),
         "tools": MessageLookupByLibrary.simpleMessage("Tools"),
+        "unknownException":
+            MessageLookupByLibrary.simpleMessage("Unknown Exception"),
         "verification": MessageLookupByLibrary.simpleMessage("Ստուգում"),
         "veryWeak": MessageLookupByLibrary.simpleMessage("Very Weak"),
         "weak": MessageLookupByLibrary.simpleMessage("Թույլ")

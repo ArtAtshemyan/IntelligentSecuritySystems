@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:intelligent_security_systems/core/constants/shared_perfereces_keys.dart';
+import 'package:intelligent_security_systems/core/error/error.dart';
 import 'package:intelligent_security_systems/feature/auth/data/models/signin_req_params.dart';
 import 'package:intelligent_security_systems/feature/auth/data/models/verification_req_params.dart';
 import 'package:intelligent_security_systems/feature/auth/data/source/auth_api_service.dart';

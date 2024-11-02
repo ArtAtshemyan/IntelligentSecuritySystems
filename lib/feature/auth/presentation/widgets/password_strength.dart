@@ -14,7 +14,12 @@ class PasswordStrength extends StatelessWidget {
   Widget build(BuildContext context) {
     return password.length >= 6
         ? Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+            padding: const EdgeInsets.only(
+              left: 16.0,
+              right: 16.0,
+              top: 4.0,
+              bottom: 16.0,
+            ),
             child: Row(
               children: [
                 Padding(

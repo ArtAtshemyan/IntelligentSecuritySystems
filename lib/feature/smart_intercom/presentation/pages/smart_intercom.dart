@@ -5,6 +5,8 @@ import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mo
 import 'package:intelligent_security_systems/common/widgets/basic_app_bar.dart';
 import 'package:intelligent_security_systems/core/assets/app_images.dart';
 import 'package:intelligent_security_systems/core/assets/app_vectors.dart';
+import 'package:intelligent_security_systems/feature/camera_mode/presentation/pages/camera_mode.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
@@ -43,7 +45,17 @@ class SmartIntercomPage extends StatelessWidget {
                       return _cameraComp(
                           context: context,
                           locked: buildings![index].devices[0].active == 0,
-                          address: buildings![index].address);
+                          address: buildings![index].address,
+                          onPress: (){
+                            PersistentNavBarNavigator.pushNewScreen(
+                              context,
+                              screen: CameraModePage(address: buildings![index].address, cameraId: buildings![index].id,),
+                              withNavBar: false,
+                              pageTransitionAnimation:
+                              PageTransitionAnimation.cupertino,
+                            );
+                          }
+                      );
                     },
                   ),
                 ),
@@ -88,7 +100,9 @@ class SmartIntercomPage extends StatelessWidget {
   Widget _cameraComp(
       {required BuildContext context,
       required bool locked,
-      required String address}) {
+      required String address,
+      required VoidCallback onPress,
+      }) {
     return Padding(
       padding: const EdgeInsets.only(right: 16.0),
       child: Material(
@@ -135,7 +149,7 @@ class SmartIntercomPage extends StatelessWidget {
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: _payButton(locked),
+                child: _payButton(onPress: onPress ,locked: locked),
               )
             ],
           ),
@@ -144,9 +158,9 @@ class SmartIntercomPage extends StatelessWidget {
     );
   }
 
-  Widget _payButton(bool locked) {
+  Widget _payButton({required VoidCallback onPress ,required bool locked}) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onPress,
       style: ElevatedButton.styleFrom(
           backgroundColor: locked ? AppColors.red : AppColors.primary),
       child: Row(

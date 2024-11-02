@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:intelligent_security_systems/core/error/error.dart';
 import 'package:intelligent_security_systems/core/network/dio_client.dart';
 
 import '../../../../core/constants/app_urls.dart';
@@ -21,7 +22,8 @@ class AuthApiServiceImpl extends AuthApiService {
       var response = await sl<DioClient>().post(AppUrls.signupEndpoint,data: signupReq.toMap());
       return Right(response);
     }on DioException catch(e) {
-      return Left(e.response!.data['message']);
+      ApiResponse errorResponse = ApiResponse.fromJson(e.response!.data);
+      return Left(errorResponse);
     }
   }
 
@@ -31,7 +33,8 @@ class AuthApiServiceImpl extends AuthApiService {
       var response = await sl<DioClient>().post(AppUrls.verificationEndpoint,data: verificationReqParams.toMap());
       return Right(response);
     }on DioException catch(e) {
-      return Left(e.response!.data['message']);
+      ApiResponse errorResponse = ApiResponse.fromJson(e.response!.data);
+      return Left(errorResponse);
     }
   }
 
@@ -41,7 +44,8 @@ class AuthApiServiceImpl extends AuthApiService {
       var response = await sl<DioClient>().post(AppUrls.signInEndpoint,data: signInReq.toMap());
       return Right(response);
     }on DioException catch(e) {
-      return Left(e.response!.data['message']);
+      ApiResponse errorResponse = ApiResponse.fromJson(e.response!.data);
+      return Left(errorResponse);
     }
   }
 

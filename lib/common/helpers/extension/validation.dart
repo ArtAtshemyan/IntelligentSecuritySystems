@@ -27,9 +27,20 @@ extension ValidationExtension on String {
   String? get isValidPassword {
     String? result;
     if (isEmpty) {
-      return 'This field is required';
+      return S.current.thisFieldIsRequired;
     } else if (length < 6) {
       return 'Password must be at least 6 characters long';
+    }
+    return result;
+  }
+
+  String? get isValidVerCode {
+    final codeRegExp = RegExp(r"^\d{6}$");
+    String? result;
+    if (isEmpty) {
+      result = S.current.thisFieldIsRequired;
+    } else if (!(codeRegExp.hasMatch(this))) {
+      result = S.current.invalidVerificationCode;
     }
     return result;
   }

@@ -42,18 +42,21 @@ class ProfilePage extends StatelessWidget {
                     iconPath: AppVectors.avatar,
                     title: S.of(context).personalInformation,
                     notCount: 0,
+                    onPress: () {},
                   ),
                   _profileControlItem(
                     context: context,
                     iconPath: AppVectors.activeService,
                     title: S.of(context).activeService,
                     notCount: 1,
+                    onPress: () {},
                   ),
                   _profileControlItem(
                     context: context,
                     iconPath: AppVectors.paymentService,
                     title: S.of(context).paymentMethods,
                     notCount: 3,
+                    onPress: () {},
                   ),
                 ],
               ),
@@ -64,13 +67,15 @@ class ProfilePage extends StatelessWidget {
               iconPath: AppVectors.changePassword,
               title: S.of(context).changePassword,
               notCount: 0,
+              onPress: () {},
             ),
             const SizedBox(height: 16.0),
             _profileControlItem(
               context: context,
               iconPath: AppVectors.logOut,
-              title: 'Log Out',
+              title: S.of(context).logOut,
               notCount: 0,
+              onPress: () {},
             ),
           ],
         ),
@@ -124,8 +129,10 @@ class ProfilePage extends StatelessWidget {
     required String iconPath,
     required String title,
     required int notCount,
+    required VoidCallback onPress,
   }) {
     return GestureDetector(
+      onTap: onPress,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         decoration: ShapeDecoration(
