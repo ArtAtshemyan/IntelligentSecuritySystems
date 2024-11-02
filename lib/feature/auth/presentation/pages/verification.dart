@@ -8,7 +8,6 @@ import 'package:intelligent_security_systems/feature/auth/data/models/signup_req
 import 'package:intelligent_security_systems/feature/auth/data/models/verification_req_params.dart';
 import 'package:intelligent_security_systems/feature/auth/domain/usecases/verification.dart';
 import 'package:intelligent_security_systems/feature/home/presentation/pages/home_navigation.dart';
-import 'package:pin_code_fields/pin_code_fields.dart' hide PinTheme;
 import 'package:pinput/pinput.dart';
 
 import '../../../../common/bloc/button/button_state.dart';
@@ -31,7 +30,6 @@ class VerificationPage extends StatefulWidget {
 class _VerificationState extends State<VerificationPage> {
   final TextEditingController _confirmCodeCon = TextEditingController();
   final _confirmFormKey = GlobalKey<FormState>();
-  StreamController<ErrorAnimationType>? errorController;
   final FocusNode _focusNode = FocusNode();
   late DeviceInformation deviceInformation;
   NotificationService notificationService = NotificationService();
@@ -40,7 +38,6 @@ class _VerificationState extends State<VerificationPage> {
   void initState() {
     super.initState();
     _getDeviceInformation();
-    errorController = StreamController<ErrorAnimationType>();
     notificationService.requestNotificationPermission();
     notificationService.getDeviceToken();
     notificationService.firebaseInit(context);
@@ -49,7 +46,6 @@ class _VerificationState extends State<VerificationPage> {
 
   @override
   void dispose() {
-    errorController!.close();
     _confirmCodeCon.dispose();
     _focusNode.dispose();
     super.dispose();

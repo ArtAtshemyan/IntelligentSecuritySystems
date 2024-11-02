@@ -35,12 +35,12 @@ class SmartIntercomPage extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: 332,
+                  height: 366,
                   child: ListView.builder(
                     itemCount: buildings!.length,
-                    itemExtent: 360,
+                    itemExtent: MediaQuery.sizeOf(context).width-32,
                     scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.all(3),
+                    padding: const EdgeInsets.only(bottom:  16.0),
                     itemBuilder: (context, index) {
                       return _cameraComp(
                           context: context,
@@ -103,57 +103,47 @@ class SmartIntercomPage extends StatelessWidget {
       required String address,
       required VoidCallback onPress,
       }) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 16.0),
-      child: Material(
-        borderRadius: BorderRadius.circular(12),
-        elevation: 5,
-        child: Container(
-          decoration: ShapeDecoration(
-            color: context.isDarkMode
-                ? AppColors.darkBackground
-                : AppColors.lightBackground,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+    return Card.filled(
+      elevation: 7,
+      color: AppColors.lightBackground,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SvgPicture.asset(AppVectors.location),
+                const SizedBox(width: 4),
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 2,
+                  child: Text(
+                    address,
+                    textAlign: TextAlign.start,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.arrow_forward_ios_rounded)
+                ),
+              ],
             ),
           ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(AppVectors.location),
-                    const SizedBox(width: 4),
-                    Flexible(
-                      fit: FlexFit.tight,
-                      flex: 2,
-                      child: Text(
-                        address,
-                        textAlign: TextAlign.start,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.arrow_forward_ios_rounded))
-                  ],
-                ),
-              ),
-              Image.asset(AppImages.media),
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: _payButton(onPress: onPress ,locked: locked),
-              )
-            ],
-          ),
-        ),
+          Image.asset(AppImages.media,),
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: _payButton(onPress: onPress ,locked: locked),
+          )
+        ],
       ),
     );
   }

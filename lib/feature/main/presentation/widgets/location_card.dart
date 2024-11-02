@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intelligent_security_systems/core/assets/app_vectors.dart';
 import 'package:intelligent_security_systems/core/theme/app_colors.dart';
 import 'package:intelligent_security_systems/feature/payment/presentation/pages/payment.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -10,82 +8,60 @@ import '../../data/models/buildings_res_params.dart';
 
 class LocationCards extends StatelessWidget {
   final List<Building> buildings;
-  const LocationCards({required this.buildings ,super.key});
+  const LocationCards({required this.buildings, super.key});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: buildings.length,
+      itemExtent: MediaQuery.sizeOf(context).width - 64,
       itemBuilder: (BuildContext context, int index) {
-        return _card(context: context, blocked: false, address: buildings[index].address,subTitle: buildings[index].id.toString());
+        return _card(
+            context: context,
+            blocked: true,
+            address: buildings[index].address,
+            subTitle: buildings[index].id.toString());
       },
     );
   }
 
-  Widget _card(
-      {required BuildContext context, required bool blocked, required String address, String subTitle = ''}) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        minWidth: 310,
+  Widget _card({
+    required BuildContext context,
+    required bool blocked,
+    required String address,
+    String subTitle = '',
+  }) {
+    return ListTile(
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+      tileColor: blocked ? AppColors.red : AppColors.lightBackground,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+        side: const BorderSide(color: Color(0xff79747E)),
       ),
-      child: Container(
-        height: 50,
-        margin: const EdgeInsets.only(right: 15, left: 1),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              blocked ? const Color(0xFFFF5457) : const Color(0xFFE9C9F7),
-              blocked ? const Color(0xFFFF0004) : const Color(0xFFD393EF),
-            ],
-            begin: const Alignment(-0.04, -1.0),
-            end: const Alignment(1.0, 0.33),
-          ),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                AppVectors.location
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      address,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: blocked
-                            ? AppColors.lightBackground
-                            : AppColors.darkBackground,
-                      ),
-                    ),
-                    Text(
-                      blocked ? S.of(context).debtDebAmd(-6000) : 'ID: $subTitle',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        color: blocked
-                            ? AppColors.lightBackground
-                            : AppColors.darkBackground,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              blocked ? _playButton(context) : const SizedBox(),
-            ],
-          ),
+      leading: Icon(
+        Icons.location_pin,
+        size: 24,
+        color: blocked ? AppColors.lightBackground : AppColors.darkBackground,
+      ),
+      title: Text(
+        address,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: blocked ? AppColors.lightBackground : AppColors.darkBackground,
         ),
       ),
+      subtitle: Text(
+        blocked ? S.of(context).debtDebAmd(-6000) : 'ID: $subTitle',
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w700,
+          color: blocked ? AppColors.lightBackground : AppColors.darkBackground,
+        ),
+      ),
+      trailing: blocked ? _playButton(context) : const SizedBox(),
     );
   }
 

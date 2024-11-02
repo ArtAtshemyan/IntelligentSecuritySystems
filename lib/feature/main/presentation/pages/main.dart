@@ -48,7 +48,7 @@ class MainPage extends StatelessWidget {
                           buildings: state.buildingsResParams.buildings,
                         ),
                       ),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 24),
                       Column(
                         children: state.buildingsResParams.buildings[0].devices
                             .map((devices) {

@@ -48,7 +48,7 @@ class CardLayout extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.center,
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.symmetric(vertical:  16.0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,7 +84,7 @@ class CardLayout extends StatelessWidget {
                                 Icons.arrow_forward_ios_rounded,
                                 color: context.isDarkMode
                                     ? AppColors.lightBackground
-                                    : AppColors.darkBackground,
+                                    : AppColors.darkGrey,
                               )
                       ],
                     ),

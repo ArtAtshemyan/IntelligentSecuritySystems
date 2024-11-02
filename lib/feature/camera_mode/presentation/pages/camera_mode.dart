@@ -20,6 +20,7 @@ class CameraModePage extends StatelessWidget {
       ),
       backgroundColor: AppColors.darkBackground,
       body: SingleChildScrollView(
+        // physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.all(0.0),
         child: Column(
           children: [
@@ -32,6 +33,7 @@ class CameraModePage extends StatelessWidget {
                   GridView.count(
                     crossAxisCount: 3,
                     shrinkWrap: true,
+                    childAspectRatio: 0.5,
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       _cameraControlButton(
@@ -39,24 +41,28 @@ class CameraModePage extends StatelessWidget {
                         icon: CupertinoIcons.lock_fill,
                         onPress: () {},
                         title: S.of(context).open,
+                        active: false,
                       ),
                       _cameraControlButton(
                         context: context,
                         icon: CupertinoIcons.mic_fill,
                         onPress: () {},
                         title: S.of(context).mute,
+                        active: false,
                       ),
                       _cameraControlButton(
                         context: context,
                         icon: CupertinoIcons.speaker_2,
                         onPress: () {},
                         title: S.of(context).sound,
+                        active: false,
                       ),
                       _cameraControlButton(
                         context: context,
                         icon: CupertinoIcons.smallcircle_fill_circle,
                         onPress: () {},
                         title: S.of(context).record,
+                        active: true,
                       ),
                     ],
                   ),
@@ -131,12 +137,12 @@ class CameraModePage extends StatelessWidget {
     required IconData icon,
     required VoidCallback onPress,
     required String title,
+    required bool active
   }) {
     return Container(
-      decoration: const BoxDecoration(
-        border: Border(
-          // left: BorderSide(color: Color(0xFF49454F)),
-          // top: BorderSide(color: Color(0xFF49454F)),
+      decoration: BoxDecoration(
+        color: active? Colors.white.withOpacity(0.11999999731779099): Colors.transparent,
+        border: const Border(
           right: BorderSide(width: 0.50, color: Color(0xFF49454F)),
           bottom: BorderSide(width: 0.50, color: Color(0xFF49454F)),
         ),
