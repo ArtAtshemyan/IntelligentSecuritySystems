@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intelligent_security_systems/common/widgets/basic_app_bar.dart';
 import 'package:intelligent_security_systems/core/assets/app_images.dart';
 import 'package:intelligent_security_systems/core/assets/app_vectors.dart';
+import 'package:intelligent_security_systems/core/theme/app_colors.dart';
 import 'package:intelligent_security_systems/feature/main/presentation/bloc/building_display_cubit.dart';
 import 'package:intelligent_security_systems/feature/main/presentation/bloc/building_display_state.dart';
 import 'package:intelligent_security_systems/feature/main/presentation/widgets/card_layout.dart';
@@ -27,6 +28,7 @@ class MainPage extends StatelessWidget {
         ),
         hideBack: true,
       ),
+      backgroundColor: AppColors.whitBac,
       body: BlocProvider(
         create: (context) => BuildingDisplayCubit()..getBuildingInformation(),
         child: BlocBuilder<BuildingDisplayCubit, BuildingDisplayState>(
@@ -43,7 +45,7 @@ class MainPage extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 100,
+                        height: 82,
                         child: LocationCards(
                           buildings: state.buildingsResParams.buildings,
                         ),
@@ -88,11 +90,14 @@ class MainPage extends StatelessWidget {
                             blocked: true,
                           ),
                           const SizedBox(height: 16),
-                          CardLayout(
-                            onPress: null,
-                            iconPath: AppImages.barrier,
-                            title: S.of(context).barrier,
-                            blocked: true,
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 10),
+                            child: CardLayout(
+                              onPress: null,
+                              iconPath: AppImages.barrier,
+                              title: S.of(context).barrier,
+                              blocked: true,
+                            ),
                           ),
                         ],
                       )
@@ -101,6 +106,7 @@ class MainPage extends StatelessWidget {
                 ),
               );
             }
+            /// ToDo add loading and defoult
             if (state is BuildingLoadFailure) {
               return Text(state.errorMessage);
             }

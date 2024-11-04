@@ -17,5 +17,6 @@ class AppVectors {
   static const String paymentService = '${_basePath}payment_icon$_format';
   static const String logOut = '${_basePath}log_out_icon$_format';
   static const String changePassword = '${_basePath}change_password_icon$_format';
+  static const String qrCodeGenerationIcon = '${_basePath}qr_code_generate_icon$_format';
   //location_on
 }

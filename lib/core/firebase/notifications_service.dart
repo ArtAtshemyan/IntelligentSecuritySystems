@@ -50,7 +50,7 @@ class NotificationService {
     );
 
     String? token = await messaging.getToken();
-    print("token=> $token");
+    print("token-------------------=> $token");
     return token!;
   }
 
@@ -78,10 +78,10 @@ class NotificationService {
       AndroidNotification? android = message.notification!.android;
 
       if (kDebugMode) {
-        print("notifications title:${notification!.title}");
-        print("notifications body:${notification.body}");
-        print('count:${android!.count}');
-        print('data:${message.data.toString()}');
+        print("notifications------------- title:${notification!.title}");
+        print("notifications------------- body:${notification.body}");
+        print('count------------- :${android!.count}');
+        print('data------------- :${message.data.toString()}');
       }
 
       if (Platform.isIOS) {
@@ -98,12 +98,12 @@ class NotificationService {
   //handle tap on notification when app is in background or terminated
   Future<void> setupInteractMessage(BuildContext context) async {
     // // when app is terminated
-    // RemoteMessage? initialMessage =
-    //     await FirebaseMessaging.instance.getInitialMessage();
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
 
-    // if (initialMessage != null) {
-    //   handleMessage(context, initialMessage);
-    // }
+    if (initialMessage != null) {
+      handleMessage(context, initialMessage);
+    }
 
     //when app ins background
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
@@ -178,8 +178,8 @@ class NotificationService {
       BuildContext context,
       RemoteMessage message,
       ) async {
-    print(
-        "Navigating to appointments screen. Hit here to handle the message. Message data: ${message.data}");
+
+    print("FB Notification to ap ------------------: ${message.data}");
 
     // Navigator.push(
     //   context,

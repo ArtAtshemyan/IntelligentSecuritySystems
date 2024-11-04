@@ -579,6 +579,166 @@ class S {
       args: [],
     );
   }
+
+  /// `Generate your one time QR code`
+  String get generateYourOneTimeQrCode {
+    return Intl.message(
+      'Generate your one time QR code',
+      name: 'generateYourOneTimeQrCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Generate QR Code`
+  String get generateQrCode {
+    return Intl.message(
+      'Generate QR Code',
+      name: 'generateQrCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address`
+  String get address {
+    return Intl.message(
+      'Address',
+      name: 'address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Address`
+  String get chooseAddress {
+    return Intl.message(
+      'Choose Address',
+      name: 'chooseAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Device`
+  String get device {
+    return Intl.message(
+      'Device',
+      name: 'device',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Visitor Identity`
+  String get visitorIdentity {
+    return Intl.message(
+      'Visitor Identity',
+      name: 'visitorIdentity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Friends & Family`
+  String get friendsFamily {
+    return Intl.message(
+      'Friends & Family',
+      name: 'friendsFamily',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delivery`
+  String get delivery {
+    return Intl.message(
+      'Delivery',
+      name: 'delivery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Time period`
+  String get timePeriod {
+    return Intl.message(
+      'Time period',
+      name: 'timePeriod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{time} hours`
+  String timeHours(Object time) {
+    return Intl.message(
+      '$time hours',
+      name: 'timeHours',
+      desc: '',
+      args: [time],
+    );
+  }
+
+  /// `Generate`
+  String get generate {
+    return Intl.message(
+      'Generate',
+      name: 'generate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pay`
+  String get pay {
+    return Intl.message(
+      'Pay',
+      name: 'pay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service will resume after payment is received.`
+  String get serviceWillResumeAfterPaymentIsReceived {
+    return Intl.message(
+      'Service will resume after payment is received.',
+      name: 'serviceWillResumeAfterPaymentIsReceived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Locked`
+  String get locked {
+    return Intl.message(
+      'Locked',
+      name: 'locked',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Opened`
+  String get opened {
+    return Intl.message(
+      'Opened',
+      name: 'opened',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `to lock`
+  String get toLock {
+    return Intl.message(
+      'To lock',
+      name: 'toLock',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

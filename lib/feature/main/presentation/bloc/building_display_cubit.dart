@@ -8,6 +8,7 @@ class BuildingDisplayCubit extends Cubit<BuildingDisplayState>{
   BuildingDisplayCubit():super(BuildingLoading());
 
   void getBuildingInformation() async {
+    emit(BuildingLoading());
     var result = await sl<GetBuildingUseCase>().call('');
     return result.fold((error) {
       emit(BuildingLoadFailure(errorMessage: error));

@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(deb) => "Debt: ${deb} AMD";
 
+  static String m1(time) => "${time} hours";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SentDigitCode": MessageLookupByLibrary.simpleMessage(
@@ -29,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "accessByQrCode":
             MessageLookupByLibrary.simpleMessage("Access by QR Code"),
         "activeService": MessageLookupByLibrary.simpleMessage("Active Service"),
+        "address": MessageLookupByLibrary.simpleMessage("Address"),
         "and": MessageLookupByLibrary.simpleMessage("և"),
         "appTitle": MessageLookupByLibrary.simpleMessage(
             "Intelligent Security Systems"),
@@ -38,11 +41,14 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Գրանցվելով՝ դուք ավտոմատ կերպով համաձայնում եք մեր"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("Change Password"),
+        "chooseAddress": MessageLookupByLibrary.simpleMessage("Choose Address"),
         "chooseMode": MessageLookupByLibrary.simpleMessage("Choose Mode"),
         "comingSoon": MessageLookupByLibrary.simpleMessage("Coming Soon"),
         "cont": MessageLookupByLibrary.simpleMessage("Շարունակել"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "debtDebAmd": m0,
+        "delivery": MessageLookupByLibrary.simpleMessage("Delivery"),
+        "device": MessageLookupByLibrary.simpleMessage("Device"),
         "doYouHaveAccount":
             MessageLookupByLibrary.simpleMessage("Դուք ունե՞ք հաշիվ"),
         "elevator": MessageLookupByLibrary.simpleMessage("Elevator"),
@@ -51,18 +57,28 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Էլփոստը սխալ է"),
         "faceManagement":
             MessageLookupByLibrary.simpleMessage("Face Management"),
+        "friendsFamily":
+            MessageLookupByLibrary.simpleMessage("Friends & Family"),
+        "generate": MessageLookupByLibrary.simpleMessage("Generate"),
+        "generateQrCode":
+            MessageLookupByLibrary.simpleMessage("Generate QR Code"),
+        "generateYourOneTimeQrCode": MessageLookupByLibrary.simpleMessage(
+            "Generate your one time QR code"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "invalidVerificationCode":
             MessageLookupByLibrary.simpleMessage("Invalid verification code"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
+        "locked": MessageLookupByLibrary.simpleMessage("Locked"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
         "medium": MessageLookupByLibrary.simpleMessage("Միջին"),
         "mute": MessageLookupByLibrary.simpleMessage("Mute"),
         "next": MessageLookupByLibrary.simpleMessage("հաջորդ"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
+        "opened": MessageLookupByLibrary.simpleMessage("Opened"),
         "password": MessageLookupByLibrary.simpleMessage("Գաղտնաբառ"),
         "passwordStrenght":
             MessageLookupByLibrary.simpleMessage("Գաղտնաբառի բարդ."),
+        "pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "payDebt": MessageLookupByLibrary.simpleMessage("Pay Debt"),
         "payment": MessageLookupByLibrary.simpleMessage("Payment"),
         "paymentMethods":
@@ -77,6 +93,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Գաղտնիության քաղաքականություն"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "record": MessageLookupByLibrary.simpleMessage("Record"),
+        "serviceWillResumeAfterPaymentIsReceived":
+            MessageLookupByLibrary.simpleMessage(
+                "Service will resume after payment is received."),
         "signIn": MessageLookupByLibrary.simpleMessage("Մուտք գործեք"),
         "signUp": MessageLookupByLibrary.simpleMessage("Գրանցվել"),
         "signinDescription": MessageLookupByLibrary.simpleMessage(
@@ -92,11 +111,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Պայմաններ և դրույթներ."),
         "thisFieldIsRequired":
             MessageLookupByLibrary.simpleMessage("Այս դաշտը պարտադիր է"),
+        "timeHours": m1,
+        "timePeriod": MessageLookupByLibrary.simpleMessage("Time period"),
+        "toLock": MessageLookupByLibrary.simpleMessage("to lock"),
         "tools": MessageLookupByLibrary.simpleMessage("Tools"),
         "unknownException":
             MessageLookupByLibrary.simpleMessage("Unknown Exception"),
         "verification": MessageLookupByLibrary.simpleMessage("Ստուգում"),
         "veryWeak": MessageLookupByLibrary.simpleMessage("Very Weak"),
+        "visitorIdentity":
+            MessageLookupByLibrary.simpleMessage("Visitor Identity"),
         "weak": MessageLookupByLibrary.simpleMessage("Թույլ")
       };
 }

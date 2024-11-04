@@ -1,16 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mode.dart';
 import 'package:intelligent_security_systems/common/widgets/basic_app_bar.dart';
 import 'package:intelligent_security_systems/core/assets/app_images.dart';
-import 'package:intelligent_security_systems/core/assets/app_vectors.dart';
-import 'package:intelligent_security_systems/feature/camera_mode/presentation/pages/camera_mode.dart';
+import 'package:intelligent_security_systems/feature/smart_intercom/presentation/widgets/intercom.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
 import '../../../main/data/models/buildings_res_params.dart';
+import 'access_by_qr_code.dart';
 
 class SmartIntercomPage extends StatelessWidget {
   final List<Building>? buildings;
@@ -19,47 +17,21 @@ class SmartIntercomPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: AppColors.whitBac,
         appBar: BasicAppbar(
           title: S.of(context).smartIntercom,
-          action: IconButton(
-            onPressed: () {},
-            icon: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: Icon(CupertinoIcons.person_add),
-            ),
-          ),
         ),
         body: SafeArea(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                SizedBox(
-                  height: 366,
-                  child: ListView.builder(
-                    itemCount: buildings!.length,
-                    itemExtent: MediaQuery.sizeOf(context).width-32,
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.only(bottom:  16.0),
-                    itemBuilder: (context, index) {
-                      return _cameraComp(
-                          context: context,
-                          locked: buildings![index].devices[0].active == 0,
-                          address: buildings![index].address,
-                          onPress: (){
-                            PersistentNavBarNavigator.pushNewScreen(
-                              context,
-                              screen: CameraModePage(address: buildings![index].address, cameraId: buildings![index].id,),
-                              withNavBar: false,
-                              pageTransitionAnimation:
-                              PageTransitionAnimation.cupertino,
-                            );
-                          }
-                      );
-                    },
-                  ),
+                Intercom(
+                  locked: buildings![0].devices[0].active == 0,
+                  address: buildings![0].address,
+                  cameraId: buildings![0].devices[0].id,
                 ),
-                const SizedBox(height: 32),
+                const SizedBox(height: 48.0),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -77,158 +49,97 @@ class SmartIntercomPage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 16),
-                SizedBox(
-                  height: 140,
-                  child: ListView(
-                    itemExtent: 250,
-                    padding: const EdgeInsets.all(3),
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      _toolsItems(context, () {}, AppImages.qrScan,
-                          S.of(context).accessByQrCode),
-                      _toolsItems(context, () {}, AppImages.faceScan,
-                          S.of(context).faceManagement),
-                    ],
-                  ),
+            GridView.count(
+              crossAxisCount: 2,
+              crossAxisSpacing: 16.0,
+              shrinkWrap: true,
+              childAspectRatio: 1.5,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                _toolsItems(
+                  context: context,
+                  action: () {
+                    PersistentNavBarNavigator.pushNewScreen(
+                      context,
+                      screen: AccessByQrCodePage(
+                        address: buildings![0].address,
+                        deviceList: buildings![0].devices,
+                      ),
+                      withNavBar: false,
+                      pageTransitionAnimation:
+                      PageTransitionAnimation.cupertino,
+                    );
+                  },
+                  iconPath: AppImages.qrScan,
+                  title: S.of(context).accessByQrCode,
                 ),
+
+                _toolsItems(
+                  context: context,
+                  action: () {},
+                  iconPath: AppImages.faceScan,
+                  title: S.of(context).faceManagement,
+                ),
+              ],
+            )
               ],
             ),
           ),
         ));
   }
 
-  Widget _cameraComp(
-      {required BuildContext context,
-      required bool locked,
-      required String address,
-      required VoidCallback onPress,
-      }) {
-    return Card.filled(
-      elevation: 7,
-      color: AppColors.lightBackground,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SvgPicture.asset(AppVectors.location),
-                const SizedBox(width: 4),
-                Flexible(
-                  fit: FlexFit.tight,
-                  flex: 2,
-                  child: Text(
-                    address,
-                    textAlign: TextAlign.start,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
+  Widget _toolsItems({
+    required BuildContext context,
+    required VoidCallback action,
+    required String iconPath,
+    required String title,
+  }) {
+    return GestureDetector(
+      onTap: action,
+      child: Container(
+        clipBehavior: Clip.antiAlias,
+        decoration: ShapeDecoration(
+          color: context.isDarkMode
+              ? AppColors.darkBackground
+              : AppColors.lightBackground,
+          shape: RoundedRectangleBorder(
+            side: const BorderSide(width: 1, color: Color(0xFFF4EFF4)),
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 16.0,
+            bottom: 24.0,
+            left: 16.0,
+            right: 16.0,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(iconPath),
+                    fit: BoxFit.contain,
                   ),
                 ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.arrow_forward_ios_rounded)
-                ),
-              ],
-            ),
-          ),
-          Image.asset(AppImages.media,),
-          const SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: _payButton(onPress: onPress ,locked: locked),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _payButton({required VoidCallback onPress ,required bool locked}) {
-    return ElevatedButton(
-      onPressed: onPress,
-      style: ElevatedButton.styleFrom(
-          backgroundColor: locked ? AppColors.red : AppColors.primary),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          locked
-              ? const SizedBox()
-              : const Icon(
-                  Icons.lock_open_sharp,
-                  color: AppColors.lightBackground,
-                  size: 18,
-                ),
-          const SizedBox(width: 8),
-          Text(
-            locked ? S.current.payDebt : S.current.open,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: AppColors.lightBackground,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _toolsItems(BuildContext context, VoidCallback action, String iconPath,
-      String title) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 16.0),
-      child: GestureDetector(
-        onTap: action,
-        child: Material(
-          elevation: 3,
-          borderRadius: BorderRadius.circular(12),
-          child: Container(
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              color: context.isDarkMode
-                  ? AppColors.darkBackground
-                  : AppColors.lightBackground,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(iconPath),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Center(
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        color: context.isDarkMode
-                            ? AppColors.lightBackground
-                            : AppColors.darkGrey,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  )
-                ],
               ),
-            ),
+              const SizedBox(height: 24),
+              Text(
+                title,
+                style: TextStyle(
+                  color: context.isDarkMode
+                      ? AppColors.lightBackground
+                      : AppColors.darkGrey,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                ),
+              )
+            ],
           ),
         ),
       ),

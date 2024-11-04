@@ -47,6 +47,14 @@ class _HomePageState extends State<HomeNavigationPage> {
       confineToSafeArea: true,
       navBarHeight: 80,
       navBarStyle: NavBarStyle.style6,
+      decoration: NavBarDecoration(
+        border: Border(
+          top: BorderSide(
+            width: 0.5,
+            color: const Color(0xff79747E).withOpacity(0.3),
+          )
+        )
+      ),
 
     );
   }

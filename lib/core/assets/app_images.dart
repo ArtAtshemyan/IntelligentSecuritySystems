@@ -1,3 +1,5 @@
+import 'package:intelligent_security_systems/generated/l10n.dart';
+
 class AppImages {
   static const String _basePath = 'assets/images/';
   static const String logo = '${_basePath}logo.jpg';
@@ -9,4 +11,5 @@ class AppImages {
   static const String qrScan = '${_basePath}qr_scan.png';
   static const String faceScan = '${_basePath}face_scan.png';
   static const String elevator = '${_basePath}elevator.png';
+  static const String videoRec = '${_basePath}smart-camera-video.png';
 }

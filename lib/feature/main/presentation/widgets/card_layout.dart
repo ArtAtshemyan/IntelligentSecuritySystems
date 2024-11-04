@@ -24,75 +24,82 @@ class CardLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPress,
-      child: Material(
-        elevation: 5,
-        borderRadius: BorderRadius.circular(12),
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(width: 0, color: Colors.transparent),
-              color: context.isDarkMode
-                  ? AppColors.darkBackground
-                  : AppColors.lightBackground),
-          padding: const EdgeInsets.all(16),
-          child: Stack(
-            children: [
-              blocked
-                  ? Align(
-                      alignment: const Alignment(1, .2),
-                      child: _comingSonButton(),
-                    )
-                  : const SizedBox(),
-              Opacity(
-                opacity: blocked ? 0.3 : 1,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical:  16.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // SvgPicture.asset(iconPath),
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(iconPath),
-                              fit: BoxFit.contain,
-                            ),
+      child: Container(
+        decoration: ShapeDecoration(
+            color: context.isDarkMode
+                ? AppColors.darkBackground
+                : AppColors.lightBackground,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          shadows: const [
+             BoxShadow(
+              color: Color(0x0C000000),
+              blurRadius: 12,
+              offset: Offset(0, 8),
+              spreadRadius: 6,
+            )
+          ],
+        ),
+        padding: const EdgeInsets.all(16),
+        child: Stack(
+          children: [
+            blocked
+                ? Align(
+                    alignment: const Alignment(1, .2),
+                    child: _comingSonButton(),
+                  )
+                : const SizedBox(),
+            Opacity(
+              opacity: blocked ? 0.3 : 1,
+              child: Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical:  16.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // SvgPicture.asset(iconPath),
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(iconPath),
+                            fit: BoxFit.contain,
                           ),
                         ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            title,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: context.isDarkMode
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          title,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: context.isDarkMode
+                                ? AppColors.lightBackground
+                                : AppColors.darkBackground,
+                          ),
+                        ),
+                      ),
+                      blocked
+                          ? const SizedBox()
+                          : Icon(
+                        Icons.arrow_forward_ios_sharp,
+                        size: 16,
+                        color: context.isDarkMode
                                   ? AppColors.lightBackground
-                                  : AppColors.darkBackground,
-                            ),
-                          ),
-                        ),
-                        blocked
-                            ? const SizedBox()
-                            : Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: context.isDarkMode
-                                    ? AppColors.lightBackground
-                                    : AppColors.darkGrey,
-                              )
-                      ],
-                    ),
+                                  : AppColors.darkGrey,
+                            )
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

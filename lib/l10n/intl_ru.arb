@@ -51,5 +51,21 @@
   "mute": "Mute",
   "sound": "Sound",
   "invalidVerificationCode": "Invalid verification code",
-  "unknownException": "Unknown Exception"
+  "unknownException": "Unknown Exception",
+  "generateYourOneTimeQrCode": "Generate your one time QR code",
+  "generateQrCode": "Generate QR Code",
+  "address": "Address",
+  "chooseAddress": "Choose Address",
+  "device": "Device",
+  "visitorIdentity": "Visitor Identity",
+  "friendsFamily": "Friends & Family",
+  "delivery": "Delivery",
+  "timePeriod": "Time period",
+  "timeHours": "{time} hours",
+  "generate": "Generate",
+  "pay": "Pay",
+  "serviceWillResumeAfterPaymentIsReceived": "Service will resume after payment is received.",
+  "locked": "Locked",
+  "opened": "Opened",
+  "toLock": "to lock"
 }
