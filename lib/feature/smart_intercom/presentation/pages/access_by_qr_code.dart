@@ -12,7 +12,14 @@ import '../../../qr_code/presentation/pages/generate_qr_code.dart';
 class AccessByQrCodePage extends StatelessWidget {
   final String? address;
   final List<Device> deviceList;
-  const AccessByQrCodePage({super.key, this.address, required this.deviceList});
+  final bool staticAddress;
+
+  const AccessByQrCodePage({
+    super.key,
+    this.address,
+    required this.deviceList,
+    required this.staticAddress,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +51,7 @@ class AccessByQrCodePage extends StatelessWidget {
                     context,
                     screen: GenerateQrCodePage(
                       address: address,
-                      staticAddress: true,
+                      staticAddress: staticAddress,
                       devices: deviceList,
                     ),
                     withNavBar: false,

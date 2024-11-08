@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mode.dart';
@@ -12,7 +10,6 @@ import 'package:pinput/pinput.dart';
 
 import '../../../../common/bloc/button/button_state.dart';
 import '../../../../common/bloc/button/button_state_cubit.dart';
-import '../../../../common/helpers/utils/device_utils.dart';
 import '../../../../common/widgets/basic_button.dart';
 import '../../../../core/firebase/notifications_service.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -31,15 +28,12 @@ class _VerificationState extends State<VerificationPage> {
   final TextEditingController _confirmCodeCon = TextEditingController();
   final _confirmFormKey = GlobalKey<FormState>();
   final FocusNode _focusNode = FocusNode();
-  late DeviceInformation deviceInformation;
   NotificationService notificationService = NotificationService();
 
   @override
   void initState() {
     super.initState();
-    _getDeviceInformation();
     notificationService.requestNotificationPermission();
-    notificationService.getDeviceToken();
     notificationService.firebaseInit(context);
     notificationService.setupInteractMessage(context);
   }
@@ -161,6 +155,9 @@ class _VerificationState extends State<VerificationPage> {
       ),
       child: Pinput(
         length: 6,
+        separatorBuilder: (int length){
+          return const SizedBox(width: 24.0);
+      },
         focusNode: _focusNode,
         defaultPinTheme: PinTheme(
           width: 40,
@@ -178,6 +175,10 @@ class _VerificationState extends State<VerificationPage> {
         ),
         validator: (value) {
           return value!.isValidVerCode;
+        },
+        onChanged: (value){
+          setState(() {
+          });
         },
         hapticFeedbackType: HapticFeedbackType.lightImpact,
         controller: _confirmCodeCon,
@@ -199,9 +200,11 @@ class _VerificationState extends State<VerificationPage> {
                             email: widget.signupReq.email,
                             phoneNumber: widget.signupReq.phoneNumber,
                             password: widget.signupReq.password,
-                            deviceId: deviceInformation.deviceId,
                             verificationConde: _confirmCodeCon.text,
-                            deviceModel: deviceInformation.deviceName,
+                            deviceId: widget.signupReq.deviceId,
+                            deviceModel: widget.signupReq.deviceModel,
+                            deviceToken: widget.signupReq.deviceToken,
+                            deviceOs: widget.signupReq.deviceOs,
                           ),
                         );
                   }
@@ -212,9 +215,4 @@ class _VerificationState extends State<VerificationPage> {
     );
   }
 
-  Future<void> _getDeviceInformation() async {
-    DeviceUtils deviceUtils = DeviceUtils();
-    deviceInformation = await deviceUtils.getDeviceInfo();
-    setState(() {});
-  }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +14,7 @@ import '../../../../common/bloc/button/button_state_cubit.dart';
 import '../../../../common/helpers/utils/device_utils.dart';
 import '../../../../core/assets/app_vectors.dart';
 import '../../../../core/error/error_enum.dart';
+import '../../../../core/firebase/notifications_service.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../service_locator.dart';
@@ -30,8 +33,9 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController _emailCon = TextEditingController();
   final TextEditingController _passwordCon = TextEditingController();
   final _signupFormKey = GlobalKey<FormState>();
-  bool _obscureText = true;
   late DeviceInformation _deviceInformation;
+  late String _deviceToken;
+  bool _obscureText = true;
   String? _mailErrorText;
 
   @override
@@ -62,21 +66,22 @@ class _SignInPageState extends State<SignInPage> {
                 (Route<dynamic> route) => false,
               );
             } else if (state is ButtonFailureState) {
-              final emailError = state.errorMessage.getErrorForField(ErrorField.email);
+              final emailError =
+                  state.errorMessage.getErrorForField(ErrorField.email);
               if (emailError != null) {
                 setState(() {
                   _mailErrorText = emailError;
                 });
               } else {
                 var snackBar = SnackBar(
-                  content: Text(state.errorMessage.message??S.of(context).unknownException),
+                  content: Text(state.errorMessage.message ??
+                      S.of(context).unknownException),
                   backgroundColor: AppColors.red,
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
             }
           },
-
           child: SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.only(top: 32, right: 16, left: 16),
@@ -206,10 +211,13 @@ class _SignInPageState extends State<SignInPage> {
                   context.read<ButtonStateCubit>().execute(
                         useCase: sl<SignInUseCase>(),
                         params: SignInReqParams(
-                            email: _emailCon.text,
-                            password: _passwordCon.text,
-                            deviceId: _deviceInformation.deviceId,
-                            deviceName: _deviceInformation.deviceName),
+                          email: _emailCon.text,
+                          password: _passwordCon.text,
+                          deviceId: _deviceInformation.deviceId,
+                          deviceModel: _deviceInformation.deviceName,
+                          deviceToken: _deviceToken,
+                          deviceOs: Platform.operatingSystem,
+                        ),
                       );
                 }
               }
@@ -261,6 +269,8 @@ class _SignInPageState extends State<SignInPage> {
 
   Future<void> _getDeviceInformation() async {
     DeviceUtils deviceUtils = DeviceUtils();
+    NotificationService notificationService = NotificationService();
+    _deviceToken =  await notificationService.getDeviceToken();
     _deviceInformation = await deviceUtils.getDeviceInfo();
     setState(() {});
   }

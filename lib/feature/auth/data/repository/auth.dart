@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:intelligent_security_systems/core/constants/shared_perfereces_keys.dart';
-import 'package:intelligent_security_systems/core/error/error.dart';
 import 'package:intelligent_security_systems/feature/auth/data/models/signin_req_params.dart';
 import 'package:intelligent_security_systems/feature/auth/data/models/verification_req_params.dart';
 import 'package:intelligent_security_systems/feature/auth/data/source/auth_api_service.dart';
@@ -17,16 +16,13 @@ class AuthRepositoryImp extends AuthRepository {
   @override
   Future<Either> signup(SignupReqParams signupReq) async {
     Either result = await sl<AuthApiService>().signup(signupReq);
+
     return result.fold(
       (error) {
         return Left(error);
       },
       (data) async {
         Response response = data;
-        SharedPreferences sharedPreferences =
-            await SharedPreferences.getInstance();
-        sharedPreferences.setString(
-            SharedPreferencesKeys.accessToken, response.data['data']['token']);
         return Right(response);
       },
     );
@@ -48,6 +44,10 @@ class AuthRepositoryImp extends AuthRepository {
       },
       (data) async {
         Response response = data;
+        SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+        sharedPreferences.setString(
+            SharedPreferencesKeys.accessToken, response.data['data']['token']);
         return Right(response);
       },
     );
@@ -66,6 +66,23 @@ class AuthRepositoryImp extends AuthRepository {
         await SharedPreferences.getInstance();
         sharedPreferences.setString(
             SharedPreferencesKeys.accessToken, response.data['data']['token']);
+        return Right(response);
+      },
+    );
+  }
+
+  @override
+  Future logOut() async {
+    Either result = await sl<AuthApiService>().logOut();
+    return result.fold(
+          (error) {
+        return Left(error);
+      },
+          (data) async {
+        Response response = data;
+        SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+        sharedPreferences.remove(SharedPreferencesKeys.accessToken);
         return Right(response);
       },
     );

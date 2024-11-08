@@ -39,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "bySigningUpYouAutomaticallyAgreeToOur":
             MessageLookupByLibrary.simpleMessage(
                 "Գրանցվելով՝ դուք ավտոմատ կերպով համաձայնում եք մեր"),
+        "canc": MessageLookupByLibrary.simpleMessage("Cancel"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("Change Password"),
         "chooseAddress": MessageLookupByLibrary.simpleMessage("Choose Address"),
@@ -70,6 +71,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
         "locked": MessageLookupByLibrary.simpleMessage("Locked"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
+        "logOutText": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to log out?"),
         "medium": MessageLookupByLibrary.simpleMessage("Միջին"),
         "mute": MessageLookupByLibrary.simpleMessage("Mute"),
         "next": MessageLookupByLibrary.simpleMessage("հաջորդ"),
@@ -96,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "serviceWillResumeAfterPaymentIsReceived":
             MessageLookupByLibrary.simpleMessage(
                 "Service will resume after payment is received."),
+        "services": MessageLookupByLibrary.simpleMessage("Services"),
         "signIn": MessageLookupByLibrary.simpleMessage("Մուտք գործեք"),
         "signUp": MessageLookupByLibrary.simpleMessage("Գրանցվել"),
         "signinDescription": MessageLookupByLibrary.simpleMessage(
@@ -107,6 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "strong": MessageLookupByLibrary.simpleMessage("Ուժեղ"),
         "surveillanceCameras":
             MessageLookupByLibrary.simpleMessage("Surveillance Cameras"),
+        "tabBarQrCodes": MessageLookupByLibrary.simpleMessage("QR Codes"),
         "termsConditions":
             MessageLookupByLibrary.simpleMessage("Պայմաններ և դրույթներ."),
         "thisFieldIsRequired":

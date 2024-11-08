@@ -50,7 +50,6 @@ class NotificationService {
     );
 
     String? token = await messaging.getToken();
-    print("token-------------------=> $token");
     return token!;
   }
 

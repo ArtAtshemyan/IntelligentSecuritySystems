@@ -6,4 +6,5 @@ class AppUrls {
   static final signInEndpoint = '${baseUrl}auth/login';
   static final verificationEndpoint = '${baseUrl}auth/register/finalize';
   static final buildingsEndpoint = '${baseUrl}user/buildings';
+  static final logOutEndpoint = '${baseUrl}auth/logout';
 }

@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mode.dart';
 import 'package:intelligent_security_systems/common/widgets/basic_app_bar.dart';
+import 'package:intelligent_security_systems/common/widgets/basic_text_button.dart';
 import 'package:intelligent_security_systems/core/assets/app_vectors.dart';
 import 'package:intelligent_security_systems/core/theme/app_colors.dart';
+import 'package:intelligent_security_systems/feature/auth/domain/usecases/log_out.dart';
 
+import '../../../../common/bloc/button/button_state.dart';
+import '../../../../common/bloc/button/button_state_cubit.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../service_locator.dart';
+import '../../../auth/presentation/pages/signup.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -75,7 +82,7 @@ class ProfilePage extends StatelessWidget {
               iconPath: AppVectors.logOut,
               title: S.of(context).logOut,
               notCount: 0,
-              onPress: () {},
+              onPress: () => showLogOutDialog(context),
             ),
           ],
         ),
@@ -183,4 +190,78 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _logOutButton(BuildContext context) {
+    return Builder(builder: (context) {
+      return BasicTextButton(
+        onPressed: () {
+          context
+              .read<ButtonStateCubit>()
+              .execute(useCase: sl<LogOutInUseCase>());
+        },
+        title: S.of(context).logOut,
+      );
+    });
+  }
+
+
+  void showLogOutDialog(BuildContext context){
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) {
+        return BlocProvider(
+          create: (context) => ButtonStateCubit(),
+          child: BlocListener<ButtonStateCubit, ButtonState>(
+            listener: (context, state) {
+              if (state is ButtonSuccessState) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SignupPage()),
+                      (Route<dynamic> route) => false,
+                );
+              }
+            },
+            child: AlertDialog(
+              contentPadding: const EdgeInsets.all(24.0),
+              title: Text(
+                S.of(context).logOut,
+                style: const TextStyle(
+                  color: AppColors.darkGrey,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              content: Text(
+                S.of(context).logOutText,
+                style: const TextStyle(
+                  color: AppColors.lightGrey,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: 0.25,
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(
+                    S.of(context).canc,
+                    style: const TextStyle(
+                      color: AppColors.primary,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.10,
+                    ),
+                  ),
+                ),
+                _logOutButton(context)
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 }

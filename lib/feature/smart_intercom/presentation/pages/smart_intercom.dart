@@ -64,6 +64,7 @@ class SmartIntercomPage extends StatelessWidget {
                       screen: AccessByQrCodePage(
                         address: buildings![0].address,
                         deviceList: buildings![0].devices,
+                        staticAddress: true,
                       ),
                       withNavBar: false,
                       pageTransitionAnimation:

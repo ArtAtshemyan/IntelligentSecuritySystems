@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,11 +15,13 @@ import 'package:intelligent_security_systems/feature/auth/domain/usecases/signup
 import 'package:intelligent_security_systems/feature/auth/presentation/pages/sign_in.dart';
 import 'package:intelligent_security_systems/feature/auth/presentation/pages/verification.dart';
 
+import '../../../../common/helpers/utils/device_utils.dart';
 import '../../../../common/helpers/utils/input_utils.dart';
 import '../../../../common/helpers/utils/password_strength_checker.dart';
 import '../../../../common/widgets/basic_button.dart';
 import '../../../../core/assets/app_vectors.dart';
 import '../../../../core/error/error_enum.dart';
+import '../../../../core/firebase/notifications_service.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../service_locator.dart';
 import '../widgets/localization_list_view.dart';
@@ -35,6 +39,8 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _emailCon = TextEditingController();
   final TextEditingController _passwordCon = TextEditingController();
   final _signupFormKey = GlobalKey<FormState>();
+  late DeviceInformation _deviceInformation;
+  late String _deviceToken;
   bool _obscureText = true;
   double _strength = 0;
   String? _phoneErrorText;
@@ -46,6 +52,12 @@ class _SignupPageState extends State<SignupPage> {
     _passwordCon.dispose();
     _phoneCon.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getDeviceInformation();
   }
 
   @override
@@ -61,9 +73,13 @@ class _SignupPageState extends State<SignupPage> {
                 MaterialPageRoute(
                   builder: (context) => VerificationPage(
                     signupReq: SignupReqParams(
-                      email: _emailCon.text,
+                      email: _emailCon.text.trim(),
                       phoneNumber: InputUtils.formatPhoneNumber(_phoneCon.text),
                       password: _passwordCon.text,
+                      deviceOs: Platform.operatingSystem,
+                      deviceToken: _deviceToken,
+                      deviceId: _deviceInformation.deviceId,
+                      deviceModel: _deviceInformation.deviceName,
                     ),
                   ),
                 ),
@@ -71,20 +87,23 @@ class _SignupPageState extends State<SignupPage> {
               );
             }
             if (state is ButtonFailureState) {
-              final emailError = state.errorMessage.getErrorForField(ErrorField.email);
-              final phoneError = state.errorMessage.getErrorForField(ErrorField.phone);
+              final emailError =
+                  state.errorMessage.getErrorForField(ErrorField.email);
+              final phoneError =
+                  state.errorMessage.getErrorForField(ErrorField.phone);
               if (emailError != null) {
                 setState(() {
                   _mailErrorText = emailError;
                 });
-              }else if(phoneError != null){
+              } else if (phoneError != null) {
                 setState(() {
                   _phoneErrorText = phoneError;
                 });
-              }
-              else {
+              } else {
+                /// ToDo error handling not work
                 var snackBar = SnackBar(
-                  content: Text(state.errorMessage.message??S.of(context).unknownException),
+                  content: Text(state.errorMessage.message ??
+                      S.of(context).unknownException),
                   backgroundColor: AppColors.red,
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -172,8 +191,8 @@ class _SignupPageState extends State<SignupPage> {
 
   Widget _phoneNumberField() {
     return TextFormField(
-      onTap: (){
-        if(_phoneErrorText != null){
+      onTap: () {
+        if (_phoneErrorText != null) {
           setState(() {
             _phoneErrorText = null;
           });
@@ -211,12 +230,6 @@ class _SignupPageState extends State<SignupPage> {
                     color: AppColors.red,
                   )
             : null,
-        prefixIcon: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: SvgPicture.asset(
-            AppVectors.flagArmenia,
-          ),
-        ),
       ),
       validator: (value) {
         String unmaskPhoneNumber = InputUtils.unmaskPhoneNumber(value!);
@@ -227,8 +240,8 @@ class _SignupPageState extends State<SignupPage> {
 
   Widget _emailField() {
     return TextFormField(
-      onTap: (){
-        if(_mailErrorText != null){
+      onTap: () {
+        if (_mailErrorText != null) {
           setState(() {
             _mailErrorText = null;
           });
@@ -297,10 +310,14 @@ class _SignupPageState extends State<SignupPage> {
                     context.read<ButtonStateCubit>().execute(
                           useCase: sl<SignupUseCase>(),
                           params: SignupReqParams(
-                            email: _emailCon.text,
+                            email: _emailCon.text.trim(),
                             phoneNumber:
                                 InputUtils.formatPhoneNumber(_phoneCon.text),
                             password: _passwordCon.text,
+                            deviceOs: Platform.operatingSystem,
+                            deviceToken: _deviceToken,
+                            deviceId: _deviceInformation.deviceId,
+                            deviceModel: _deviceInformation.deviceName,
                           ),
                         );
                   }
@@ -361,4 +378,13 @@ class _SignupPageState extends State<SignupPage> {
     controller.text = '';
     setState(() {});
   }
+
+  Future<void> _getDeviceInformation() async {
+    DeviceUtils deviceUtils = DeviceUtils();
+    NotificationService notificationService = NotificationService();
+    _deviceToken = await notificationService.getDeviceToken();
+    _deviceInformation = await deviceUtils.getDeviceInfo();
+    setState(() {});
+  }
+
 }

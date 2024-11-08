@@ -3,6 +3,7 @@ import 'package:intelligent_security_systems/feature/auth/data/repository/auth.d
 import 'package:intelligent_security_systems/feature/auth/data/source/auth_api_service.dart';
 import 'package:intelligent_security_systems/feature/auth/data/source/auth_local_service.dart';
 import 'package:intelligent_security_systems/feature/auth/domain/repository/auth.dart';
+import 'package:intelligent_security_systems/feature/auth/domain/usecases/log_out.dart';
 import 'package:intelligent_security_systems/feature/auth/domain/usecases/signup.dart';
 import 'package:intelligent_security_systems/feature/auth/domain/usecases/verification.dart';
 import 'package:intelligent_security_systems/feature/main/data/repositories/building.dart';
@@ -38,4 +39,5 @@ void setupServiceLocator() {
   sl.registerSingleton<VerificationUseCase>(VerificationUseCase());
   sl.registerSingleton<SignInUseCase>(SignInUseCase());
   sl.registerSingleton<GetBuildingUseCase>(GetBuildingUseCase());
+  sl.registerSingleton<LogOutInUseCase>(LogOutInUseCase());
 }

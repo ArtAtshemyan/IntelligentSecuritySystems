@@ -733,8 +733,48 @@ class S {
   /// `to lock`
   String get toLock {
     return Intl.message(
-      'To lock',
+      'to lock',
       name: 'toLock',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Services`
+  String get services {
+    return Intl.message(
+      'Services',
+      name: 'services',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `QR Codes`
+  String get tabBarQrCodes {
+    return Intl.message(
+      'QR Codes',
+      name: 'tabBarQrCodes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get canc {
+    return Intl.message(
+      'Cancel',
+      name: 'canc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to log out?`
+  String get logOutText {
+    return Intl.message(
+      'Are you sure you want to log out?',
+      name: 'logOutText',
       desc: '',
       args: [],
     );

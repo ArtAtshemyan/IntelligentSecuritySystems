@@ -27,7 +27,6 @@ class Intercom extends StatefulWidget {
 }
 
 class _IntercomState extends State<Intercom> {
-  /// Todo: change button onPress form open door and this status
 
   bool lockedDoor = false;
 
@@ -65,7 +64,6 @@ class _IntercomState extends State<Intercom> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                /// Todo delete this AppVectors.location
                 const Icon(Icons.location_on, size: 16),
                 const SizedBox(width: 4),
                 Flexible(

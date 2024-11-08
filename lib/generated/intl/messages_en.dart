@@ -39,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "bySigningUpYouAutomaticallyAgreeToOur":
             MessageLookupByLibrary.simpleMessage(
                 "By signing up, you automatically agree to our"),
+        "canc": MessageLookupByLibrary.simpleMessage("Cancel"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("Change Password"),
         "chooseAddress": MessageLookupByLibrary.simpleMessage("Choose Address"),
@@ -70,6 +71,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
         "locked": MessageLookupByLibrary.simpleMessage("Locked"),
         "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
+        "logOutText": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to log out?"),
         "medium": MessageLookupByLibrary.simpleMessage("Medium"),
         "mute": MessageLookupByLibrary.simpleMessage("Mute"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
@@ -95,6 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "serviceWillResumeAfterPaymentIsReceived":
             MessageLookupByLibrary.simpleMessage(
                 "Service will resume after payment is received."),
+        "services": MessageLookupByLibrary.simpleMessage("Services"),
         "signIn": MessageLookupByLibrary.simpleMessage("Sign in"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "signinDescription": MessageLookupByLibrary.simpleMessage(
@@ -106,6 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "strong": MessageLookupByLibrary.simpleMessage("Strong"),
         "surveillanceCameras":
             MessageLookupByLibrary.simpleMessage("Surveillance Cameras"),
+        "tabBarQrCodes": MessageLookupByLibrary.simpleMessage("QR Codes"),
         "termsConditions":
             MessageLookupByLibrary.simpleMessage("Terms & Conditions."),
         "thisFieldIsRequired":

@@ -9,4 +9,5 @@ abstract class AuthRepository{
   Future<Either> signIn(SignInReqParams signInReq);
   Future<bool> isLoggedIn();
   Future<Either> verification(VerificationReqParams verificationReqParams);
+  Future logOut();
 }

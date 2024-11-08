@@ -10,7 +10,6 @@ class AppVectors {
   static const String moon = '${_basePath}moon$_format';
   static const String sun = '${_basePath}sun$_format';
   static const String notification = '${_basePath}notif_icon$_format';
-  static const String location = '${_basePath}location_on$_format';
   static const String phone = '${_basePath}phone_icon$_format';
   static const String avatar = '${_basePath}avatar_icon$_format';
   static const String activeService = '${_basePath}active_service$_format';
