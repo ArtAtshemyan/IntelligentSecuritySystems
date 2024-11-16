@@ -71,5 +71,6 @@
   "services": "Services",
   "tabBarQrCodes": "QR Codes",
   "canc": "Cancel",
-  "logOutText": "Are you sure you want to log out?"
+  "logOutText": "Are you sure you want to log out?",
+  "share": "Share"
 }

@@ -100,7 +100,6 @@ class _SignupPageState extends State<SignupPage> {
                   _phoneErrorText = phoneError;
                 });
               } else {
-                /// ToDo error handling not work
                 var snackBar = SnackBar(
                   content: Text(state.errorMessage.message ??
                       S.of(context).unknownException),

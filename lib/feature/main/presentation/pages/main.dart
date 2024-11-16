@@ -9,6 +9,7 @@ import 'package:intelligent_security_systems/feature/main/presentation/widgets/l
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../smart_Intercom/presentation/pages/access_by_qr_code.dart';
 import '../../../smart_intercom/presentation/pages/smart_intercom.dart';
 import '../../data/models/buildings_res_params.dart';
 
@@ -65,7 +66,20 @@ class MainPage extends StatelessWidget {
               Column(
                 children: [
                   CardLayout(
-                    onPress: null,
+                    onPress: (){
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: AccessByQrCodePage(
+                          address: buildingsResParams.buildings[0].address,
+                          deviceList: buildingsResParams.buildings[0].devices,
+                          routName: S.of(context).elevator,
+                          staticAddress: true,
+                        ),
+                        withNavBar: false,
+                        pageTransitionAnimation:
+                        PageTransitionAnimation.cupertino,
+                      );
+                    },
                     iconPath: AppImages.elevator,
                     title: S.of(context).elevator,
                     blocked: false,

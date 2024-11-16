@@ -27,7 +27,6 @@ class Intercom extends StatefulWidget {
 }
 
 class _IntercomState extends State<Intercom> {
-
   bool lockedDoor = false;
 
   @override
@@ -90,61 +89,64 @@ class _IntercomState extends State<Intercom> {
           ),
           widget.locked
               ? Container(
-            height: 188,
-            width: double.maxFinite,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: ExactAssetImage(
-                  AppImages.media,
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: ClipRRect(
-              // make sure we apply clip it properly
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 7, sigmaY: 70),
-                child: Container(
-                  alignment: Alignment.center,
-                  color: Colors.grey.withOpacity(0.1),
-                  child: Text(
-                    S.of(context).serviceWillResumeAfterPaymentIsReceived,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 0.10,
+                  height: 188,
+                  width: double.maxFinite,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: ExactAssetImage(
+                        AppImages.media,
+                      ),
+                      fit: BoxFit.cover,
                     ),
                   ),
-                ),
-              ),
-            ),
-          )
-              : GestureDetector(
-            onTap: _navToCameraMode,
-                child: Stack(
-                  children: [
-                    Image.asset(
-                                AppImages.media,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                              ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: PanelActiveItem(
-                          icon: lockedDoor ? Icons.lock_outline_rounded
-                              : Icons.lock_open_rounded,
-                          color: AppColors.lightBackground,
-                          title: lockedDoor ? S.of(context).locked : S.of(context).open,
+                  child: ClipRRect(
+                    // make sure we apply clip it properly
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 7, sigmaY: 70),
+                      child: Container(
+                        alignment: Alignment.center,
+                        color: Colors.grey.withOpacity(0.1),
+                        child: Text(
+                          S.of(context).serviceWillResumeAfterPaymentIsReceived,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 0.10,
+                          ),
                         ),
                       ),
-                    )
-                  ],
+                    ),
+                  ),
+                )
+              : GestureDetector(
+                  onTap: _navToCameraMode,
+                  child: Stack(
+                    children: [
+                      Image.asset(
+                        AppImages.media,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: PanelActiveItem(
+                            icon: lockedDoor
+                                ? Icons.lock_outline_rounded
+                                : Icons.lock_open_rounded,
+                            color: AppColors.lightBackground,
+                            title: lockedDoor
+                                ? S.of(context).locked
+                                : S.of(context).open,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
           const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -154,21 +156,22 @@ class _IntercomState extends State<Intercom> {
       ),
     );
   }
+
   Widget _payButton({required VoidCallback onPress, required bool locked}) {
     return WidgetOrNull(
       status: locked,
       showWidget: Container(
         decoration: locked
             ? ShapeDecoration(
-          gradient: const LinearGradient(
-            end: Alignment(1.00, 0.05),
-            begin: Alignment(-1, 0.05),
-            colors: [Color(0xFFFF5456), Color(0xFFFF0004)],
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(100),
-          ),
-        )
+                gradient: const LinearGradient(
+                  end: Alignment(1.00, 0.05),
+                  begin: Alignment(-1, 0.05),
+                  colors: [Color(0xFFFF5456), Color(0xFFFF0004)],
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100),
+                ),
+              )
             : const BoxDecoration(),
         child: ElevatedButton(
           onPressed: onPress,
@@ -183,10 +186,10 @@ class _IntercomState extends State<Intercom> {
               locked
                   ? const SizedBox()
                   : const Icon(
-                Icons.lock_open_sharp,
-                color: AppColors.lightBackground,
-                size: 18,
-              ),
+                      Icons.lock_open_sharp,
+                      color: AppColors.lightBackground,
+                      size: 18,
+                    ),
               const SizedBox(width: 8),
               Text(
                 S.current.payDebt,
@@ -213,11 +216,13 @@ class _IntercomState extends State<Intercom> {
           children: [
             locked
                 ? const SizedBox()
-                : const Icon(
-              Icons.lock_open_sharp,
-              color: AppColors.lightBackground,
-              size: 18,
-            ),
+                : Icon(
+                    lockedDoor
+                        ? Icons.lock_open_sharp
+                        : Icons.lock_outline_rounded,
+                    color: AppColors.lightBackground,
+                    size: 18,
+                  ),
             const SizedBox(width: 8),
             Text(
               !lockedDoor ? S.of(context).toLock : S.of(context).open,
@@ -234,19 +239,21 @@ class _IntercomState extends State<Intercom> {
     );
   }
 
-  void _setOpenDoor(){
+  void _setOpenDoor() {
     setState(() {
       lockedDoor = !lockedDoor;
     });
   }
 
-  void _navToCameraMode(){
+  void _navToCameraMode() {
     PersistentNavBarNavigator.pushNewScreen(
       context,
-      screen: CameraModePage(address: widget.address, cameraId: widget.cameraId,),
+      screen: CameraModePage(
+        address: widget.address,
+        cameraId: widget.cameraId,
+      ),
       withNavBar: false,
-      pageTransitionAnimation:
-      PageTransitionAnimation.cupertino,
+      pageTransitionAnimation: PageTransitionAnimation.cupertino,
     );
   }
 }

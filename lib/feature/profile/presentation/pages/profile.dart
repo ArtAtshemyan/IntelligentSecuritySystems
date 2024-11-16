@@ -20,7 +20,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.lightBackground.withOpacity(0.5),
+      backgroundColor: AppColors.whitBac,
       appBar: BasicAppbar(
         title: S.of(context).profile,
         hideBack: true,
