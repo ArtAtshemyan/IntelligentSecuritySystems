@@ -12,4 +12,6 @@ class AppImages {
   static const String faceScan = '${_basePath}face_scan.png';
   static const String elevator = '${_basePath}elevator.png';
   static const String videoRec = '${_basePath}smart-camera-video.png';
+  static const String faceDetection = '${_basePath}face-shape.png';
+
 }

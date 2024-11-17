@@ -31,10 +31,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "accessByQrCode":
             MessageLookupByLibrary.simpleMessage("Access by QR Code"),
         "activeService": MessageLookupByLibrary.simpleMessage("Active Service"),
+        "addFace": MessageLookupByLibrary.simpleMessage("Add Face"),
+        "addYourFaceForQuickAndSecureAccessToYour":
+            MessageLookupByLibrary.simpleMessage(
+                "Add your face for quick and secure access to your home."),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
         "and": MessageLookupByLibrary.simpleMessage("and"),
         "appTitle": MessageLookupByLibrary.simpleMessage(
             "Intelligent Security Systems"),
+        "assign": MessageLookupByLibrary.simpleMessage("Assign"),
+        "assignAddress": MessageLookupByLibrary.simpleMessage("Assign Address"),
+        "back": MessageLookupByLibrary.simpleMessage("Back"),
         "barrier": MessageLookupByLibrary.simpleMessage("Barrier"),
         "bySigningUpYouAutomaticallyAgreeToOur":
             MessageLookupByLibrary.simpleMessage(
@@ -48,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "cont": MessageLookupByLibrary.simpleMessage("Continue"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "debtDebAmd": m0,
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "deleteFace": MessageLookupByLibrary.simpleMessage("Delete Face"),
         "delivery": MessageLookupByLibrary.simpleMessage("Delivery"),
         "device": MessageLookupByLibrary.simpleMessage("Device"),
         "doYouHaveAccount":
@@ -92,6 +101,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "play": MessageLookupByLibrary.simpleMessage("Play"),
         "pleaseEnterAValidPhoneNumber": MessageLookupByLibrary.simpleMessage(
             "Please enter a valid phone number."),
+        "pleaseEnterYourName":
+            MessageLookupByLibrary.simpleMessage("Please enter your name"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "record": MessageLookupByLibrary.simpleMessage("Record"),
@@ -122,10 +133,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "tools": MessageLookupByLibrary.simpleMessage("Tools"),
         "unknownException":
             MessageLookupByLibrary.simpleMessage("Unknown Exception"),
+        "userName": MessageLookupByLibrary.simpleMessage("User Name"),
         "verification": MessageLookupByLibrary.simpleMessage("Verification"),
         "veryWeak": MessageLookupByLibrary.simpleMessage("Very Weak"),
         "visitorIdentity":
             MessageLookupByLibrary.simpleMessage("Visitor Identity"),
-        "weak": MessageLookupByLibrary.simpleMessage("Weak")
+        "weak": MessageLookupByLibrary.simpleMessage("Weak"),
+        "writeShortDescriptionHere": MessageLookupByLibrary.simpleMessage(
+            "Write short description here!")
       };
 }

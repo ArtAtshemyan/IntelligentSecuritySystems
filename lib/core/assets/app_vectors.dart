@@ -17,5 +17,7 @@ class AppVectors {
   static const String logOut = '${_basePath}log_out_icon$_format';
   static const String changePassword = '${_basePath}change_password_icon$_format';
   static const String qrCodeGenerationIcon = '${_basePath}qr_code_generate_icon$_format';
-  //location_on
+  static const String faceIcon = '${_basePath}faceIcon$_format';
+  static const String delete = '${_basePath}delete$_format';
+  //faceIcon
 }

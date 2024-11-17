@@ -3382,3 +3382,21 @@ final List<String> qrList = [
 </defs>
 </svg>''',
 ];
+
+class UserInfo {
+  final String fio;
+  final String address;
+  final String image;
+
+  UserInfo({
+    required this.fio,
+    required this.address,
+    required this.image,
+  });
+}
+
+List<UserInfo> userList = [
+  UserInfo(fio: 'Alica Vardanyan', address: 'Azatutyun 20, ap 00', image: 'https://via.placeholder.com/185x235'),
+  UserInfo(fio: 'Alica Vardanyan', address: 'Azatutyun 20, ap 00', image: 'https://via.placeholder.com/185x235'),
+  UserInfo(fio: 'Alica Vardanyan', address: 'Azatutyun 20, ap 00', image: 'https://via.placeholder.com/185x235'),
+];

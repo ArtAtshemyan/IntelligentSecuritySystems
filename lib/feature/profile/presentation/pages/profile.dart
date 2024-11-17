@@ -7,6 +7,7 @@ import 'package:intelligent_security_systems/common/widgets/basic_text_button.da
 import 'package:intelligent_security_systems/core/assets/app_vectors.dart';
 import 'package:intelligent_security_systems/core/theme/app_colors.dart';
 import 'package:intelligent_security_systems/feature/auth/domain/usecases/log_out.dart';
+import 'package:intelligent_security_systems/feature/profile/presentation/widgets/profile_avatar.dart';
 
 import '../../../../common/bloc/button/button_state.dart';
 import '../../../../common/bloc/button/button_state_cubit.dart';
@@ -29,7 +30,7 @@ class ProfilePage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            _avatar(),
+            const ProfileAvatar(),
             _userFio(context: context, fio: 'Alica Vardanyan'),
             const SizedBox(height: 16.0),
             Container(
@@ -85,26 +86,6 @@ class ProfilePage extends StatelessWidget {
               onPress: () => showLogOutDialog(context),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _avatar() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(width: 1, color: Colors.orange),
-            shape: BoxShape.circle,
-
-            /// ToDo profile Image use decoration Image
-          ),
-          child: const Icon(
-            Icons.person,
-            size: 100,
-          ),
         ),
       ),
     );

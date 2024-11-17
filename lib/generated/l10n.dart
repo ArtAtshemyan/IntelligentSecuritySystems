@@ -789,6 +789,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Add Face`
+  String get addFace {
+    return Intl.message(
+      'Add Face',
+      name: 'addFace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add your face for quick and secure access to your home.`
+  String get addYourFaceForQuickAndSecureAccessToYour {
+    return Intl.message(
+      'Add your face for quick and secure access to your home.',
+      name: 'addYourFaceForQuickAndSecureAccessToYour',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get back {
+    return Intl.message(
+      'Back',
+      name: 'back',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assign Address`
+  String get assignAddress {
+    return Intl.message(
+      'Assign Address',
+      name: 'assignAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User Name`
+  String get userName {
+    return Intl.message(
+      'User Name',
+      name: 'userName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your name`
+  String get pleaseEnterYourName {
+    return Intl.message(
+      'Please enter your name',
+      name: 'pleaseEnterYourName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assign`
+  String get assign {
+    return Intl.message(
+      'Assign',
+      name: 'assign',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete Face`
+  String get deleteFace {
+    return Intl.message(
+      'Delete Face',
+      name: 'deleteFace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write short description here!`
+  String get writeShortDescriptionHere {
+    return Intl.message(
+      'Write short description here!',
+      name: 'writeShortDescriptionHere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get delete {
+    return Intl.message(
+      'Delete',
+      name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

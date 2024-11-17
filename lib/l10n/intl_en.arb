@@ -72,5 +72,15 @@
   "tabBarQrCodes": "QR Codes",
   "canc": "Cancel",
   "logOutText": "Are you sure you want to log out?",
-  "share": "Share"
+  "share": "Share",
+  "addFace": "Add Face",
+  "addYourFaceForQuickAndSecureAccessToYour": "Add your face for quick and secure access to your home.",
+  "back": "Back",
+  "assignAddress": "Assign Address",
+  "userName": "User Name",
+  "pleaseEnterYourName": "Please enter your name",
+  "assign": "Assign",
+  "deleteFace": "Delete Face",
+  "writeShortDescriptionHere": "Write short description here!",
+  "delete": "Delete"
 }

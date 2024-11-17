@@ -1,3 +1,4 @@
+import 'package:face_camera/face_camera.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ Future<void> _firebaseBackgroundHandler(RemoteMessage message) async {
 }
 void main() async {
   setupServiceLocator();
+  await FaceCamera.initialize();
   WidgetsFlutterBinding.ensureInitialized();
   try {
     await dotenv.load(fileName: ".env");

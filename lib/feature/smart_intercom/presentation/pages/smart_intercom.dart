@@ -7,6 +7,7 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
+import '../../../face_management/presentation/pages/face_management.dart';
 import '../../../main/data/models/buildings_res_params.dart';
 import 'access_by_qr_code.dart';
 
@@ -53,7 +54,7 @@ class SmartIntercomPage extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 16.0,
               shrinkWrap: true,
-              childAspectRatio: 1.5,
+              childAspectRatio: 1.1,
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 _toolsItems(
@@ -79,7 +80,17 @@ class SmartIntercomPage extends StatelessWidget {
 
                 _toolsItems(
                   context: context,
-                  action: () {},
+                  action: () {
+                    PersistentNavBarNavigator.pushNewScreen(
+                      context,
+                      screen: FaceManagement(
+                        address: buildings![0].address,
+                      ),
+                      withNavBar: false,
+                      pageTransitionAnimation:
+                      PageTransitionAnimation.cupertino,
+                    );
+                  },
                   iconPath: AppImages.faceScan,
                   title: S.of(context).faceManagement,
                 ),
