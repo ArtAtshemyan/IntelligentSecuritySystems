@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intelligent_security_systems/common/widgets/widget_or_null.dart';
-import 'package:intelligent_security_systems/core/firebase/notifications_service.dart';
 import 'package:intelligent_security_systems/core/theme/app_colors.dart';
 import 'package:intelligent_security_systems/feature/payment/presentation/pages/payment.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -114,7 +113,7 @@ class LocationCards extends StatelessWidget {
       onPressed: () {
         PersistentNavBarNavigator.pushNewScreen(
           context,
-          screen: const PaymentPage(),
+          screen: PaymentPage(buildings: buildings,),
           withNavBar: true,
           pageTransitionAnimation: PageTransitionAnimation.cupertino,
         );

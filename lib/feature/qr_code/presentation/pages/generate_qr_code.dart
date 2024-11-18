@@ -11,6 +11,7 @@ import '../../../../common/bloc/button/button_state_cubit.dart';
 import '../../../../common/widgets/basic_button.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
+import '../../domain/entities/tiem_period_entity.dart';
 import '../../domain/entities/visitor_identity_entity.dart';
 import '../widgets/identity_card.dart';
 import '../widgets/time_periods_list.dart';
@@ -136,12 +137,26 @@ class _GenerateQrCodePageState extends State<GenerateQrCodePage> {
                   const SizedBox(height: 16.0),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
-                    child: SizedBox(
-                      height: 100,
-                      child: TimePeriodsList(
-                        select: (int id) => _setTimeActive(id),
-                        activeList: activeTime,
-                      ),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 40,
+                          child: TimePeriodsList(
+                            select: (int id) => _setTimeActive(id),
+                            activeList: activeTime,
+                            timeList: timePeriods.sublist(0, activeTime.length > 2 ?  3 : 4),
+                          ),
+                        ),
+                        const SizedBox(height: 8.0),
+                        SizedBox(
+                          height: 40,
+                          child: TimePeriodsList(
+                            select: (int id) => _setTimeActive(id),
+                            activeList: activeTime,
+                            timeList: timePeriods.sublist(activeTime.length > 2 ?  3 : 4,timePeriods.length),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Padding(

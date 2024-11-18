@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intelligent_security_systems/common/widgets/basic_app_bar.dart';
-import 'package:intelligent_security_systems/feature/face_management/presentation/widgets/static_address.dart';
+import 'package:intelligent_security_systems/feature/profile/presentation/widgets/profile_avatar.dart';
 
 import '../../../../common/bloc/button/button_state.dart';
 import '../../../../common/bloc/button/button_state_cubit.dart';
@@ -12,32 +10,25 @@ import '../../../../common/widgets/basic_button.dart';
 import '../../../../core/assets/app_vectors.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
-import '../../../profile/presentation/widgets/profile_avatar.dart';
-import '../widgets/description_text.dart';
 
-class FaceRegistrationPage extends StatefulWidget {
-  final File? image;
-  final String address;
-  const FaceRegistrationPage({
-    super.key,
-    this.image,
-    required this.address,
-  });
+class PersonalInformationPage extends StatefulWidget {
+  const PersonalInformationPage({super.key});
 
   @override
-  State<FaceRegistrationPage> createState() => _FaceRegistrationPageState();
+  State<PersonalInformationPage> createState() =>
+      _PersonalInformationPageState();
 }
 
-class _FaceRegistrationPageState extends State<FaceRegistrationPage> {
+class _PersonalInformationPageState extends State<PersonalInformationPage> {
   final TextEditingController _userNameCon = TextEditingController();
-  final _faceFormKey = GlobalKey<FormState>();
+  final _userNameFormKey = GlobalKey<FormState>();
   String? _userNameErrorText;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BasicAppbar(
-        title: S.of(context).back,
+        title: S.of(context).personalInformation,
       ),
       body: BlocProvider(
         create: (context) => ButtonStateCubit(),
@@ -69,21 +60,28 @@ class _FaceRegistrationPageState extends State<FaceRegistrationPage> {
           },
           child: SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ProfileAvatar(image: widget.image),
-                  const SizedBox(height: 24.0),
-                  StaticAddress(
-                    title: S.of(context).assignAddress,
-                    address: widget.address,
+                  const ProfileAvatar(),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.all(0.0),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      S.of(context).changeImage,
+                      style: const TextStyle(
+                        color: AppColors.primary,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.10,
+                      ),
+                    ),
                   ),
-                  const SizedBox(height: 32.0),
-                  DescriptionText(text: S.of(context).userName),
-                  const SizedBox(height: 16.0),
+                  const SizedBox(height: 48.0),
                   Form(
-                    key: _faceFormKey,
+                    key: _userNameFormKey,
                     onChanged: () {
                       setState(() {});
                     },
@@ -91,7 +89,7 @@ class _FaceRegistrationPageState extends State<FaceRegistrationPage> {
                       children: [
                         _userNameField(),
                         const SizedBox(height: 32.0),
-                        _assignButton(context),
+                        _saveButton(context),
                       ],
                     ),
                   ),
@@ -141,14 +139,14 @@ class _FaceRegistrationPageState extends State<FaceRegistrationPage> {
     );
   }
 
-  Widget _assignButton(BuildContext context) {
+  Widget _saveButton(BuildContext context) {
     return Builder(
       builder: (context) {
         return BasicAppButton(
-          title: S.of(context).assign,
+          title: S.of(context).save,
           onPressed: _userNameCon.text.isNotEmpty
               ? () {
-                  if (_faceFormKey.currentState?.validate() ?? false) {
+                  if (_userNameFormKey.currentState?.validate() ?? false) {
                     // context.read<ButtonStateCubit>().execute();
                   }
                 }

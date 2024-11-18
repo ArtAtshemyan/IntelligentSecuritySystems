@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intelligent_security_systems/common/helpers/extension/is_dark_mode.dart';
 import 'package:intelligent_security_systems/common/widgets/basic_app_bar.dart';
 import 'package:intelligent_security_systems/common/widgets/basic_text_button.dart';
-import 'package:intelligent_security_systems/core/assets/app_vectors.dart';
 import 'package:intelligent_security_systems/core/theme/app_colors.dart';
 import 'package:intelligent_security_systems/feature/auth/domain/usecases/log_out.dart';
+import 'package:intelligent_security_systems/feature/payment/presentation/pages/payment.dart';
+import 'package:intelligent_security_systems/feature/profile/presentation/pages/change_password.dart';
+import 'package:intelligent_security_systems/feature/profile/presentation/pages/personal_information.dart';
 import 'package:intelligent_security_systems/feature/profile/presentation/widgets/profile_avatar.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 import '../../../../common/bloc/button/button_state.dart';
 import '../../../../common/bloc/button/button_state_cubit.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../service_locator.dart';
 import '../../../auth/presentation/pages/signup.dart';
+import '../../../main/data/models/buildings_res_params.dart';
+import '../../../payment/presentation/pages/payment_method.dart';
+import 'change_language.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  final BuildingsResParams buildingsResParams;
+  const ProfilePage({super.key, required this.buildingsResParams});
 
   @override
   Widget build(BuildContext context) {
@@ -47,24 +53,52 @@ class ProfilePage extends StatelessWidget {
                 children: [
                   _profileControlItem(
                     context: context,
-                    iconPath: AppVectors.avatar,
+                    iconPath: Icons.account_circle,
                     title: S.of(context).personalInformation,
                     notCount: 0,
-                    onPress: () {},
+                    onPress: () {
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const PersonalInformationPage(),
+                        withNavBar: false, // OPTIONAL VALUE. True by default.
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
+                      );
+                    },
                   ),
                   _profileControlItem(
                     context: context,
-                    iconPath: AppVectors.activeService,
+                    iconPath: Icons.how_to_reg,
                     title: S.of(context).activeService,
                     notCount: 1,
-                    onPress: () {},
+                    onPress: () {
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: PaymentPage(
+                          buildings: buildingsResParams.buildings,
+                          routName: S.of(context).activeService,
+                          hideBacButton: false,
+                        ),
+                        withNavBar: false, // OPTIONAL VALUE. True by default.
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
+                      );
+                    },
                   ),
                   _profileControlItem(
                     context: context,
-                    iconPath: AppVectors.paymentService,
+                    iconPath: Icons.credit_card,
                     title: S.of(context).paymentMethods,
                     notCount: 3,
-                    onPress: () {},
+                    onPress: () {
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const PaymentMethodPage(),
+                        withNavBar: false, // OPTIONAL VALUE. True by default.
+                        pageTransitionAnimation:
+                        PageTransitionAnimation.cupertino,
+                      );
+                    },
                   ),
                 ],
               ),
@@ -72,18 +106,42 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(height: 16.0),
             _profileControlItem(
               context: context,
-              iconPath: AppVectors.changePassword,
+              iconPath: Icons.password,
               title: S.of(context).changePassword,
               notCount: 0,
-              onPress: () {},
+              onPress: () {
+                PersistentNavBarNavigator.pushNewScreen(
+                  context,
+                  screen: const ChangePasswordPage(),
+                  withNavBar: false, // OPTIONAL VALUE. True by default.
+                  pageTransitionAnimation:
+                  PageTransitionAnimation.cupertino,
+                );
+              },
             ),
             const SizedBox(height: 16.0),
             _profileControlItem(
               context: context,
-              iconPath: AppVectors.logOut,
+              iconPath: Icons.language,
+              title: S.of(context).changeLanguage,
+              notCount: 0,
+              onPress: (){
+                PersistentNavBarNavigator.pushNewScreen(
+                  context,
+                  screen: const ChangeLanguagePage(),
+                  withNavBar: false,
+                  pageTransitionAnimation:
+                  PageTransitionAnimation.cupertino,
+                );
+              },
+            ),
+            const SizedBox(height: 16.0),
+            _profileControlItem(
+              context: context,
+              iconPath: Icons.logout,
               title: S.of(context).logOut,
               notCount: 0,
-              onPress: () => showLogOutDialog(context),
+              onPress: () => showLogOutDialog(context)
             ),
           ],
         ),
@@ -114,7 +172,7 @@ class ProfilePage extends StatelessWidget {
 
   Widget _profileControlItem({
     required BuildContext context,
-    required String iconPath,
+    required IconData iconPath,
     required String title,
     required int notCount,
     required VoidCallback onPress,
@@ -136,7 +194,7 @@ class ProfilePage extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SvgPicture.asset(iconPath),
+              Icon(iconPath,size: 24.0,),
               const SizedBox(width: 12),
               Expanded(
                 flex: 1,
@@ -185,8 +243,7 @@ class ProfilePage extends StatelessWidget {
     });
   }
 
-
-  void showLogOutDialog(BuildContext context){
+  void showLogOutDialog(BuildContext context) {
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -198,9 +255,8 @@ class ProfilePage extends StatelessWidget {
               if (state is ButtonSuccessState) {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => const SignupPage()),
-                      (Route<dynamic> route) => false,
+                  MaterialPageRoute(builder: (context) => const SignupPage()),
+                  (Route<dynamic> route) => false,
                 );
               }
             },
@@ -244,5 +300,4 @@ class ProfilePage extends StatelessWidget {
       },
     );
   }
-
 }

@@ -1,5 +1,3 @@
-import 'package:intelligent_security_systems/generated/l10n.dart';
-
 class AppImages {
   static const String _basePath = 'assets/images/';
   static const String logo = '${_basePath}logo.jpg';
@@ -13,5 +11,8 @@ class AppImages {
   static const String elevator = '${_basePath}elevator.png';
   static const String videoRec = '${_basePath}smart-camera-video.png';
   static const String faceDetection = '${_basePath}face-shape.png';
-
+  static const String parking = '${_basePath}parking.png';
+  static const String visaCard = '${_basePath}visaCard.png';
+  static const String masterCard = '${_basePath}masterCard.png';
+  static const String maestroCard = '${_basePath}maestroCogo.png';
 }

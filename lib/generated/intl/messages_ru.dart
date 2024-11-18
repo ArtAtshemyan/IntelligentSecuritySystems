@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Мы отправили 6-значный код на ваш номер телефона"),
         "accessByQrCode":
             MessageLookupByLibrary.simpleMessage("Access by QR Code"),
+        "active": MessageLookupByLibrary.simpleMessage("Active"),
         "activeService": MessageLookupByLibrary.simpleMessage("Active Service"),
         "addFace": MessageLookupByLibrary.simpleMessage("Add Face"),
         "addYourFaceForQuickAndSecureAccessToYour":
@@ -39,6 +40,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "and": MessageLookupByLibrary.simpleMessage("и"),
         "appTitle": MessageLookupByLibrary.simpleMessage(
             "Intelligent Security Systems"),
+        "areYouSureYouWantToDeleteTheDefaultPaymet":
+            MessageLookupByLibrary.simpleMessage(
+                "Are you sure you want to delete the default paymet method?"),
         "assign": MessageLookupByLibrary.simpleMessage("Assign"),
         "assignAddress": MessageLookupByLibrary.simpleMessage("Assign Address"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
@@ -47,6 +51,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Регистрируясь, вы автоматически увеличите свой"),
         "canc": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "cardAccess": MessageLookupByLibrary.simpleMessage("Card Access"),
+        "changeImage": MessageLookupByLibrary.simpleMessage("Change Image"),
+        "changeLanguage":
+            MessageLookupByLibrary.simpleMessage("Change Language"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("Change Password"),
         "chooseAddress": MessageLookupByLibrary.simpleMessage("Choose Address"),
@@ -56,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "debtDebAmd": m0,
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "deleteCard": MessageLookupByLibrary.simpleMessage("Delete Card?"),
         "deleteFace": MessageLookupByLibrary.simpleMessage("Delete Face"),
         "delivery": MessageLookupByLibrary.simpleMessage("Delivery"),
         "device": MessageLookupByLibrary.simpleMessage("Device"),
@@ -67,6 +76,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Неверный адрес электронной почты"),
         "faceManagement":
             MessageLookupByLibrary.simpleMessage("Face Management"),
+        "free": MessageLookupByLibrary.simpleMessage("FREE"),
+        "freeServices": MessageLookupByLibrary.simpleMessage("Free Services"),
         "friendsFamily":
             MessageLookupByLibrary.simpleMessage("Friends & Family"),
         "generate": MessageLookupByLibrary.simpleMessage("Generate"),
@@ -75,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "generateYourOneTimeQrCode": MessageLookupByLibrary.simpleMessage(
             "Generate your one time QR code"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "inactive": MessageLookupByLibrary.simpleMessage("Inactive"),
         "invalidVerificationCode":
             MessageLookupByLibrary.simpleMessage("Invalid verification code"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
@@ -84,14 +96,21 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to log out?"),
         "medium": MessageLookupByLibrary.simpleMessage("Середина"),
         "mute": MessageLookupByLibrary.simpleMessage("Mute"),
+        "newPassword": MessageLookupByLibrary.simpleMessage("New Password"),
         "next": MessageLookupByLibrary.simpleMessage("Следующий"),
+        "noServiceFee": MessageLookupByLibrary.simpleMessage("No Service Fee"),
+        "oldPassword": MessageLookupByLibrary.simpleMessage("Old Password"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
         "opened": MessageLookupByLibrary.simpleMessage("Opened"),
+        "outstandingBalance":
+            MessageLookupByLibrary.simpleMessage("Outstanding Balance"),
+        "parking": MessageLookupByLibrary.simpleMessage("Parking"),
         "password": MessageLookupByLibrary.simpleMessage("Пароль"),
         "passwordStrenght":
             MessageLookupByLibrary.simpleMessage("Надежность пароля:"),
         "pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "payDebt": MessageLookupByLibrary.simpleMessage("Pay Debt"),
+        "payNow": MessageLookupByLibrary.simpleMessage("Pay Now"),
         "payment": MessageLookupByLibrary.simpleMessage("Payment"),
         "paymentMethods":
             MessageLookupByLibrary.simpleMessage("Payment Methods"),
@@ -107,6 +126,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Политика конфиденциальности"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "record": MessageLookupByLibrary.simpleMessage("Record"),
+        "repeatPassword":
+            MessageLookupByLibrary.simpleMessage("Repeat Password"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "serviceFee": MessageLookupByLibrary.simpleMessage("Service Fee:"),
         "serviceWillResumeAfterPaymentIsReceived":
             MessageLookupByLibrary.simpleMessage(
                 "Service will resume after payment is received."),

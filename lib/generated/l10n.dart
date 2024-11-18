@@ -730,10 +730,10 @@ class S {
     );
   }
 
-  /// `to lock`
+  /// `Lock`
   String get toLock {
     return Intl.message(
-      'to lock',
+      'Lock',
       name: 'toLock',
       desc: '',
       args: [],
@@ -885,6 +885,186 @@ class S {
     return Intl.message(
       'Delete',
       name: 'delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Free Services`
+  String get freeServices {
+    return Intl.message(
+      'Free Services',
+      name: 'freeServices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Active`
+  String get active {
+    return Intl.message(
+      'Active',
+      name: 'active',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Card Access`
+  String get cardAccess {
+    return Intl.message(
+      'Card Access',
+      name: 'cardAccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `FREE`
+  String get free {
+    return Intl.message(
+      'FREE',
+      name: 'free',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Service Fee`
+  String get noServiceFee {
+    return Intl.message(
+      'No Service Fee',
+      name: 'noServiceFee',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Parking`
+  String get parking {
+    return Intl.message(
+      'Parking',
+      name: 'parking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Outstanding Balance`
+  String get outstandingBalance {
+    return Intl.message(
+      'Outstanding Balance',
+      name: 'outstandingBalance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Inactive`
+  String get inactive {
+    return Intl.message(
+      'Inactive',
+      name: 'inactive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Service Fee:`
+  String get serviceFee {
+    return Intl.message(
+      'Service Fee:',
+      name: 'serviceFee',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pay Now`
+  String get payNow {
+    return Intl.message(
+      'Pay Now',
+      name: 'payNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Image`
+  String get changeImage {
+    return Intl.message(
+      'Change Image',
+      name: 'changeImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Language`
+  String get changeLanguage {
+    return Intl.message(
+      'Change Language',
+      name: 'changeLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete Card?`
+  String get deleteCard {
+    return Intl.message(
+      'Delete Card?',
+      name: 'deleteCard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete the default paymet method?`
+  String get areYouSureYouWantToDeleteTheDefaultPaymet {
+    return Intl.message(
+      'Are you sure you want to delete the default paymet method?',
+      name: 'areYouSureYouWantToDeleteTheDefaultPaymet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Old Password`
+  String get oldPassword {
+    return Intl.message(
+      'Old Password',
+      name: 'oldPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Password`
+  String get newPassword {
+    return Intl.message(
+      'New Password',
+      name: 'newPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Repeat Password`
+  String get repeatPassword {
+    return Intl.message(
+      'Repeat Password',
+      name: 'repeatPassword',
       desc: '',
       args: [],
     );

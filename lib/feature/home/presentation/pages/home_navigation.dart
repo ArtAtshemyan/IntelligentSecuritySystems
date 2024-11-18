@@ -46,8 +46,8 @@ class _HomePageState extends State<HomeNavigationPage> {
                   staticAddress: true,
                   address: state.buildingsResParams.buildings[0].address,
                 ),
-                const PaymentPage(),
-                const ProfilePage(),
+                PaymentPage(buildings: state.buildingsResParams.buildings,onlyActive: false,),
+                ProfilePage(buildingsResParams: state.buildingsResParams,),
               ],
               items: _navBarsItems(state.buildingsResParams),
               handleAndroidBackButtonPress: true,
@@ -140,6 +140,7 @@ class _HomePageState extends State<HomeNavigationPage> {
           },
         ),
       ),
+      /// Todo Padding icons and text
       PersistentBottomNavBarItem(
         icon: _iconLayout(
           Icons.verified_user,
@@ -157,7 +158,7 @@ class _HomePageState extends State<HomeNavigationPage> {
         routeAndNavigatorSettings: RouteAndNavigatorSettings(
           initialRoute: "/payment",
           routes: {
-            "/payment": (final context) => const PaymentPage(),
+            "/payment": (final context) => PaymentPage(buildings: buildings.buildings,),
           },
         ),
       ),
@@ -178,7 +179,7 @@ class _HomePageState extends State<HomeNavigationPage> {
         routeAndNavigatorSettings: RouteAndNavigatorSettings(
           initialRoute: "/profile",
           routes: {
-            "/profile": (final context) => const ProfilePage(),
+            "/profile": (final context) => ProfilePage(buildingsResParams: buildings,),
           },
         ),
       ),

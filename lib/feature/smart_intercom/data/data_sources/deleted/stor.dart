@@ -3397,6 +3397,4 @@ class UserInfo {
 
 List<UserInfo> userList = [
   UserInfo(fio: 'Alica Vardanyan', address: 'Azatutyun 20, ap 00', image: 'https://via.placeholder.com/185x235'),
-  UserInfo(fio: 'Alica Vardanyan', address: 'Azatutyun 20, ap 00', image: 'https://via.placeholder.com/185x235'),
-  UserInfo(fio: 'Alica Vardanyan', address: 'Azatutyun 20, ap 00', image: 'https://via.placeholder.com/185x235'),
 ];

@@ -35,7 +35,7 @@ class AccessByQrCodePage extends StatelessWidget {
     return Scaffold(
       appBar: BasicAppbar(
         title: routName ?? S.of(context).accessByQrCode,
-        hideBack: hideBacButton??true,
+        hideBack: hideBacButton ?? true,
       ),
       backgroundColor: AppColors.whitBac,
       body: qrList.isNotEmpty
@@ -105,7 +105,7 @@ class AccessByQrCodePage extends StatelessWidget {
                       S.of(context).generateYourOneTimeQrCode,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                        fontSize: 12,
+                        fontSize: 14,
                         fontWeight: FontWeight.w400,
                         color: Color(0xff625B71),
                       ),

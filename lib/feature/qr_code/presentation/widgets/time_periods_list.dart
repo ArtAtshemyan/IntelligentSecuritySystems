@@ -6,34 +6,31 @@ import 'identity_card.dart';
 class TimePeriodsList extends StatelessWidget {
   final void Function(int) select;
   final List<int> activeList;
+  final List<TimePeriodEntity> timeList;
   const TimePeriodsList({
     super.key,
     required this.select,
     required this.activeList,
+    required this.timeList,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
-      children: [
-        GridView.count(
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: 3,
-          crossAxisSpacing: 8.0,
-          mainAxisSpacing: 8.0,
-          shrinkWrap: true,
-          childAspectRatio: 3.2,
-          children: timePeriods.map((time) {
-            return IdentityCard(
-              title: time.time,
-              activeStatus: activeList.contains(time.id),
-              deviceId: time.id,
-              onPress: (id) => select(id),
-            );
-          }).toList(),
-        )
-      ],
+      scrollDirection: Axis.horizontal,
+      itemCount: timeList.length,
+      separatorBuilder: (context,index){
+        return const SizedBox(width: 8.0);
+      },
+      itemBuilder: (BuildContext context, int index) {
+        return IdentityCard(
+          title: timeList[index].time,
+          activeStatus: activeList.contains(timeList[index].id),
+          deviceId: timeList[index].id,
+          onPress: (id) => select(id),
+        );
+      },
     );
   }
 }

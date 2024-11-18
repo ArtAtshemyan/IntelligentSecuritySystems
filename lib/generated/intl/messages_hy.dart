@@ -20,127 +20,153 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'hy';
 
-  static String m0(deb) => "Debt: ${deb} AMD";
+  static String m0(deb) => "Պարտք՝ ${deb} ՀՀ դրամ";
 
-  static String m1(time) => "${time} hours";
+  static String m1(time) => "${time} ժամ";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "SentDigitCode": MessageLookupByLibrary.simpleMessage(
             "Մենք 6 նիշանոց կոդ ենք ուղարկել ձեր հեռախոսահամարին"),
         "accessByQrCode":
-            MessageLookupByLibrary.simpleMessage("Access by QR Code"),
-        "activeService": MessageLookupByLibrary.simpleMessage("Active Service"),
-        "addFace": MessageLookupByLibrary.simpleMessage("Add Face"),
+            MessageLookupByLibrary.simpleMessage("Մուտք գործել QR կոդով"),
+        "active": MessageLookupByLibrary.simpleMessage("Ակտիվ"),
+        "activeService":
+            MessageLookupByLibrary.simpleMessage("Ակտիվ ծառայություն"),
+        "addFace": MessageLookupByLibrary.simpleMessage("Ավելացնել դեմք"),
         "addYourFaceForQuickAndSecureAccessToYour":
             MessageLookupByLibrary.simpleMessage(
-                "Add your face for quick and secure access to your home."),
-        "address": MessageLookupByLibrary.simpleMessage("Address"),
+                "Ավելացրեք ձեր դեմքը՝ ձեր տուն արագ և անվտանգ մուտք գործելու համար:"),
+        "address": MessageLookupByLibrary.simpleMessage("Հասցե"),
         "and": MessageLookupByLibrary.simpleMessage("և"),
         "appTitle": MessageLookupByLibrary.simpleMessage(
             "Intelligent Security Systems"),
-        "assign": MessageLookupByLibrary.simpleMessage("Assign"),
-        "assignAddress": MessageLookupByLibrary.simpleMessage("Assign Address"),
-        "back": MessageLookupByLibrary.simpleMessage("Back"),
-        "barrier": MessageLookupByLibrary.simpleMessage("Barrier"),
+        "areYouSureYouWantToDeleteTheDefaultPaymet":
+            MessageLookupByLibrary.simpleMessage(
+                "Իսկապե՞ս ուզում եք ջնջել կանխադրված վճարման եղանակը:"),
+        "assign": MessageLookupByLibrary.simpleMessage("Հանձնարարել"),
+        "assignAddress": MessageLookupByLibrary.simpleMessage("Հասցե նշանակել"),
+        "back": MessageLookupByLibrary.simpleMessage("Հետ գնալ"),
+        "barrier": MessageLookupByLibrary.simpleMessage("Արգելք"),
         "bySigningUpYouAutomaticallyAgreeToOur":
             MessageLookupByLibrary.simpleMessage(
                 "Գրանցվելով՝ դուք ավտոմատ կերպով համաձայնում եք մեր"),
-        "canc": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "canc": MessageLookupByLibrary.simpleMessage("Չեղարկել"),
+        "cardAccess": MessageLookupByLibrary.simpleMessage("Քարտի մուտք"),
+        "changeImage": MessageLookupByLibrary.simpleMessage("Փոխել պատկերը"),
+        "changeLanguage": MessageLookupByLibrary.simpleMessage("Փոխել լեզուն"),
         "changePassword":
-            MessageLookupByLibrary.simpleMessage("Change Password"),
-        "chooseAddress": MessageLookupByLibrary.simpleMessage("Choose Address"),
+            MessageLookupByLibrary.simpleMessage("Փոխել գաղտնաբառը"),
+        "chooseAddress": MessageLookupByLibrary.simpleMessage("Ընտրեք Հասցե"),
         "chooseMode": MessageLookupByLibrary.simpleMessage("Choose Mode"),
-        "comingSoon": MessageLookupByLibrary.simpleMessage("Coming Soon"),
+        "comingSoon": MessageLookupByLibrary.simpleMessage("Շուտով"),
         "cont": MessageLookupByLibrary.simpleMessage("Շարունակել"),
         "darkMode": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "debtDebAmd": m0,
-        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
-        "deleteFace": MessageLookupByLibrary.simpleMessage("Delete Face"),
-        "delivery": MessageLookupByLibrary.simpleMessage("Delivery"),
-        "device": MessageLookupByLibrary.simpleMessage("Device"),
+        "delete": MessageLookupByLibrary.simpleMessage("Ջնջել"),
+        "deleteCard": MessageLookupByLibrary.simpleMessage("Ջնջե՞լ քարտը"),
+        "deleteFace": MessageLookupByLibrary.simpleMessage("Ջնջել դեմքը"),
+        "delivery": MessageLookupByLibrary.simpleMessage("Առաքում"),
+        "device": MessageLookupByLibrary.simpleMessage("Սարք"),
         "doYouHaveAccount":
             MessageLookupByLibrary.simpleMessage("Դուք ունե՞ք հաշիվ"),
-        "elevator": MessageLookupByLibrary.simpleMessage("Elevator"),
+        "elevator": MessageLookupByLibrary.simpleMessage("Վերելակ"),
         "email": MessageLookupByLibrary.simpleMessage("էլփոստի հասցեն"),
         "emailIncorrect":
             MessageLookupByLibrary.simpleMessage("Էլփոստը սխալ է"),
         "faceManagement":
-            MessageLookupByLibrary.simpleMessage("Face Management"),
+            MessageLookupByLibrary.simpleMessage("Դեմքի նույնականացում"),
+        "free": MessageLookupByLibrary.simpleMessage("ԱՆՎՃԱՐ"),
+        "freeServices":
+            MessageLookupByLibrary.simpleMessage("Անվճար ծառայություններ"),
         "friendsFamily":
-            MessageLookupByLibrary.simpleMessage("Friends & Family"),
-        "generate": MessageLookupByLibrary.simpleMessage("Generate"),
+            MessageLookupByLibrary.simpleMessage("Ընկերներ և ընտանիք"),
+        "generate": MessageLookupByLibrary.simpleMessage("Ստեղծել"),
         "generateQrCode":
-            MessageLookupByLibrary.simpleMessage("Generate QR Code"),
+            MessageLookupByLibrary.simpleMessage("Ստեղծեք QR կոդ"),
         "generateYourOneTimeQrCode": MessageLookupByLibrary.simpleMessage(
-            "Generate your one time QR code"),
-        "home": MessageLookupByLibrary.simpleMessage("Home"),
+            "Ստեղծեք ձեր մեկանգամյա QR կոդը"),
+        "home": MessageLookupByLibrary.simpleMessage("Գլխավոր"),
+        "inactive": MessageLookupByLibrary.simpleMessage("Անգործուն"),
         "invalidVerificationCode":
-            MessageLookupByLibrary.simpleMessage("Invalid verification code"),
+            MessageLookupByLibrary.simpleMessage("Անվավեր հաստատման կոդը"),
         "lightMode": MessageLookupByLibrary.simpleMessage("Light Mode"),
-        "locked": MessageLookupByLibrary.simpleMessage("Locked"),
-        "logOut": MessageLookupByLibrary.simpleMessage("Log Out"),
+        "locked": MessageLookupByLibrary.simpleMessage("Կողպված է"),
+        "logOut": MessageLookupByLibrary.simpleMessage("Դուրս գալ"),
         "logOutText": MessageLookupByLibrary.simpleMessage(
-            "Are you sure you want to log out?"),
+            "Իսկապե՞ս ուզում եք դուրս գալ:"),
         "medium": MessageLookupByLibrary.simpleMessage("Միջին"),
-        "mute": MessageLookupByLibrary.simpleMessage("Mute"),
+        "mute": MessageLookupByLibrary.simpleMessage("Խլացնել"),
+        "newPassword": MessageLookupByLibrary.simpleMessage("Նոր գաղտնաբառ"),
         "next": MessageLookupByLibrary.simpleMessage("հաջորդ"),
-        "open": MessageLookupByLibrary.simpleMessage("Open"),
-        "opened": MessageLookupByLibrary.simpleMessage("Opened"),
+        "noServiceFee":
+            MessageLookupByLibrary.simpleMessage("Սպասարկման վճար չկա"),
+        "oldPassword": MessageLookupByLibrary.simpleMessage("Հին գաղտնաբառ"),
+        "open": MessageLookupByLibrary.simpleMessage("Բաց"),
+        "opened": MessageLookupByLibrary.simpleMessage("Բացվեց"),
+        "outstandingBalance":
+            MessageLookupByLibrary.simpleMessage("Չմարված մնացորդ"),
+        "parking": MessageLookupByLibrary.simpleMessage("Ավտոկանգառ"),
         "password": MessageLookupByLibrary.simpleMessage("Գաղտնաբառ"),
         "passwordStrenght":
             MessageLookupByLibrary.simpleMessage("Գաղտնաբառի բարդ."),
-        "pay": MessageLookupByLibrary.simpleMessage("Pay"),
-        "payDebt": MessageLookupByLibrary.simpleMessage("Pay Debt"),
-        "payment": MessageLookupByLibrary.simpleMessage("Payment"),
+        "pay": MessageLookupByLibrary.simpleMessage("Վճարել"),
+        "payDebt": MessageLookupByLibrary.simpleMessage("Վճարել պարտքը"),
+        "payNow": MessageLookupByLibrary.simpleMessage("Վճարեք հիմա"),
+        "payment": MessageLookupByLibrary.simpleMessage("Վճարում"),
         "paymentMethods":
-            MessageLookupByLibrary.simpleMessage("Payment Methods"),
+            MessageLookupByLibrary.simpleMessage("Վճարման մեթոդներ"),
         "personalInformation":
-            MessageLookupByLibrary.simpleMessage("Personal Information"),
+            MessageLookupByLibrary.simpleMessage("Անձնական տվյալներ"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("հեռախոսահամարը"),
         "play": MessageLookupByLibrary.simpleMessage("Play"),
         "pleaseEnterAValidPhoneNumber": MessageLookupByLibrary.simpleMessage(
             "Խնդրում ենք մուտքագրել վավեր հեռախոսահամար:"),
-        "pleaseEnterYourName":
-            MessageLookupByLibrary.simpleMessage("Please enter your name"),
+        "pleaseEnterYourName": MessageLookupByLibrary.simpleMessage(
+            "Խնդրում ենք մուտքագրել ձեր անունը"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage(
             "Գաղտնիության քաղաքականություն"),
-        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
-        "record": MessageLookupByLibrary.simpleMessage("Record"),
+        "profile": MessageLookupByLibrary.simpleMessage("Պրոֆիլ"),
+        "record": MessageLookupByLibrary.simpleMessage("Ձայնագրեք"),
+        "repeatPassword":
+            MessageLookupByLibrary.simpleMessage("Կրկնել գաղտնաբառը"),
+        "save": MessageLookupByLibrary.simpleMessage("Պահպանել"),
+        "serviceFee": MessageLookupByLibrary.simpleMessage("Ծառայության վճար."),
         "serviceWillResumeAfterPaymentIsReceived":
             MessageLookupByLibrary.simpleMessage(
-                "Service will resume after payment is received."),
-        "services": MessageLookupByLibrary.simpleMessage("Services"),
-        "share": MessageLookupByLibrary.simpleMessage("Share"),
+                "Ծառայությունը կվերսկսվի վճարումը ստանալուց հետո:"),
+        "services": MessageLookupByLibrary.simpleMessage("Ծառայություններ"),
+        "share": MessageLookupByLibrary.simpleMessage("Կիսվել"),
         "signIn": MessageLookupByLibrary.simpleMessage("Մուտք գործեք"),
         "signUp": MessageLookupByLibrary.simpleMessage("Գրանցվել"),
         "signinDescription": MessageLookupByLibrary.simpleMessage(
             "Մուտք գործեք՝ վայելելու ձեր խելացի կենսամիջավայրի անխափան վերահսկողությունը:"),
         "signupDescription": MessageLookupByLibrary.simpleMessage(
             "Գրանցվեք և հեշտությամբ մուտք գործեք բոլոր հիմնական վերահսկիչները և հնարավորությունները:"),
-        "smartIntercom": MessageLookupByLibrary.simpleMessage("Smart Intercom"),
-        "sound": MessageLookupByLibrary.simpleMessage("Sound"),
+        "smartIntercom":
+            MessageLookupByLibrary.simpleMessage("Խելացի ինտերկոմ"),
+        "sound": MessageLookupByLibrary.simpleMessage("Ձայն"),
         "strong": MessageLookupByLibrary.simpleMessage("Ուժեղ"),
         "surveillanceCameras":
-            MessageLookupByLibrary.simpleMessage("Surveillance Cameras"),
-        "tabBarQrCodes": MessageLookupByLibrary.simpleMessage("QR Codes"),
+            MessageLookupByLibrary.simpleMessage("Տեսախցիկներ"),
+        "tabBarQrCodes": MessageLookupByLibrary.simpleMessage("QR կոդեր"),
         "termsConditions":
             MessageLookupByLibrary.simpleMessage("Պայմաններ և դրույթներ."),
         "thisFieldIsRequired":
             MessageLookupByLibrary.simpleMessage("Այս դաշտը պարտադիր է"),
         "timeHours": m1,
-        "timePeriod": MessageLookupByLibrary.simpleMessage("Time period"),
-        "toLock": MessageLookupByLibrary.simpleMessage("to lock"),
-        "tools": MessageLookupByLibrary.simpleMessage("Tools"),
+        "timePeriod": MessageLookupByLibrary.simpleMessage("Ժամանակահատվածը"),
+        "toLock": MessageLookupByLibrary.simpleMessage("Կողպել"),
+        "tools": MessageLookupByLibrary.simpleMessage("Գործիքներ"),
         "unknownException":
-            MessageLookupByLibrary.simpleMessage("Unknown Exception"),
-        "userName": MessageLookupByLibrary.simpleMessage("User Name"),
+            MessageLookupByLibrary.simpleMessage("Սխալ է տեղի ունեցել"),
+        "userName": MessageLookupByLibrary.simpleMessage("Օգտվողի անունը"),
         "verification": MessageLookupByLibrary.simpleMessage("Ստուգում"),
         "veryWeak": MessageLookupByLibrary.simpleMessage("Very Weak"),
         "visitorIdentity":
-            MessageLookupByLibrary.simpleMessage("Visitor Identity"),
+            MessageLookupByLibrary.simpleMessage("Այցելուների ինքնությունը"),
         "weak": MessageLookupByLibrary.simpleMessage("Թույլ"),
         "writeShortDescriptionHere": MessageLookupByLibrary.simpleMessage(
-            "Write short description here!")
+            "Կարճ նկարագրություն գրեք այստեղ:")
       };
 }
