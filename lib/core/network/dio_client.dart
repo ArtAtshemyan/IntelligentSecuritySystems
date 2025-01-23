@@ -1,21 +1,29 @@
 import 'package:dio/dio.dart';
+import 'package:intelligent_security_systems/core/network/token_interceptors.dart';
 
 import 'interceptors.dart';
 
 class DioClient {
 
   late final Dio _dio;
-  DioClient(): _dio = Dio(
-    BaseOptions(
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8'
-        },
-        responseType: ResponseType.json,
-        sendTimeout: const Duration(seconds: 10),
-        receiveTimeout: const Duration(seconds: 10)
-    ),
-  )..interceptors.addAll([LoggerInterceptor()]);
 
+  DioClient()
+      : _dio = Dio(
+    BaseOptions(
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json'
+      },
+      responseType: ResponseType.json,
+      sendTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+    ),
+  ) {
+    _dio.interceptors.addAll([
+      LoggerInterceptor(),
+      TokenInterceptor(_dio),
+    ]);
+  }
   // GET METHOD
   Future < Response > get(
       String url, {

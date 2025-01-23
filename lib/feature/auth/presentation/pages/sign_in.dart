@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,10 +13,12 @@ import '../../../../common/bloc/button/button_state.dart';
 import '../../../../common/bloc/button/button_state_cubit.dart';
 import '../../../../common/helpers/utils/device_utils.dart';
 import '../../../../core/assets/app_vectors.dart';
+import '../../../../core/error/error_enum.dart';
+import '../../../../core/firebase/notifications_service.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../service_locator.dart';
-import '../../../home/pages/home.dart';
+import '../../../home/presentation/pages/home_navigation.dart';
 import '../../data/models/signin_req_params.dart';
 import '../../domain/usecases/sign_in.dart';
 
@@ -29,13 +33,15 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController _emailCon = TextEditingController();
   final TextEditingController _passwordCon = TextEditingController();
   final _signupFormKey = GlobalKey<FormState>();
+  late DeviceInformation _deviceInformation;
+  late String _deviceToken;
   bool _obscureText = true;
-  String _deviceID = '';
+  String? _mailErrorText;
 
   @override
   void initState() {
     super.initState();
-    _getDeviceID();
+    _getDeviceInformation();
   }
 
   @override
@@ -55,48 +61,50 @@ class _SignInPageState extends State<SignInPage> {
             if (state is ButtonSuccessState) {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
+                MaterialPageRoute(
+                    builder: (context) => const HomeNavigationPage()),
                 (Route<dynamic> route) => false,
               );
             } else if (state is ButtonFailureState) {
-              var snackBar = SnackBar(content: Text(state.errorMessage));
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              final emailError =
+                  state.errorMessage.getErrorForField(ErrorField.email);
+              if (emailError != null) {
+                setState(() {
+                  _mailErrorText = emailError;
+                });
+              } else {
+                var snackBar = SnackBar(
+                  content: Text(state.errorMessage.message ??
+                      S.of(context).unknownException),
+                  backgroundColor: AppColors.red,
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
             }
           },
           child: SafeArea(
-            minimum: const EdgeInsets.only(top: 64, right: 16, left: 16),
             child: SingleChildScrollView(
+              padding: const EdgeInsets.only(top: 32, right: 16, left: 16),
               child: Form(
                 onChanged: () {
                   setState(() {});
                 },
                 key: _signupFormKey,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 32.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: _signup(),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      _desc(),
-                      const SizedBox(height: 24),
-                      _emailField(),
-                      const SizedBox(height: 24),
-                      _password(),
-                      const SizedBox(height: 32),
-                      _createAccountButton(context),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      _signInText(context)
-                    ],
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _signup(),
+                    _desc(),
+                    const SizedBox(height: 16),
+                    _emailField(),
+                    const SizedBox(height: 24),
+                    _password(),
+                    const SizedBox(height: 32),
+                    _createAccountButton(context),
+                    const SizedBox(height: 16),
+                    _signInText(context)
+                  ],
                 ),
               ),
             ),
@@ -116,35 +124,53 @@ class _SignInPageState extends State<SignInPage> {
             : AppColors.darkBackground,
         fontWeight: FontWeight.w700,
         fontSize: 24,
+        height: 0.06,
       ),
     );
   }
 
   Widget _desc() {
-    return Text(
-      S.of(context).signinDescription,
-      textAlign: TextAlign.start,
-      style: TextStyle(
-        color: context.isDarkMode
-            ? AppColors.lightBackground
-            : AppColors.darkBackground,
-        fontWeight: FontWeight.w400,
-        fontSize: 14,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Text(
+        S.of(context).signinDescription,
+        textAlign: TextAlign.start,
+        style: TextStyle(
+          color: context.isDarkMode
+              ? AppColors.lightBackground
+              : AppColors.darkBackground,
+          fontWeight: FontWeight.w400,
+          fontSize: 14,
+          letterSpacing: 0.25,
+        ),
       ),
     );
   }
 
   Widget _emailField() {
     return TextFormField(
+      onTap: () {
+        if (_mailErrorText != null) {
+          setState(() {
+            _mailErrorText = null;
+          });
+        }
+      },
       controller: _emailCon,
       decoration: InputDecoration(
+        errorText: _mailErrorText,
         suffixIcon: _emailCon.text.isNotEmpty
-            ? IconButton(
-                onPressed: () {
-                  clearController(_emailCon);
-                },
-                icon: SvgPicture.asset(AppVectors.close),
-              )
+            ? _mailErrorText == null
+                ? IconButton(
+                    onPressed: () {
+                      clearController(_emailCon);
+                    },
+                    icon: SvgPicture.asset(AppVectors.close),
+                  )
+                : const Icon(
+                    Icons.error_outline_outlined,
+                    color: AppColors.red,
+                  )
             : null,
         hintText: S.of(context).email,
         labelText: S.of(context).email,
@@ -178,7 +204,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget _createAccountButton(BuildContext context) {
     return Builder(builder: (context) {
       return BasicAppButton(
-        title: S.of(context).signUp,
+        title: S.of(context).signIn,
         onPressed: _passwordCon.text.isNotEmpty && _emailCon.text.isNotEmpty
             ? () {
                 if (_signupFormKey.currentState?.validate() ?? false) {
@@ -187,7 +213,10 @@ class _SignInPageState extends State<SignInPage> {
                         params: SignInReqParams(
                           email: _emailCon.text,
                           password: _passwordCon.text,
-                          deviceId: _deviceID,
+                          deviceId: _deviceInformation.deviceId,
+                          deviceModel: _deviceInformation.deviceName,
+                          deviceToken: _deviceToken,
+                          deviceOs: Platform.operatingSystem,
                         ),
                       );
                 }
@@ -198,32 +227,37 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Widget _signInText(BuildContext context) {
-    return Text.rich(
-      TextSpan(
-        children: [
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Center(
+        child: Text.rich(
           TextSpan(
-              text: S.of(context).doYouHaveAccount,
-              style: TextStyle(
-                color: context.isDarkMode
-                    ? AppColors.lightBackground
-                    : AppColors.darkBackground,
-                fontWeight: FontWeight.w500,
-              )),
-          TextSpan(
-            text: ' ${S.of(context).signUp}',
-            style: const TextStyle(
-                color: AppColors.primary, fontWeight: FontWeight.w500),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SignupPage(),
-                  ),
-                );
-              },
-          )
-        ],
+            children: [
+              TextSpan(
+                  text: S.of(context).doYouHaveAccount,
+                  style: TextStyle(
+                    color: context.isDarkMode
+                        ? AppColors.lightBackground
+                        : AppColors.darkBackground,
+                    fontWeight: FontWeight.w500,
+                  )),
+              TextSpan(
+                text: ' ${S.of(context).signUp}',
+                style: const TextStyle(
+                    color: AppColors.primary, fontWeight: FontWeight.w500),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SignupPage(),
+                      ),
+                    );
+                  },
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -233,11 +267,11 @@ class _SignInPageState extends State<SignInPage> {
     setState(() {});
   }
 
-  Future<void> _getDeviceID() async {
+  Future<void> _getDeviceInformation() async {
     DeviceUtils deviceUtils = DeviceUtils();
-    String? deviceInfo = await deviceUtils.getId();
-    setState(() {
-      _deviceID = deviceInfo ?? '';
-    });
+    NotificationService notificationService = NotificationService();
+    _deviceToken =  await notificationService.getDeviceToken();
+    _deviceInformation = await deviceUtils.getDeviceInfo();
+    setState(() {});
   }
 }

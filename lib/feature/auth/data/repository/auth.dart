@@ -12,19 +12,17 @@ import '../../../../service_locator.dart';
 import '../models/signup_req_params.dart';
 
 class AuthRepositoryImp extends AuthRepository {
+
   @override
   Future<Either> signup(SignupReqParams signupReq) async {
     Either result = await sl<AuthApiService>().signup(signupReq);
+
     return result.fold(
       (error) {
         return Left(error);
       },
       (data) async {
         Response response = data;
-        SharedPreferences sharedPreferences =
-            await SharedPreferences.getInstance();
-        sharedPreferences.setString(
-            SharedPreferencesKeys.accessToken, response.data['access_token']);
         return Right(response);
       },
     );
@@ -46,6 +44,10 @@ class AuthRepositoryImp extends AuthRepository {
       },
       (data) async {
         Response response = data;
+        SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+        sharedPreferences.setString(
+            SharedPreferencesKeys.accessToken, response.data['data']['token']);
         return Right(response);
       },
     );
@@ -60,6 +62,27 @@ class AuthRepositoryImp extends AuthRepository {
       },
       (data) async {
         Response response = data;
+        SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+        sharedPreferences.setString(
+            SharedPreferencesKeys.accessToken, response.data['data']['token']);
+        return Right(response);
+      },
+    );
+  }
+
+  @override
+  Future logOut() async {
+    Either result = await sl<AuthApiService>().logOut();
+    return result.fold(
+          (error) {
+        return Left(error);
+      },
+          (data) async {
+        Response response = data;
+        SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+        sharedPreferences.remove(SharedPreferencesKeys.accessToken);
         return Right(response);
       },
     );

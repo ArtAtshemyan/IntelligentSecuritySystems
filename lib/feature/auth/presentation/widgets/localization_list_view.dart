@@ -13,10 +13,10 @@ class LocalizationListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 20),
+    return Padding(
+      padding: const EdgeInsets.only(bottom:  10.0),
+      child: SizedBox(
+        height: 200,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -58,7 +58,7 @@ class LocalizationListView extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 34),
+            const SizedBox(height: 24),
             Text(
               S.of(context).bySigningUpYouAutomaticallyAgreeToOur,
               style: TextStyle(
@@ -67,8 +67,8 @@ class LocalizationListView extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Wrap(
+              alignment: WrapAlignment.center,
               children: [
                 GestureDetector(
                   child: Text(

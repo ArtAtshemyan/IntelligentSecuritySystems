@@ -1,6 +1,10 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class AppUrls {
-  static const baseUrl = 'http://localhost:8080/';
-  static const signupEndpoint = '${baseUrl}auth/register';
-  static const signInEndpoint = '${baseUrl}auth/login';
-  static const verificationEndpoint = '${baseUrl}auth/verification';
+  static final String baseUrl = dotenv.get('BASE_URL');
+  static final signupEndpoint = '${baseUrl}auth/register';
+  static final signInEndpoint = '${baseUrl}auth/login';
+  static final verificationEndpoint = '${baseUrl}auth/register/finalize';
+  static final buildingsEndpoint = '${baseUrl}user/buildings';
+  static final logOutEndpoint = '${baseUrl}auth/logout';
 }
